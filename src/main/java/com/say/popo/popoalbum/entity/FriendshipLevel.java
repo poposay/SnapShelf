@@ -6,13 +6,14 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
-
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "friendship_level")
 public class FriendshipLevel {
 	
     @Id
@@ -21,7 +22,7 @@ public class FriendshipLevel {
 
     @OneToOne
     @JoinColumn(name = "user_id", nullable = false, unique = true)
-    private User user;
+    private Users user;
     
     private Integer current_level;
     
@@ -43,11 +44,11 @@ public class FriendshipLevel {
 		this.id = id;
 	}
 
-	public User getUser() {
+	public Users getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(Users user) {
 		this.user = user;
 	}
 

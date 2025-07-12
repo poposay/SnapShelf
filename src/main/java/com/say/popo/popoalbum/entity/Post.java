@@ -7,14 +7,15 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.PrePersist;
-
-import org.springframework.data.annotation.Id;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "post")
 public class Post {
 	
 	@Id
@@ -23,7 +24,7 @@ public class Post {
 	
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
-	private User user;
+	private Users user;
 	
 	@Column(length = 255, nullable = false)
 	private String image_url;
@@ -53,11 +54,11 @@ public class Post {
 		this.id = id;
 	}
 
-	public User getUser() {
+	public Users getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(Users user) {
 		this.user = user;
 	}
 
