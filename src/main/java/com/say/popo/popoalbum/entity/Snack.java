@@ -10,8 +10,10 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.PrePersist;
+import jakarta.persistence.Table;
 
 @Entity
+@Table(name = "snack")
 public class Snack {
 	
 	@Id
@@ -24,7 +26,7 @@ public class Snack {
 	
 	@ManyToOne
 	@JoinColumn(name = "giver_user_id", nullable = false)
-	private User user;
+	private Users user;
 	
 	@Column(nullable = false)
 	private LocalDateTime created_at;
@@ -50,11 +52,11 @@ public class Snack {
 		this.post = post;
 	}
 
-	public User getUser() {
+	public Users getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(Users user) {
 		this.user = user;
 	}
 
