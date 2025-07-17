@@ -1,0 +1,74 @@
+@charset "UTF-8";
+/* 全体のベース */
+body.popo-register {
+    font-family:'Zen Maru Gothic', 'Rounded M+ 1c', 'Noto Sans JP', sans-serif;
+    background: linear-gradient(to bottom, #fef9f3, #f7ece2);
+    margin: 0;
+    padding: 0;
+    color: #5c4f3b;
+}
+
+/* コンテナ（Popoの世界のフレーム） */
+.popo-container {
+    max-width: 480px;
+    margin: 80px auto;
+    padding: 32px;
+    border-radius: 16px;
+    background-color: #ffffffd9;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+/* タイトル */
+.popo-container h1 {
+    font-size: 24px;
+    margin-bottom: 24px;
+    color: #8b6c56;
+    line-height: 1.6;
+}
+
+/* Popoの後ろ姿イラスト */
+.popo-back {
+    width: 80px;
+    margin-bottom: 16px;
+    border-radius: 50%;
+}
+
+/* フォームラベル */
+form label {
+    display: block;
+    margin: 12px 0 6px;
+    font-size: 14px;
+    text-align: left;
+    color: #7a5a47;
+}
+
+/* 入力欄 */
+form input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #d9cfc4;
+    border-radius: 8px;
+    background-color: #fdf7f0;
+    font-size: 14px;
+    color: #5a4536;
+    box-sizing: border-box;
+}
+
+/* ボタン */
+form button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #d7b89d;
+    border: none;
+    border-radius: 10px;
+    color: #fffef9;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+form button:hover {
+    background-color: #cfa98a;
+}
