@@ -52,6 +52,11 @@ public class Users {
 	protected void onCreate() {
 		this.created_at = LocalDateTime.now();	
 	}
+	
+	//引数なしコンストラクタ
+	public Users() {
+		
+	}
 
 	public Long getId() {
 		return id;
