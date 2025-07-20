@@ -6,4 +6,6 @@ import com.say.popo.popoalbum.entity.Post;
 
 public interface PostRepository extends JpaRepository<Post, Long> {
 
+	Post findTopByOrderByIdDesc();
+
 }
