@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>コメント入力</title>
+<link rel="stylesheet" href="/css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
+</head>
+<body >
+	<div class="popo-container">
+		<img src="/images/popo-writing.png" alt="鉛筆を持つポポ" class="popo-writing">
+		//投稿画像のサムネイル表示
+		
+		<div class="popo-bubble">
+			<h2>この写真はどんな思い出なの？</h2>
+		</div>
+		
+		<p>アルバムに載せる写真が決まりましたね。<br>
+		この時の気持ちや思い出をポポに教えてあげましょう</p>
+		
+		<form action=/firstcomment method="post" name="firstcomment" id="firstcomment">
+			<label for="comment">ひとことコメント</label>
+			<input type="text" id="comment" name="comment" required autocomplete="off">
+			
+			<button type="submit">コメントを書き込む</button>
+		</form>
+
+</body>
+</html>

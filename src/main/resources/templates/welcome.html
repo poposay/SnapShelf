@@ -2,9 +2,29 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>登録完了</title>
+<link rel="stylesheet" href="/css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
 </head>
 <body>
+	<div class="popo-container">
+		<img src="/images/popo-baby.png" alt="ポポの赤ちゃん" class="popo-baby">
+		
+		<div class="popo-bubble">
+		<h1>はじめまして　<span id="usernameSpan">お名前</span>さん</h1>
+		</div>
+		
+		<p class="intro-text">
+			この小さな犬はAI犬のポポです。<br>あなたの撮った思い出の写真を見たいようです。<br>
+			以下アプリ説明文が入ります
+		</p>
+		
+		<button onclick="window.location.href='/firstpost'" class="welcome-button">初めての思い出を投稿する</button>
+	</div>
+	
+	<script>
+		document.getElementById("usernameSpan").textContent = sessionStorage.getItem("username");
+	</script>
 
 </body>
 </html>

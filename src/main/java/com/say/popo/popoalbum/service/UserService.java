@@ -21,7 +21,12 @@ public class UserService {
 		this.passwordEncoder = passwordEncoder;
 	}
 	
-	public void register(RegisterRequest request) {
+	public Users register(RegisterRequest request) {
+		if (userRepository.findByEmail(request.getEmail()) != null) {
+	        throw new IllegalArgumentException("このメールアドレスは既に登録されています");
+	    }
+
+		
 		Users user = new Users();
 		user.setUsername(request.getUsername());
 		user.setEmail(request.getEmail());
@@ -30,6 +35,8 @@ public class UserService {
 		user.setPassword_hash(hashedPassword);
 		user.setLast_login(LocalDateTime.now());
 		
+
 		userRepository.save(user);
+		return user;
 	}
 }
