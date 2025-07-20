@@ -10,7 +10,7 @@
 	<div class="popo-container">
 		<img src="/images/popo-back.png" alt="ポポの後ろ姿" class="popo-back"/>
 		<h1>あなたのことを教えてください</h1>
-		<form th:action="@{/register}" method="post">
+		<form th:action="@{/register}" method="post" id="registerForm">
 			<label for="username">ニックネーム</label>
 			<input type="text" id="username" name="username" required>
 			
@@ -23,6 +23,30 @@
 			<button type="submit">ポポに会いに行く</button>
 		</form>
 	</div>
+	
+	<script>
+		document.getElementById("registerForm").addEventListener("submit",function(event) {
+			event.preventDefault(); //フォーム送信停止
+			
+			const data = {
+				username:document.getElementById("username").value,
+				email: document.getElementById("email").value,
+				password: document.getElementById("password").value
+			};
+			
+			fetch("/api/register", {
+				method: "POST",
+				headers: {
+					"Content-Type": "application/json"
+				},
+				body: JSON.stringify(data)
+			})
+			.ther(response => response.text())
+			.then(text => alert(text))
+			.catch(error => alert("エラーが発生しました"));
+		});
+	</script>
+		
 
 </body>
 </html>
