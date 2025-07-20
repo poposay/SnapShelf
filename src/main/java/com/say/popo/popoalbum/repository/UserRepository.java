@@ -7,5 +7,7 @@ import com.say.popo.popoalbum.entity.Users;
 
 @Repository
 public interface UserRepository extends JpaRepository<Users, Long> {
+	
+	Users findByEmail(String email);
 
 }

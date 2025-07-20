@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>思い出を記録</title>
+<link rel="stylesheet" href="/css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
+</head>
+<body>
+	<div class="popo-container">
+		<img src="/images/album-blank.png" alt="真っ白なアルバム" class="album-blank">
+		
+		<div class="popo-bubble">
+		<h1>どんな写真かなぁ</h1>
+		</div>
+		
+		<p>ポポはあなたとのアルバムづくりを楽しみにしています<br>
+			ポポとのアルバムに乗せる一枚目の写真を選んでみましょう</p>
+			
+		<form action="/firstpost" method="post" enctype="multipart/form-data">
+			<input type="file" name="memory" accept="image/*">
+			<button type="submit">アルバムに載せる</button>
+		</form>
+	</div>
+
+</body>
+</html>
