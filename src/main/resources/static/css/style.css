@@ -65,6 +65,8 @@ body {
 	  margin-right: auto; 
 	  margin-bottom: 24px; 
 	  border-radius: 0; 
+	  
+}
 
 /* フォームラベル */
 form label {
@@ -75,7 +77,14 @@ form label {
     color: #7a5a47;
 }
 
-/* 入力欄 */
+/* 🌱 フォーム全体のレイアウト */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+/* ✏️ 入力欄 */
 form input {
     width: 100%;
     padding: 10px;
