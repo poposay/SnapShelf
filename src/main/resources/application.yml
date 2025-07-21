@@ -26,3 +26,15 @@ spring:
     multipart:
       max-file-size: 5MB
       max-request-size: 5MB
+
+  config:
+    additional-location: classpath:/keys/vision-key.json
+
+server:
+  address: 0.0.0.0
+  port: 8080
+
+google:
+  cloud:
+    credentials:
+      location: classpath:/keys/vision-key.json
