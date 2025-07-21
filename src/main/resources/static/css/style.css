@@ -11,8 +11,9 @@ body {
 /* コンテナ（Popoの世界のフレーム） */
 .popo-container {
     max-width: 480px;
-    margin: 80px auto;
-    padding: 32px;
+	margin-top: 4px;
+    margin: 24px auto;
+    padding: 16px 24px;
     border-radius: 16px;
     background-color: #ffffffd9;
     box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
@@ -25,6 +26,44 @@ body {
     margin-bottom: 24px;
     color: #8b6c56;
     line-height: 1.6;
+}
+
+/*ヘッダー*/
+.popo-header {
+  display: flex;
+  align-items: center;
+  padding: 4px 12px;
+  height: auto;
+  background-color: #d7b89d; /* 優しい茶系ベージュ */
+  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+}
+
+.popo-icon {
+  width: 48px;
+  height: auto;
+  margin-right: 10px;
+}
+
+.site-tittle {
+  font-family:'Zen Maru Gothic', 'Rounded M+ 1c', 'Noto Sans JP', sans-serif;
+  font-size: 16px;
+  color: #fffef9; 
+  margin: 0;
+}
+
+/*横並び*/
+.thumbnail-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px; /* ← 画像同士の間隔🐾 */
+  margin-top: 24px;
+}
+
+.post-thumbnail, .popo-illustration {
+  width: 200px;
+  height: auto;
+  border-radius: 8px;
 }
 
 /* Popoの後ろ姿イラスト */
@@ -115,7 +154,7 @@ form button:hover {
 }
 
 .popo-bubble {
-  max-width: 320px;
+  max-width: 480px;
   background-color: #fffef9;
   color: #8b6c56;
   padding: 16px;
