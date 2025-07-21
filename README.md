@@ -1,4 +1,4 @@
-##AIポポとのアルバムづくりアプリ
+<h1>AIポポとのアルバムづくりアプリ</h1>
 <img src="readme-assets/popo-album.png" alt="Popoの笑顔" width="200">　<br>
 投稿した写真に対してポポがコメント <br>
 毎日の投稿で親密度アップ、ポポが成長<br>
