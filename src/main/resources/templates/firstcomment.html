@@ -23,11 +23,12 @@
 		<p>アルバムに載せる写真が決まりましたね。<br>
 		この時の気持ちや思い出をポポに教えててあげましょう</p>
 		
-		<form action=/firstcomment method="post" name="firstcomment" id="firstcomment">
-			<label for="comment">ひとことコメント</label>
-			<input type="text" id="comment" name="comment" required autocomplete="off">
-			
-			<button type="submit">コメントを書き込む</button>
+		<form action="/firstmessage" method="post">
+		  <input type="hidden" name="imagePath" value="${imagePath}">
+		  <label for="firstcomment">ひとことコメント</label>
+		  <input type="text" id="firstcomment" name="userComment" required autocomplete="off">
+
+		  <button type="submit">コメントを書き込む</button>
 		</form>
 
 </body>
