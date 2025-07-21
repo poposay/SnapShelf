@@ -24,7 +24,7 @@
 		この時の気持ちや思い出をポポに教えててあげましょう</p>
 		
 		<form action="/firstmessage" method="post">
-		  <input type="hidden" name="imagePath" value="${imagePath}">
+		  <input type="hidden" name="imagePath" th:value="${imagePath}">
 		  <label for="firstcomment">ひとことコメント</label>
 		  <input type="text" id="firstcomment" name="userComment" required autocomplete="off">
 
