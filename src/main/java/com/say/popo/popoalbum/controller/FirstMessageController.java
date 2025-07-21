@@ -22,8 +22,12 @@ public class FirstMessageController {
 	public String generateFirstMessage(@RequestParam String imagePath,
 	                                   @RequestParam String userComment,
 	                                   Model model) {
-	    String popoMessage = firstMessageService.generateMessage(imagePath, userComment);
+		String fullUrl = "http://localhost:8080" + imagePath;
+	    String popoMessage = firstMessageService.generateMessage(fullUrl, userComment);
 	    model.addAttribute("popoMessage", popoMessage);
+	    
+	    //デバッグ用
+	    System.out.println("fullUrl:" + fullUrl);
 	    return "firstmessage";
 	}
 	
