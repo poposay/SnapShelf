@@ -20,6 +20,7 @@ public class FirstCommentController {
 	public String showfirstCommentPage(Model model) {
 		Post firstPost = postRepository.findTopByOrderByIdDesc();
 		model.addAttribute("imagePath",firstPost.getImage_url());
+		System.out.println("imagePath: " + firstPost.getImage_url());
 		return "firstcomment";
 		
 	}
