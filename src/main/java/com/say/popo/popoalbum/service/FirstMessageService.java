@@ -10,10 +10,10 @@ public class FirstMessageService {
 	private final VisionService visionService = new VisionService();
 	private final GeminiService geminiService = new GeminiService();
 	
-	public String generateMessage(String imagePath, String userComment) {
+	public String generateMessage(String fullUrl, String userComment) {
 		
 		//①Visionでタグを抽出
-		List<String> tags = visionService.analyzeImageByUrl(imagePath);
+		List<String> tags = visionService.analyzeImageByUrl(fullUrl);
 		
 		//②プロンプト構築
 		String prompt = buildPrompt(tags,userComment);
