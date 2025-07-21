@@ -26,8 +26,9 @@ public class FirstCommentController {
 	}
 	@PostMapping("/firstcomment")
 	public String handleFirstComment(@RequestParam("firstcomment") String comment) {
-		System.out.println("コメント:" + comment);
+		Post firstPost = postRepository.findTopByOrderByIdDesc();
+		String imageUrl = firstPost.getImage_url();
 		
-		return "redirect:/home";
+		return "redirect:/firstmessage?userComment=" + comment +"&imagePath=" +  imageUrl;
 	}
 }
