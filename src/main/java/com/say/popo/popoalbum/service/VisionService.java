@@ -20,13 +20,14 @@ import com.google.protobuf.ByteString;
 @Service
 public class VisionService {
 
-    public List<String> analyzeImageByUrl(String imageUrl) {
+    public List<String> analyzeImageByUrl(String fullUrl) {
         List<String> tags = new ArrayList<>();
 
         // 🐾 デバッグ用ログ
         System.out.println("画像解析スタート🐶");
+        System.out.println("解析対象の画像URL：" +  fullUrl);
 
-        try (InputStream input = new URL(imageUrl).openStream()) {
+        try (InputStream input = new URL(fullUrl).openStream()) {
             ByteString imgBytes = ByteString.copyFrom(input.readAllBytes());
 
             Image img = Image.newBuilder()
