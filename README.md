@@ -10,29 +10,28 @@
 <h2>🚀使用技術</h2>
 
 <h3>🖥️ フロントエンド</h3>
-• Thymeleaf
-• HTML / CSS
+• Thymeleaf <br>
+• HTML / CSS<br>
 
 
 <h3>🧠 バックエンド</h3>
-• Java 17
-• Spring Boot 3.2.0
-• Spring Security
-• Spring MVC
-• Spring Data JPA
+• Java 17<br>
+• Spring Boot 3.2.0<br>
+• Spring Security<br>
+• Spring MVC<br>
+• Spring Data JPA<br>
 
 
-<h3>💾 データベース・データベース連携</h3>
-• PostgreSQL
-• JPA
+<h3>💾 データベース</h3>
+• PostgreSQL<br>
 
 <h3>🧰 その他</h3>
-• Maven（ビルドツール）
-• Git / GitHub（バージョン管理）
+• Maven（ビルドツール）<br>
+• Git / GitHub（バージョン管理）<br>
 
 <h3>📚外部API連携</h3>
-• Gemini API
-• Vision API
+• Gemini API<br>
+• Vision API<br>
 
 
 <h2>設計🔨</h2>
