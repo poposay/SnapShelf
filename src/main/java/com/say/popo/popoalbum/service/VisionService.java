@@ -1,21 +1,51 @@
 package com.say.popo.popoalbum.service;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
+/* 未実装
+@Service
+public class VisionService {
 
-import org.springframework.stereotype.Service;
+    public List<String> analyzeImageByUrl(String imageUrl) {
+        try {
+            System.out.println("画像解析を開始します: " + imageUrl);
 
-import com.google.cloud.vision.v1.AnnotateImageRequest;
-import com.google.cloud.vision.v1.AnnotateImageResponse;
-import com.google.cloud.vision.v1.BatchAnnotateImagesResponse;
-import com.google.cloud.vision.v1.EntityAnnotation;
-import com.google.cloud.vision.v1.Feature;
-import com.google.cloud.vision.v1.Image;
-import com.google.cloud.vision.v1.ImageAnnotatorClient;
-import com.google.protobuf.ByteString;
+            // タイムアウト付き設定を準備する
+            GoogleCredentials credentials = GoogleCredentials
+                .fromStream(new FileInputStream("C:/Users/saypo/Documents/popoalbum/src/main/resources/keys/vision-key.json"))
+                .createScoped(List.of("https://www.googleapis.com/auth/cloud-platform"));
+
+            ImageAnnotatorSettings settings = ImageAnnotatorSettings.newBuilder()
+            	    .setCredentialsProvider(FixedCredentialsProvider.create(credentials))
+            	    .setTransportChannelProvider(
+            	        HttpJsonTransportChannel.newBuilder()
+            	            .setEndpoint("vision.googleapis.com:443")
+            	            .build()
+            	    )
+            	    .build();
+
+            // クライアント作成
+            try (ImageAnnotatorClient client = ImageAnnotatorClient.create(settings)) {
+                // リクエスト作成
+                ImageSource imgSource = ImageSource.newBuilder().setImageUri(imageUrl).build();
+                Image image = Image.newBuilder().setSource(imgSource).build();
+                Feature feature = Feature.newBuilder().setType(Feature.Type.LABEL_DETECTION).build();
+                AnnotateImageRequest request = AnnotateImageRequest.newBuilder()
+                    .addFeatures(feature).setImage(image).build();
+
+                BatchAnnotateImagesResponse response = client.batchAnnotateImages(List.of(request));
+                List<EntityAnnotation> annotations = response.getResponses(0).getLabelAnnotationsList();
+
+                // 🌼 タグ抽出
+                return annotations.stream()
+                    .map(EntityAnnotation::getDescription)
+                    .collect(Collectors.toList());
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace();
+            return List.of("タグ抽出に失敗しました");
+        }
+    }
+}
 
 @Service
 public class VisionService {
@@ -65,4 +95,4 @@ public class VisionService {
 
         return tags;
     }
-}
+}*/
