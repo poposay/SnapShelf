@@ -11,7 +11,11 @@ import com.say.popo.popoalbum.service.FirstMessageService;
 @Controller
 public class FirstMessageController {
 	
-	private final FirstMessageService firstMessageService = new FirstMessageService();
+	private final FirstMessageService firstMessageService;
+	
+	public FirstMessageController(FirstMessageService firstMessageService) {
+		this.firstMessageService = firstMessageService;
+	}
 	
 	@GetMapping("/firstmessage")
 	public String showFirstMessagePage() {

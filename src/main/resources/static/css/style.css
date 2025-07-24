@@ -107,6 +107,17 @@ body {
 	  
 }
 
+/* にっこりイラスト */
+.popo-smile {
+	width: 240px; 
+	 height: auto;
+	 display: block;
+	  margin-left: auto;
+	  margin-right: auto; 
+	  margin-bottom: 24px; 
+	  border-radius: 0; 
+}
+
 /* フォームラベル */
 form label {
     display: block;
