@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>投稿完了</title>
+<link rel="stylesheet" href="/css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
+</head>
+<body>
+	<header class="popo-header">
+		<img src="images/popo-icon.png" alt="ポポのシルエット" class="popo-icon">
+		<h1 class="site-tittle">ポポアルバム（仮名）</h1>
+	</header>
+	<div class="popo-container">
+		<div class="thumbnail-wrapper">
+		<img src="/images/popo-smile.png" alt="笑顔のポポ" class="popo-smile">
+		<img th:src="@{${imagePath}}" alt="投稿画像" class="post-thumbnail">
+		</div>
+		<div class="popo-bubble">
+			<h2 th:text="${popoMessage}" ></h2>
+		</div>
+		<p>ポポはとても嬉しそうですね。<br>
+		このように、あなたの写真にポポがコメントをしてくれます。</p>
+
+		
+	</div>
+
+</body>
+</html>
