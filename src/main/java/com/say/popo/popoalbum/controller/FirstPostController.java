@@ -50,9 +50,13 @@ public class FirstPostController {
 			Post post = new Post();
 			post.setImage_url("/uploads/" + filename);
 			post.setUser(user);
+			System.out.println("postにセットされたユーザーID" + post.getUser().getId());
+			
 			postRepository.save(post);
 			
 			System.out.println("セッション中の userId: " + userId);
+			System.out.println("取得したユーザー" + user);
+			System.out.println("ユーザーID" + user.getId());
 			
 			return "redirect:/firstcomment";
 			
