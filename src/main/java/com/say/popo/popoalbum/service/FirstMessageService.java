@@ -19,11 +19,14 @@ public class FirstMessageService {
 	public String generateMessage(String fullUrl, String userComment) {
 		
 		//DBに保存
-		Post post = new Post();
-		post.setImage_url(fullUrl);
-		post.setCaption(userComment);
+		  // 既存のPostを取得して更新
+	    Post existingPost = postrepository.findTopByOrderByIdDesc();
+	   
+	    existingPost.setCaption(userComment);
+	    existingPost.setImage_url(fullUrl);
+
 		
-		postrepository.save(post);
+		postrepository.save(existingPost); // 既存Postの更新
 		/*	
 		//①Visionでタグを抽出
 		List<String> tags = visionService.analyzeImageByUrl(fullUrl); */
