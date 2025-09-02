@@ -30,6 +30,8 @@ public class FirstMessageController {
 	    String popoMessage = firstMessageService.generateMessage(fullUrl, userComment);
 	    model.addAttribute("popoMessage", popoMessage);
 	    
+	    //ai_commentにメッセージとpost情報を保存
+	    
 	    //デバッグ用
 	    System.out.println("fullUrl:" + fullUrl);
 	    return "firstmessage";
