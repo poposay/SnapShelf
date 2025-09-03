@@ -5,7 +5,8 @@
 
 <h2>📷スクリーンショット</h2>
 
-<img src="readme-assets/sample.png" alt="画面イメージ" width="300">
+<img src="readme-assets/sample.png" alt="画面イメージ" width="300"> <br>
+<img src="readme-assets/sample2.png" alt="画面イメージ2" width="300">
 
 <h2>🚀使用技術</h2>
 

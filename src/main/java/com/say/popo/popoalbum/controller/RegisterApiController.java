@@ -35,6 +35,7 @@ public class RegisterApiController {
 		}
 		
 		Users user = userService.register(request);
+		session.setAttribute("currentUser", user);
 		session.setAttribute("userId", user.getId());
 		return ResponseEntity.ok("登録が完了しました");
 	}
