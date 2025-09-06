@@ -196,7 +196,7 @@ form button:hover {
 }
 
 /*ホーム画面*/
-body {
+body.home {
 	margin: 0;
 	padding: 0;
 	background-image: url('../images/back.png');

@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
 @Controller
-public class PostController {
+public class PostViewController {
 
 	@GetMapping("/post")
 	public String showPostPage() {
@@ -15,7 +15,7 @@ public class PostController {
 	}
 	
 	@PostMapping("/post")
-	public void uploadPost(@RequestParam("memory") MultipartFile file ,@RequestParam String userComment) {
+	public void uploadPost(@RequestParam("memory") MultipartFile file ,@RequestParam("caption") String caption) {
 		System.out.println("投稿完了");
 	}
 }
