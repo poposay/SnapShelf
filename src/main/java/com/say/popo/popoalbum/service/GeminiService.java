@@ -5,7 +5,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class GeminiService {
 
-	public String generateMessage(String prompt) {
+	public String callGeminiApi(String prompt) {
 		//未実装
 	
 		

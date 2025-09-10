@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class MemorySavedController {
 
-	@GetMapping("/memorySaved")
+	@GetMapping("/memorysaved")
 	public String showMemorySavedPage() {
-		return "memorySaved";
+		return "memorysaved";
 	}
 }
