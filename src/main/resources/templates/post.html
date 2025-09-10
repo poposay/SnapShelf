@@ -16,8 +16,10 @@
 	</header>
 	<div class="popo-container">
 		<form action="/post" method="post" enctype="multipart/form-data">
-			<input type="file" name="memory" accept="image/*">
-			<input type="text" name="caption" id="caption">
+			<label for="memory">写真を選ぶ：</label>
+			<input type="file" name="memory" accept="image/*" required>
+			<label for="caption">ひとことコメント：</label>
+			<input type="text" name="caption" id="caption" placeholder="写真の思い出を教えてね">
 			<button type="submit">アルバムに載せる</button>
 			
 		</form>
