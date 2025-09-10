@@ -45,10 +45,13 @@ public class PostService {
 		post.setUser(user);
 		
 		postRepository.save(post);
+		System.out.println("ポスト画面からの投稿完了");
 		
 		//メッセージ生成処理へ
-		String fullUrl = "http://localhost:8080" + uploadPath;
+		String fullUrl = "http://localhost:8080/uploads/" + filename;
 		String popoMessage = messageService.generateMessage(fullUrl, caption);
 		model.addAttribute("popoMessage", popoMessage);
+		System.out.println("受け取ったメッセージ：" + popoMessage);
+		return;
 	}
 }

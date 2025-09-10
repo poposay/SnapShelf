@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.UUID;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -28,14 +29,16 @@ public class PostApiController {
 	}
 	
 	@PostMapping("/post")
-	public String handleImageUpload(@RequestParam("memory") MultipartFile file,
-			@RequestParam("caption") String caption, HttpSession session, Model model) throws IOException {
+	public ResponseEntity<String> handleImageUpload(@RequestParam("memory") MultipartFile file,
+			@RequestParam String caption, HttpSession session, Model model) throws IOException {
+		System.out.println("PostApiControllerに到達");
 		if(!file.isEmpty()) {
 			//画像・コメント保存とDB登録の処理をサービスへ移譲
+			System.out.println("savePost呼び出し");
 			postService.savePost(file,caption,session,model);
-			return "redirect:/memorySaved";
+			return ResponseEntity.ok("success");
 		}else {
-			return "redirect:/error";
+			return ResponseEntity.badRequest().body("error");
 		}
 	}
 	
