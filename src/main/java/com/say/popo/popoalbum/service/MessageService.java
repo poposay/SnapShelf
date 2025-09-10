@@ -27,7 +27,7 @@ public class MessageService {
 		System.out.println("生成されたプロンプト：" + prompt);
 		
 		//③Gemini1でコメント生成
-		return geminiService.generateMessage(prompt);
+		return geminiService.callGeminiApi(prompt);
 	}
 	
 	private String buildPrompt(/*List<String> tags.*/ String caption) {
