@@ -1,5 +1,7 @@
 package com.say.popo.popoalbum.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.say.popo.popoalbum.repository.PostRepository;
@@ -15,27 +17,16 @@ public class MessageService {
 		this.geminiService = geminiService;
 		this.postRepository = postRepository;
 	}
-	
-	public String generateMessage(String fullUrl, String caption) {
-		/*
-		①Visionでタグを抽出
+
+	public String buildPrompt(List<String> tags, String caption) {
+		//タグとキャプションからプロンプト構築
+		StringBuilder prompt = new StringBuilder();
+		prompt.append("以下の画像について、温かいメッセージを作成してください。\n");
+		prompt.append("画像の特徴：").append(String.join(",", tags)).append("\n");
+		prompt.append("ユーザーのコメント：").append(caption).append("\n");
+		prompt.append("20文字以内で、親しみやすい口調でお願いします。");
 		
-		②プロンプト構築　*/
-		String prompt = buildPrompt(/*tags,*/ caption);
-		
-		//デバッグ用
-		System.out.println("生成されたプロンプト：" + prompt);
-		
-		//③Gemini1でコメント生成
-		return geminiService.callGeminiApi(prompt);
-	}
-	
-	private String buildPrompt(/*List<String> tags.*/ String caption) {
-		return """
-				投稿された画像には以下のタグが見つかりました：
-				
-				ユーザーコメント「%s」に対して、純粋で優しいオスの子犬のポポが、親しみをこめたコメントをしてください。
-				""".formatted(/*String.join(",",tags),*/caption);
+		return prompt.toString();
 	}
 
 }
