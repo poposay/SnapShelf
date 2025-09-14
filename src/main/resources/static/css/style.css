@@ -169,8 +169,39 @@ button {
     transition: background-color 0.3s ease;
 }
 
+button:hover {
+	background-color: #cfa98a;
+}
+
 form button:hover {
     background-color: #cfa98a;
+}
+
+.btn {
+	margin-top: 20px;
+	padding: 10px 20px;
+	background-color: #d7b89d;
+	border: none;
+	border-radius: 10px;
+	color: #fffef9;
+	font-weight: bold;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	text-decoration: none !important;
+	text-align:center;
+	display: inline-block;
+}
+
+.btn:link,
+.btn:visited,
+.btn:hover,
+.btn:active {
+	text-decoration: none !important;
+}
+
+.btn:hover {
+	background-color: #cfa98a;
 }
 
 .popo-bubble {
