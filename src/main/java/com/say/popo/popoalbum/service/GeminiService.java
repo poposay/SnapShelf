@@ -8,7 +8,7 @@ public class GeminiService {
 	public String callGeminiApi(String prompt) {
 		//未実装
 	
-		
-		return "ポポのメッセージ（仮）：素敵な写真だね";
+		String popoMessage = "ポポのメッセージ：すてきな写真だね";
+		return popoMessage;
 	}
 }
