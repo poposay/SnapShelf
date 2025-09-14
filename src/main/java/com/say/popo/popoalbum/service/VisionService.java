@@ -1,12 +1,24 @@
 package com.say.popo.popoalbum.service;
 
-/* 未実装
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.stereotype.Service;
+
 @Service
 public class VisionService {
 
     public List<String> analyzeImageByUrl(String imageUrl) {
-        try {
             System.out.println("画像解析を開始します: " + imageUrl);
+            
+            List<String> tags = new ArrayList<>();
+            
+            //仮のタグをセット
+            tags.add("海");
+            tags.add("夕日");
+            tags.add("子犬");
+            
+            /* 未実装
 
             // タイムアウト付き設定を準備する
             GoogleCredentials credentials = GoogleCredentials
@@ -93,6 +105,8 @@ public class VisionService {
             e.printStackTrace();
         }
 
-        return tags;
+     */  {
+    	 return tags;
+     }
     }
-}*/
+}
