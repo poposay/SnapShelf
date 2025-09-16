@@ -19,5 +19,4 @@
 		<div th:each="post : ${posts}" class="album-card">
 		    <img th:src="@{${post.imageUrl}}" alt="投稿画像" class="album-thumbnail"/>
 		    <p class="caption" th:text="${post.caption}"></p>
-
 		<a class=btn href="/home">ホームに戻る</a>
