@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.say.popo.popoalbum.dto.PostResult;
 import com.say.popo.popoalbum.service.PostService;
 
 
@@ -34,8 +35,13 @@ public class PostController {
 		if(!file.isEmpty()) {
 			//画像・コメント保存とDB登録の処理をサービスへ移譲
 			System.out.println("savePost呼び出し");
-			String popoMessage = postService.savePost(file,caption,session,redirectAttributes);
-			redirectAttributes.addFlashAttribute("popoMessage",popoMessage);
+			
+			PostResult result = postService.savePost(file,caption,session,redirectAttributes);
+			System.out.println("PostResultで受け取った内容：" + result.getPopoMessage() + result.getImageUrl());
+			
+			redirectAttributes.addFlashAttribute("popoMessage",result.getPopoMessage());
+			redirectAttributes.addFlashAttribute("imageUrl",result.getImageUrl());
+			
 			return "redirect:/memorysaved";
 		}else {
 			return "error";
