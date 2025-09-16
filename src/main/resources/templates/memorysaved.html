@@ -16,6 +16,7 @@
 	</header>
 	<div class="popo-container">
 		<h2 th:text="${memoryDate} + 'の思い出'">〇月〇日の思い出</h2>
+		<img th:src="${imageUrl}" alt="投稿画像" class="post-thumbnail"/>
 		<img src="/images/popo-smile.png" alt="笑顔のポポ" class="popo-smile">
 		<div class="popo-bubble">
 			<h2 th:text="${popoMessage}" ></h2>

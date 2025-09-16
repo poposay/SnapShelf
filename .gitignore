@@ -50,3 +50,31 @@ application-prod.yml
 
 # Generated files
 out/
+
+#Images(画像ファイル)
+images/
+*.jpeg
+*.jpeg
+*.png
+*.gif
+*.gif
+*.bmp
+*.tiff
+*.svg
+*.webp
+
+#Google Cloud関連のトークン・認証情報
+#サービスアカウントキー
+*.json
+service-account-*.json
+google-cloude-key.json
+vision-key.json
+
+#環境変数ファイル
+.env
+.env.local
+.env.production
+.env.staging
+
+#Google Cloud Application Defailt Credentials
+application_default_credentials.json
