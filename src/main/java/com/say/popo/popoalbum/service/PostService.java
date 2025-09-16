@@ -11,7 +11,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-
 import com.say.popo.popoalbum.dto.PostResult;
 import com.say.popo.popoalbum.entity.Post;
 import com.say.popo.popoalbum.entity.Users;
@@ -39,7 +38,9 @@ public class PostService {
 		this.geminiService = geminiService;
 	}
 
+
 	public PostResult savePost(MultipartFile file, String caption, HttpSession session, RedirectAttributes redirectAttributes) throws IOException {
+
 		String filename = UUID.randomUUID() + "_" + file.getOriginalFilename();
 		Path uploadPath = Paths.get("src/main/resources/static/uploads/" + filename);
 		Files.copy(file.getInputStream(),uploadPath);
@@ -66,6 +67,8 @@ public class PostService {
 		String popoMessage = geminiService.callGeminiApi(prompt);
 		System.out.println("受け取ったメッセージ：" + popoMessage);
 		
+
 		return new PostResult(popoMessage,"/uploads/" + filename);
+
 	}
 }
