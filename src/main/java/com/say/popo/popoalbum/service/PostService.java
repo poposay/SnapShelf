@@ -12,8 +12,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.say.popo.popoalbum.dto.PostResult;
+import com.say.popo.popoalbum.entity.AIComment;
 import com.say.popo.popoalbum.entity.Post;
 import com.say.popo.popoalbum.entity.Users;
+import com.say.popo.popoalbum.repository.AICommentRepository;
 import com.say.popo.popoalbum.repository.PostRepository;
 import com.say.popo.popoalbum.repository.UserRepository;
 
@@ -25,14 +27,16 @@ public class PostService {
 	
 	private final PostRepository postRepository;
 	private final UserRepository userRepository;
+	private final AICommentRepository aiCommentRepository;
 	private final MessageService messageService;
 	private final VisionService visionService;
 	private final GeminiService geminiService;
 	
-	public PostService(PostRepository postRepository, UserRepository userRepository, MessageService messageService,
+	public PostService(PostRepository postRepository, UserRepository userRepository, AICommentRepository aiCommentRepository,MessageService messageService,
 			VisionService visionService, GeminiService geminiService) {
 		this.postRepository = postRepository;
 		this.userRepository = userRepository;
+		this.aiCommentRepository = aiCommentRepository;
 		this.messageService = messageService;
 		this.visionService = visionService;
 		this.geminiService = geminiService;
@@ -53,7 +57,6 @@ public class PostService {
 		post.setImage_url("/uploads/" + filename);
 		post.setCaption(caption);
 		post.setUser(user);
-		
 		postRepository.save(post);
 		System.out.println("ポスト画面からの投稿完了");
 		
@@ -66,6 +69,13 @@ public class PostService {
 		//AIメッセージ生成
 		String popoMessage = geminiService.callGeminiApi(prompt);
 		System.out.println("受け取ったメッセージ：" + popoMessage);
+		
+		//AIメッセージをDBに保存
+		AIComment aiComment = new AIComment();
+		aiComment.setPost(post);
+		aiComment.setContent(popoMessage);
+		aiCommentRepository.save(aiComment);
+		
 		
 
 		return new PostResult(popoMessage,"/uploads/" + filename);
