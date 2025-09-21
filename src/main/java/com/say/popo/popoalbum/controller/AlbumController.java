@@ -1,6 +1,8 @@
 package com.say.popo.popoalbum.controller;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -34,11 +36,8 @@ public class AlbumController {
 		Users user = userRepository.findById(userId).orElseThrow();
 		
 		List<Post> posts = postRepository.findByUser(user);
-		for (Post post : posts) {
-		AIComment aiComment = aiCommentRepository.findByPost(post);
-		}
-		
-		model.addAttribute("posts",posts);
+
+		model.addAttribute("posts", posts);
 		
 		return "album";
 	}

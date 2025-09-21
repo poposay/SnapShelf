@@ -10,23 +10,23 @@ public class FirstMessageService {
 	
 	/*private final VisionService visionService = new VisionService();*/
 	private final GeminiService geminiService = new GeminiService();
-	private final PostRepository postrepository;
+	private final PostRepository postRepository;
 	
-	public FirstMessageService(PostRepository postrepository) {
-		this.postrepository = postrepository;
+	public FirstMessageService(PostRepository postRepository) {
+		this.postRepository = postRepository;
 	}
 	
 	public String generateMessage(String fullUrl, String userComment) {
 		
 		//DBに保存
 		  // 既存のPostを取得して更新
-	    Post existingPost = postrepository.findTopByOrderByIdDesc();
+	    Post existingPost = postRepository.findTopByOrderByIdDesc();
 	   
 	    existingPost.setCaption(userComment);
 	    existingPost.setImage_url(fullUrl);
 
 		
-		postrepository.save(existingPost); // 既存Postの更新
+		postRepository.save(existingPost); // 既存Postの更新
 		/*	
 		//①Visionでタグを抽出
 		List<String> tags = visionService.analyzeImageByUrl(fullUrl); */

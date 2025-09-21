@@ -15,11 +15,12 @@
 		</div>
 	</header>
 	<div class="popo-container">
-		<p>思い出一覧</p>
+		<h2>アルバム</h2>
 		<div th:each="post : ${posts}" class="cheki">
 		    <img th:src="${post.image_url}" alt="投稿画像"/>
 		    <p class="caption" th:text="${post.caption}"></p>
 			<div class="info">
+				<p class="ai-comment" th:text="${post.aiComment.content}"></p>
 				<p class="date" th:text="${post.createdAt}"></p>
 			</div>
 		</div>

@@ -30,9 +30,17 @@ public class PostController {
 		return "post";
 	}
 	
+	@GetMapping("/tutorial") 
+		public String showTutorialPage() {
+			return "tutorial";
+		}
+	
+	
 	@PostMapping("/post")
 	public String handlePostAndResirect(@RequestParam("memory") MultipartFile file ,
-					@RequestParam String caption,HttpSession session,RedirectAttributes redirectAttributes) throws IOException {
+					@RequestParam String caption,
+					@RequestParam(value = "redirectTo", required=false, defaultValue="memorysaved") String redirectTo,
+					HttpSession session,RedirectAttributes redirectAttributes) throws IOException {
 		if(!file.isEmpty()) {
 			//画像・コメント保存とDB登録の処理をサービスへ移譲
 			System.out.println("savePost呼び出し");
@@ -43,7 +51,7 @@ public class PostController {
 			redirectAttributes.addFlashAttribute("popoMessage",result.getPopoMessage());
 			redirectAttributes.addFlashAttribute("imageUrl",result.getImageUrl());
 		
-			return "redirect:/memorysaved";
+			return "redirect:/" + redirectTo;
 		}else {
 			return "error";
 		}

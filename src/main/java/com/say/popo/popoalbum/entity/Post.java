@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
+import jakarta.persistence.OneToOne;
 import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 
@@ -26,6 +27,9 @@ public class Post {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "user_id", nullable = false)
 	private Users user;
+	
+	@OneToOne(mappedBy = "post", fetch = FetchType.LAZY)
+	private AIComment aiComment;
 	
 	@Column(length = 255, nullable = false)
 	private String image_url;
@@ -101,6 +105,14 @@ public class Post {
 
 	public void setSnacks(List<Snack> snacks) {
 		this.snacks = snacks;
+	}
+
+	public AIComment getAiComment() {
+		return aiComment;
+	}
+
+	public void setAiComment(AIComment aiComment) {
+		this.aiComment = aiComment;
 	}
 	
 
