@@ -24,8 +24,11 @@
 		<p>ポポはあなたとのアルバムづくりを楽しみにしています<br>
 			ポポとのアルバムに乗せる一枚目の写真を選んでみましょう</p>
 			
-		<form action="/firstpost" method="post" enctype="multipart/form-data">
+		<form action="/post" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="redirectTo" value="firstmessage">
 			<input type="file" name="memory" accept="image/*">
+			<label for="caption">ひとことコメント</label>
+			<input type="text" id="caption" name="caption" required autocomplete="off">
 			<button type="submit">アルバムに載せる</button>
 		</form>
 	</div>

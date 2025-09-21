@@ -193,6 +193,23 @@ form button:hover {
 	display: inline-block;
 }
 
+.logoutbtn {
+	margin-top: 20px;
+	padding: 10px 20px;
+	background-color: #fffef9;
+	border: none;
+	border-radius: 10px;
+	color:#d7b89d;
+	font-weight: bold;
+	font-size: 16px;
+	cursor: pointer;
+	transition: background-color 0.3s ease;
+	text-decoration: none !important;
+	text-align:center;
+	display: inline-block;
+	
+}
+
 .btn:link,
 .btn:visited,
 .btn:hover,
