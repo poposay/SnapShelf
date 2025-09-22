@@ -38,6 +38,9 @@ public class Users {
 	
 	private LocalDateTime created_at;
 	
+	@Column(name="first_login", nullable=false)
+	private boolean firstLogin=true;
+	
 	//リレーション
 	@OneToMany(mappedBy = "user")
 	private List<Post> posts;
@@ -112,6 +115,22 @@ public class Users {
 
 	public void setCreated_at(LocalDateTime created_at) {
 		this.created_at = created_at;
+	}
+
+	public boolean isFirstLogin() {
+		return firstLogin;
+	}
+
+	public void setFirstLogin(boolean firstLogin) {
+		this.firstLogin = firstLogin;
+	}
+
+	public List<Post> getPosts() {
+		return posts;
+	}
+
+	public void setPosts(List<Post> posts) {
+		this.posts = posts;
 	}
 	
 	

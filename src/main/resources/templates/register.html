@@ -16,7 +16,8 @@
 		<div class="popo-bubble">
 		<h1>あなたのことを教えてください</h1>
 		</div>
-		<form th:action="@{/register}" method="post" id="registerForm">
+		<form action="/register" method="post" id="registerForm">
+
 			<label for="username">ニックネーム</label>
 			<input type="text" id="username" name="username" required autocomplete="off">
 			
@@ -29,44 +30,7 @@
 			<button type="submit">ポポに会いに行く</button>
 		</form>
 	</div>
+
 	
-	<script>
-		document.getElementById("registerForm").addEventListener("submit", function(event) {
-		  event.preventDefault(); // フォーム送信停止
-
-		  const data = {
-		    username: document.getElementById("username").value,
-		    email: document.getElementById("email").value,
-		    password: document.getElementById("password").value
-		  };
-
-		  fetch("/api/register", {
-		    method: "POST",
-		    headers: {
-		      "Content-Type": "application/json"
-		    },
-		    body: JSON.stringify(data)
-		  })
-		  .then(response => {
-		    return response.text().then(text => {
-		      if (!response.ok) {
-		        alert("登録エラー: " + text); // ⚠️ エラー時アラートだけ
-		        throw new Error(); // 🔐 以降の処理を止める
-		      }
-		      alert(text); // 🎉 成功メッセージ
-		      sessionStorage.setItem("username", data.username); // 名前を渡す
-		      window.location.href = "/welcome"; // 🎈 成功時のみ遷移！
-		    });
-		  })
-		  .catch(error => {
-		    if (error.message) {
-		      alert("通信エラー: " + error.message); // 通信エラー用
-		    }
-		  });
-		});
-		
-	</script>
-		
-
 </body>
 </html>

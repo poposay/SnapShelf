@@ -1,4 +1,6 @@
-package com.say.popo.popoalbum.dto;
+/*
+ package com.say.popo.popoalbum.dto;
+ 
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
@@ -41,3 +43,4 @@ public class RegisterRequest {
 		this.email = email;
 	}
 }
+*/

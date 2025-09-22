@@ -4,6 +4,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -31,9 +33,12 @@ public class AlbumController {
 	
 	
 	@GetMapping("/album")
-	public String showAlbumPage(Model model, HttpSession session) {
-		Long userId = (Long)session.getAttribute("userId");
-		Users user = userRepository.findById(userId).orElseThrow();
+	public String showAlbumPage(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+		Users user = userRepository.findByEmail(email).orElseThrow();
+		
+		model.addAttribute("currentUsername",user.getUsername());
 		
 		List<Post> posts = postRepository.findByUser(user);
 
