@@ -1,3 +1,4 @@
+/*
 package com.say.popo.popoalbum.controller;
 
 import jakarta.servlet.http.HttpSession;
@@ -40,3 +41,4 @@ public class RegisterApiController {
 		return ResponseEntity.ok("登録が完了しました");
 	}
 }
+*/

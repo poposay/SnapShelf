@@ -8,6 +8,8 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.UUID;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 import org.springframework.web.multipart.MultipartFile;
@@ -44,14 +46,15 @@ public class PostService {
 	}
 
 
-	public PostResult savePost(MultipartFile file, String caption, HttpSession session, RedirectAttributes redirectAttributes) throws IOException {
+	public PostResult savePost(MultipartFile file, String caption, RedirectAttributes redirectAttributes) throws IOException {
 
 		String filename = UUID.randomUUID() + "_" + file.getOriginalFilename();
 		Path uploadPath = Paths.get("src/main/resources/static/uploads/" + filename);
 		Files.copy(file.getInputStream(),uploadPath);
 		
-		Long userId = (Long)session.getAttribute("userId");
-		Users user = userRepository.findById(userId).orElseThrow();
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+		Users user = userRepository.findByEmail(email).orElseThrow();
 		
 		//画像とキャプションを保存
 		Post post = new Post();
