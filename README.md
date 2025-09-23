@@ -1,12 +1,35 @@
-<h1>AIポポとのアルバムづくりアプリ</h1>
-<img src="readme-assets/popo-album.png" alt="Popoの笑顔" width="200">　<br>
-投稿した写真に対してポポがコメント <br>
-毎日の投稿で親密度アップ、ポポが成長<br>
+# Popo Album
 
-<h2>📷スクリーンショット</h2>
+個人学習用のSpring Boot Webアプリ。  
+投稿した写真に対してAIがコメントします。  
+現在、投稿・閲覧機能とログイン認証（Spring Security）は実装済み。  
+外部API連携（Vision API / Gemini API）やAWSデプロイは開発予定です。
+
+<h2>スクリーンショット</h2>
 
 <img src="readme-assets/sample.png" alt="画面イメージ" width="300"> <br>
 <img src="readme-assets/sample2.png" alt="画面イメージ2" width="300">
+
+---
+
+## 現在の機能
+
+- ユーザー登録・ログイン（Spring Security導入済み）  
+- 写真投稿・一覧閲覧  
+- 投稿ごとのAIコメント（ダミーデータで表示）
+
+
+---
+
+## 今後の実装予定
+
+- 外部API連携  
+  - Google Vision APIで画像解析  
+  - Gemini APIでコメント生成  
+- AWSへのデプロイ（EC2 + S3）  
+- タイムライン機能・いいね機能などの拡張
+
+---
 
 <h2>🚀使用技術</h2>
 
