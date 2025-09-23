@@ -5,7 +5,9 @@
 現在、投稿・閲覧機能とログイン認証（Spring Security）は実装済み。  
 外部API連携（Vision API / Gemini API）やAWSデプロイは開発予定です。
 
-<h2>スクリーンショット</h2>
+---
+
+## スクリーンショット
 
 <img src="readme-assets/sample.png" alt="画面イメージ" width="300"> <br>
 <img src="readme-assets/sample2.png" alt="画面イメージ2" width="300">
@@ -31,7 +33,7 @@
 
 ---
 
-<h2>🚀使用技術</h2>
+## 🚀使用技術
 
 <h3>🖥️ フロントエンド</h3>
 • Thymeleaf <br>
@@ -49,17 +51,26 @@
 <h3>💾 データベース</h3>
 • PostgreSQL<br>
 
+
 <h3>🧰 その他</h3>
 • Maven（ビルドツール）<br>
 • Git / GitHub（バージョン管理）<br>
 
-<h3>📚外部API連携</h3>
+<h3>📚予定している外部API連携</h3>
 • Gemini API<br>
 • Vision API<br>
 
+---
+## 📝学習目的
 
-<h2>設計🔨</h2>
+このプロジェクトは以下の技術習得を目的としています：
+	•	Spring Bootエコシステムの理解
+	•	セキュリティ機能の実装
+	•	外部API連携の実践
+	•	クラウドインフラへのデプロイ経験
+
+---
+
+## ⚒️設計
 <img src="readme-assets/er.png" width="250"> 
 <img src="readme-assets/arc.png" width="250">
-
-作りかけ
