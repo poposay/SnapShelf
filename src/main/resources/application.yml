@@ -1,20 +1,20 @@
 spring:
   application:
-    name: PopoAlbum
+    name: SnapShelf
   datasource:
-    url: jdbc:postgresql://localhost:5432/popoalbum
+    url: jdbc:postgresql://localhost:5432/snapshelf
     username: postgres
     password: saypg0509
     driver-class-name: org.postgresql.Driver
 
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create
     show-sql: true
     properties:
       hibernate:
         format_sql: true
-
+        dialect: org.hibernate.dialect.PostgreSQLDialect
 
   thymeleaf:
     prefix: classpath:/templates/

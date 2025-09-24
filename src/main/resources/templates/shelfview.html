@@ -2,11 +2,11 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>ホーム</title>
+<title>商品一覧</title>
 <link rel="stylesheet" href="/css/style.css">
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
 </head>
-<body class="home">
+<body>
 	<header class="popo-header">
 		<img src="/images/app-icon.png" alt="アイコン" class="app-icon">
 		<h1 class="site-tittle">SnapShelf</h1>
@@ -15,10 +15,15 @@
 		</div>
 		<a class="logoutbtn" href="/login">ログアウト</a>
 	</header>
-	<div class="background">
-		<img src="images/home-popo.png" alt="座るポポ" class="center-image">
-	</div>
 	<div class="popo-container">
-		<a class=btn href="/productcreate">商品新規登録</a>
-		<a class=btn href="/shelfview">照会・編集</a>
+		<h2>商品一覧</h2>
+		<div th:each="post : ${posts}" class="cheki">
+		    <img th:src="${post.image_url}" alt="投稿画像"/>
+		    <p class="caption" th:text="${post.caption}"></p>
+			<div class="info">
+				<p class="ai-comment" th:text="${post.aiComment.content}"></p>
+				<p class="date" th:text="${post.createdAt}"></p>
+			</div>
+		</div>
+		<a class="btn" href="/home">ホームに戻る</a>
 	</div>
