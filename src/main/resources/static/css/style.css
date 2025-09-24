@@ -1,64 +1,69 @@
 @charset "UTF-8";
+
 /* 全体のベース */
 body {
-    font-family:'Zen Maru Gothic', 'Rounded M+ 1c', 'Noto Sans JP', sans-serif;
-    background: linear-gradient(to bottom, #fef9f3, #f7ece2);
+    font-family: 'Noto Sans JP', 'Yu Gothic UI', 'Helvetica Neue', sans-serif;
+    background: linear-gradient(to bottom, #f0faff, #e6f7f1); /* 白〜淡い青緑 */
     margin: 0;
     padding: 0;
-    color: #5c4f3b;
+    color: #1e2a38; /* 濃いネイビーで読みやすく */
 }
 
-/* コンテナ（Popoの世界のフレーム） */
+/* コンテナ（SnapShelfのフレーム） */
 .popo-container {
     max-width: 480px;
-	margin-top: 4px;
+    margin-top: 4px;
     margin: 24px auto;
     padding: 16px 24px;
     border-radius: 16px;
-    background-color: #ffffffd9;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+    background-color: #ffffffee; /* ほぼ白の半透明 */
+    box-shadow: 0 6px 18px rgba(0, 128, 128, 0.08); /* 青緑系の柔らかい影 */
     text-align: center;
 }
 
 /* タイトル */
-.popo-container h1{
+.popo-container h1 {
     font-size: 24px;
     margin-bottom: 24px;
-    color: #8b6c56;
+    color: #00a8cc; /* 爽やかな青系 */
     line-height: 1.6;
 }
 
-/*ヘッダー*/
+/* ヘッダー */
 .popo-header {
-  display: flex;
-  align-items: center;
-  padding: 4px 12px;
-  height: auto;
-  background-color: #d7b89d; /* 優しい茶系ベージュ */
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+    display: flex;
+    align-items: center;
+    padding: 4px 12px;
+    height: auto;
+    background-color: #2ab7ca; /* ターコイズブルー */
+    box-shadow: 0 2px 8px rgba(0, 128, 128, 0.1);
 }
 
-.popo-icon {
-  width: 48px;
-  height: auto;
-  margin-right: 10px;
+/* アイコン */
+.app-icon {
+    width: 48px;
+    height: auto;
+    margin-right: 10px;
 }
 
+/* サイトタイトル */
 .site-tittle {
-  font-family:'Zen Maru Gothic', 'Rounded M+ 1c', 'Noto Sans JP', sans-serif;
-  font-size: 16px;
-  color: #fffef9; 
-  margin: 0;
+    font-family: 'Zen Maru Gothic', 'Rounded M+ 1c', 'Noto Sans JP', sans-serif;
+    font-size: 24px;
+    color: #ffffff;
+    margin: 0;
 }
 
+/* ユーザー情報 */
 .user-info {
-  font-family:'Zen Maru Gothic', 'Rounded M+ 1c', 'Noto Sans JP', sans-serif;
-  font-size: 16px;
-  color: #fffef9; 
-  display:inline-block;
-  margin-left: auto;
-  margin-right:10;
+    font-family: 'Zen Maru Gothic', 'Rounded M+ 1c', 'Noto Sans JP', sans-serif;
+    font-size: 16px;
+    color: #ffffff;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: 10px;
 }
+
 
 /*横並び*/
 .thumbnail-wrapper {
@@ -69,63 +74,12 @@ body {
   margin-top: 24px;
 }
 
-.post-thumbnail, .popo-illustration {
+.post-thumbnail, .illustration {
   width: 200px;
   height: auto;
   border-radius: 8px;
 }
 
-/* Popoの後ろ姿イラスト */
-.popo-back {
-    width: 80px;
-    margin-bottom: 16px;
-    border-radius: 50%;
-}
-
-/* Popoの赤ちゃんイラスト */
-.popo-baby {
-	width: 240px; 
-	 height: auto;
-	 display: block;
-	  margin-left: auto;
-	  margin-right: auto; 
-	  margin-bottom: 24px; 
-	  border-radius: 0; 
-}
-
-/* 初投稿イラスト */
-.album-blank {
-	width: 240px; 
-	 height: auto;
-	 display: block;
-	  margin-left: auto;
-	  margin-right: auto; 
-	  margin-bottom: 24px; 
-	  border-radius: 0; 
-}
-
-/* 初コメントイラスト */
-.popo-writing {
-	width: 240px; 
-	 height: auto;
-	 display: block;
-	  margin-left: auto;
-	  margin-right: auto; 
-	  margin-bottom: 24px; 
-	  border-radius: 0; 
-	  
-}
-
-/* にっこりイラスト */
-.popo-smile {
-	width: 240px; 
-	 height: auto;
-	 display: block;
-	  margin-left: auto;
-	  margin-right: auto; 
-	  margin-bottom: 24px; 
-	  border-radius: 0; 
-}
 
 /* フォームラベル */
 form label {
@@ -133,115 +87,97 @@ form label {
     margin: 12px 0 6px;
     font-size: 14px;
     text-align: left;
-    color: #7a5a47;
+    color: #1e2a38; /* 濃いネイビーで視認性アップ */
 }
 
-/* 🌱 フォーム全体のレイアウト */
+/* フォーム全体のレイアウト */
 form {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-/* ✏️ 入力欄 */
+/* 入力欄 */
 form input {
     width: 100%;
     padding: 10px;
-    border: 1px solid #d9cfc4;
+    border: 1px solid #cce5ea; /* 淡いブルーグレー */
     border-radius: 8px;
-    background-color: #fdf7f0;
+    background-color: #f0faff; /* 白に近い淡いブルー */
     font-size: 14px;
-    color: #5a4536;
+    color: #1e2a38;
     box-sizing: border-box;
 }
 
 /* ボタン */
-button {
+button,
+.btn {
     margin-top: 20px;
     padding: 10px 20px;
-    background-color: #d7b89d;
+    background-color: #2ab7ca; /* 爽やかなターコイズブルー */
     border: none;
     border-radius: 10px;
-    color: #fffef9;
+    color: #ffffff;
     font-weight: bold;
     font-size: 16px;
     cursor: pointer;
     transition: background-color 0.3s ease;
+    text-decoration: none !important;
+    text-align: center;
+    display: inline-block;
 }
 
-button:hover {
-	background-color: #cfa98a;
-}
-
-form button:hover {
-    background-color: #cfa98a;
-}
-
-.btn {
-	margin-top: 20px;
-	padding: 10px 20px;
-	background-color: #d7b89d;
-	border: none;
-	border-radius: 10px;
-	color: #fffef9;
-	font-weight: bold;
-	font-size: 16px;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
-	text-decoration: none !important;
-	text-align:center;
-	display: inline-block;
-}
-
-.logoutbtn {
-	margin-top: 20px;
-	padding: 10px 20px;
-	background-color: #fffef9;
-	border: none;
-	border-radius: 10px;
-	color:#d7b89d;
-	font-weight: bold;
-	font-size: 16px;
-	cursor: pointer;
-	transition: background-color 0.3s ease;
-	text-decoration: none !important;
-	text-align:center;
-	display: inline-block;
-	
-}
-
-.btn:link,
-.btn:visited,
-.btn:hover,
-.btn:active {
-	text-decoration: none !important;
-}
-
+button:hover,
+form button:hover,
 .btn:hover {
-	background-color: #cfa98a;
+    background-color: #00a8cc; /* 少し濃い青系でホバー感 */
 }
 
+/* ログアウトボタン（反転スタイル） */
+.logoutbtn {
+    margin-top: 20px;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    border: 2px solid #2ab7ca;
+    border-radius: 10px;
+    color: #2ab7ca;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    text-decoration: none !important;
+    text-align: center;
+    display: inline-block;
+}
+
+.logoutbtn:hover {
+    background-color: #e0f7fa;
+    color: #00a8cc;
+}
+
+/* （メッセージ表示など） */
 .popo-bubble {
-  max-width: 480px;
-  background-color: #fffef9;
-  color: #8b6c56;
-  padding: 16px;
-  border-radius: 12px;
-  position: relative;
-  margin: 16px auto;
-  font-family:'Zen Maru Gothic', 'Rounded M+ 1c', 'Noto Sans JP', sans-serif;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    max-width: 480px;
+    background-color: #f0faff;
+    color: #1e2a38;
+    padding: 16px;
+    border-radius: 12px;
+    position: relative;
+    margin: 16px auto;
+    font-family: 'Zen Maru Gothic', 'Rounded M+ 1c', 'Noto Sans JP', sans-serif;
+    box-shadow: 0 2px 6px rgba(0, 128, 128, 0.1);
 }
 
 .popo-bubble::after {
-  content: "";
-  position: absolute;
-  bottom: -12px;
-  left: 40px;
-  border-width: 12px;
-  border-style: solid;
-  border-color: #fffef9 transparent transparent transparent;
+    content: "";
+    position: absolute;
+    bottom: -12px;
+    left: 40px;
+    border-width: 12px;
+    border-style: solid;
+    border-color: #f0faff transparent transparent transparent;
 }
+
 
 /*ホーム画面*/
 body.home {

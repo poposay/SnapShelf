@@ -9,10 +9,10 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.say.popo</groupId>
-	<artifactId>popoalbum</artifactId>
+	<artifactId>SnapShelf</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>PopoAlbum</name>
-	<description>AI犬ポポと育む思い出アルバムアプリ</description>
+	<name>SnapShelf</name>
+	<description>Smart product management with auto-generated tags and descriptions.</description>
 	<url/>
 	<licenses>
 		<license/>

@@ -1,24 +1,23 @@
-# Popo Album
+# SnapShelf
 
 個人学習用のSpring Boot Webアプリ。  
-投稿した写真に対してAIがコメントします。  
-現在、投稿・閲覧機能とログイン認証（Spring Security）は実装済み。  
+商品画像を登録するとAIが自動でタグ抽出し説明文を生成します。  
+現在、商品登録・一覧表示・ログイン認証（Spring Security）は実装済み。  
 外部API連携（Vision API / Gemini API）やAWSデプロイは開発予定です。
 
 ---
 
-## スクリーンショット
+## 📷スクリーンショット
 
-<img src="readme-assets/sample.png" alt="画面イメージ" width="300"> <br>
-<img src="readme-assets/sample2.png" alt="画面イメージ2" width="300">
+
 
 ---
 
-## 現在の機能
+## ✅現在の機能
 
 - ユーザー登録・ログイン（Spring Security導入済み）  
-- 写真投稿・一覧閲覧  
-- 投稿ごとのAIコメント（ダミーデータで表示）
+- 商品情報の登録・一覧表示
+- AIによる商品説明（ダミーデータで表示）
 
 
 ---
@@ -29,7 +28,7 @@
   - Google Vision APIで画像解析  
   - Gemini APIでコメント生成  
 - AWSへのデプロイ（EC2 + S3）  
-- タイムライン機能・いいね機能などの拡張
+- お気に入り・レビュー機能などの拡張
 
 ---
 
@@ -72,5 +71,5 @@
 ---
 
 ## ⚒️設計
-<img src="readme-assets/er.png" width="250"> 
+
 <img src="readme-assets/arc.png" width="250">
