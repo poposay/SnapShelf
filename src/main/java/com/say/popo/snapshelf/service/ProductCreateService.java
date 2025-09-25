@@ -6,6 +6,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 import org.springframework.security.core.Authentication;
@@ -84,7 +85,16 @@ public class ProductCreateService {
 		
 		
 
-		return new PostResult(discription,"/uploads/" + filename);
+		return new PostResult(discription,"/uploads/" + filename, aiDescription.getId());
 
+	}
+	
+	public void updateDescription(Long id,String desc) {
+		Optional<AIDescription> optional = aiDescriptionRepository.findById(id);
+		if(optional.isPresent()) {
+			AIDescription entity = optional.get();
+			entity.setContent(desc);
+			aiDescriptionRepository.save(entity);
+		}
 	}
 }

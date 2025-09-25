@@ -1,5 +1,7 @@
 package com.say.popo.snapshelf.controller;
 
+import java.util.Optional;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -33,10 +35,15 @@ public class ProductConfirmationController {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
-		Users user = userRepository.findByEmail(email).orElseThrow();
-		model.addAttribute("currentUsername",user.getUsername());
 		
-		System.out.println("modelに渡されたpopoMessage：" + model.getAttribute("popoMessage"));
-		return "productconfirmation";
+		Optional<Users> userOpt = userRepository.findByEmail(email);
+		if(userOpt.isPresent()) {
+			Users user = userOpt.get();
+			model.addAttribute("currentUsername", user.getUsername());
+			return "productconfirmation";
+		}else {
+			//ユーザーが見つからなかった場合
+			return "redirect:/error/unauthorized";
+		}
 	}
 }

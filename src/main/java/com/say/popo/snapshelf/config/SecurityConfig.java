@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
+import com.say.popo.snapshelf.security.CustomAccessDeniedHandler;
 import com.say.popo.snapshelf.security.CustomLoginSuccessHandler;
 import com.say.popo.snapshelf.service.CustomUserDetailsService;
 
@@ -24,6 +25,7 @@ public class SecurityConfig {
 	
 	@Autowired
 	private PasswordEncoder passwordEncoder;
+	private CustomAccessDeniedHandler accessDeniedHandler;
 
 	
 	public SecurityConfig(CustomUserDetailsService customUserDetailsService,CustomLoginSuccessHandler customLoginSuccessHandler) {
@@ -53,6 +55,9 @@ public class SecurityConfig {
 					.logoutSuccessUrl("/")
 					.permitAll()
 			)
+			.exceptionHandling(ex -> ex
+					.accessDeniedHandler(accessDeniedHandler)
+					)
 			.csrf(csrf -> csrf.disable());
 			
 		return http.build();

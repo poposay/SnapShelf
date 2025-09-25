@@ -1,6 +1,7 @@
 package com.say.popo.snapshelf.controller;
 
 import java.io.IOException;
+import java.util.Optional;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -33,20 +34,33 @@ public class ProductCreateController {
 	public String showPostPage(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
-		Users user = userRepository.findByEmail(email).orElseThrow();
-		model.addAttribute("currentUsername",user.getUsername());
-		return "post";
+		
+		Optional<Users> userOpt = userRepository.findByEmail(email);
+		if(userOpt.isPresent()) {
+			Users user = userOpt.get();
+			model.addAttribute("currentUsername", user.getUsername());
+			return "productcreate";
+		}else {
+			//ユーザーが見つからなかった場合
+			return "redirect:/error/unauthorized";
+		}
 	}
 	
 	@GetMapping("/tutorial") 
 		public String showTutorialPage(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
-		Users user = userRepository.findByEmail(email).orElseThrow();
-		model.addAttribute("currentUsername",user.getUsername());
+		
+		Optional<Users> userOpt = userRepository.findByEmail(email);
+		if(userOpt.isPresent()) {
+			Users user = userOpt.get();
+			model.addAttribute("currentUsername", user.getUsername());
 			return "tutorial";
+		}else {
+			//ユーザーが見つからなかった場合
+			return "redirect:/error/unauthorized";
 		}
-	
+	}
 	
 	@PostMapping("/productcreate")
 	public String handlePostAndResirect(@RequestParam("productimage") MultipartFile file ,
@@ -55,12 +69,13 @@ public class ProductCreateController {
 					HttpSession session,RedirectAttributes redirectAttributes) throws IOException {
 		if(!file.isEmpty()) {
 			//画像・コメント保存とDB登録の処理をサービスへ移譲
-			System.out.println("saveProductt呼び出し");
+			System.out.println("saveProduct呼び出し");
 			
 			PostResult result = productCreateService.saveProduct(file,name,price,stock,redirectAttributes);
-			System.out.println("PostResultで受け取った内容：" + result.getAIDescription() + result.getImageUrl());
+			System.out.println("PostResultで受け取った内容：" + result.getAIDescription() + result.getImageUrl() + result.getAIDescriptionId());
 			
-			redirectAttributes.addFlashAttribute("popoMessage",result.getAIDescription());
+			redirectAttributes.addFlashAttribute("aiDescriptionId", result.getAIDescriptionId());
+			redirectAttributes.addFlashAttribute("aiDescription",result.getAIDescription());
 			redirectAttributes.addFlashAttribute("imageUrl",result.getImageUrl());
 		
 			return "redirect:/" + redirectTo;
@@ -68,4 +83,5 @@ public class ProductCreateController {
 			return "error";
 		}
 	}
+
 }

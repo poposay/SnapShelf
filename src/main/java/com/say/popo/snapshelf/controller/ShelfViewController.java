@@ -3,6 +3,7 @@ package com.say.popo.snapshelf.controller;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -36,15 +37,22 @@ public class ShelfViewController {
 	public String showAlbumPage(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
-		Users user = userRepository.findByEmail(email).orElseThrow();
 		
-		model.addAttribute("currentUsername",user.getUsername());
-		
-		List<Product> products = productRepository.findByUser(user);
+		Optional<Users> userOpt = userRepository.findByEmail(email);
+		if(userOpt.isPresent()) {
+			Users user = userOpt.get();
+			model.addAttribute("currentUsername", user.getUsername());
+			List<Product> products = productRepository.findByUser(user);
 
-		model.addAttribute("products", products);
+			model.addAttribute("products", products);
+			
+			return "shelfview";
 		
-		return "shelfview";
+		}else {
+			//ユーザーが見つからなかった場合
+			return "redirect:/error/unauthorized";
+		}
+		
 	}
 
 }
