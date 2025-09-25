@@ -1,11 +1,12 @@
 @charset "UTF-8";
 
 /* 全体のベース */
-body {
-    font-family: 'Noto Sans JP', 'Yu Gothic UI', 'Helvetica Neue', sans-serif;
+html,body {
+    font-family: "Helvetica Neue", "Arial", "ヒラギノ角ゴ Pro W3", "Meiryo", sans-serif;
     background: linear-gradient(to bottom, #f0faff, #e6f7f1); /* 白〜淡い青緑 */
     margin: 0;
     padding: 0;
+	height: 100%;
     color: #1e2a38; /* 濃いネイビーで読みやすく */
 }
 
