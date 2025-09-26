@@ -1,75 +1,53 @@
-# SnapShelf
+# SnapShelf 📸✨
+**AI-powered Smart Product Management System**
 
-個人学習用のSpring Boot Webアプリ。  
-商品画像を登録するとAIが自動でタグ抽出し説明文を生成します。  
-現在、商品登録・一覧表示・ログイン認証（Spring Security）は実装済み。  
-外部API連携（Vision API / Gemini API）やAWSデプロイは開発予定です。
+> 商品画像をアップロードするだけで、AIが自動でタグ抽出と説明文を生成する次世代商品管理アプリ
 
----
+## 🚀 Features
 
-## 📷スクリーンショット
+### ✅ 実装済み機能
+- 📷 **商品画像アップロード** - 直感的な画像登録システム
+- 👤 **ユーザー認証** - Spring Security による安全なログイン
+- 📝 **商品管理** - 登録・一覧表示・編集機能
+-🎨 **レスポンシブUI** - Thymeleaf + 部分的に Vue.js を利用したインタラクティブUI
+- ⚡ **リアルタイム編集** - AI生成説明文のリアルタイム編集
 
+### 🚧 開発予定機能
+- 🤖 **AI画像解析** - Google Vision API による自動タグ抽出
+- 📖 **AI説明文生成** - Gemini API による商品説明自動生成
+- ☁️ **AWSデプロイ** - EC2 + S3 による本格運用
+- ⭐ **お気に入り機能** - ユーザーの商品お気に入り管理
+- 💬 **レビューシステム** - 商品レビュー・評価機能
 
+## 🛠 Tech Stack
 
----
+### Backend
+- **Spring Boot 3.2.0** - モダンなJavaフレームワーク
+- **Spring Security** - 認証・認可システム
+- **Spring Data JPA** - データベースアクセス層
+- **MySQL** - リレーショナルデータベース
 
-## ✅現在の機能
+### Frontend  
+- **Thymeleaf** - サーバーサイドテンプレート（メイン）
+- **Vue.js 2** - 部分的なインタラクティブ機能
+- **Axios** - 非同期通信ライブラリ
+- **HTML/CSS** - レスポンシブデザイン
 
-- ユーザー登録・ログイン（Spring Security導入済み）  
-- 商品情報の登録・一覧表示
-- AIによる商品説明（ダミーデータで表示）
+### AI & External APIs
+- **Google Vision API** - 画像解析・タグ抽出（予定）
+- **Google Gemini API** - 自然言語生成（予定）
 
+### Infrastructure（予定）
+- **AWS EC2** - アプリケーションサーバー
+- **AWS S3** - 画像ストレージ
 
----
+## 🖥 Screenshots
 
-## 今後の実装予定
+### メイン画面
+準備中
 
-- 外部API連携  
-  - Google Vision APIで画像解析  
-  - Gemini APIでコメント生成  
-- AWSへのデプロイ（EC2 + S3）  
-- お気に入り・レビュー機能などの拡張
+### 商品登録画面
+準備中
 
----
-
-## 🚀使用技術
-
-<h3>🖥️ フロントエンド</h3>
-• Thymeleaf <br>
-• HTML / CSS<br>
-
-
-<h3>🧠 バックエンド</h3>
-• Java 17<br>
-• Spring Boot 3.2.0<br>
-• Spring Security<br>
-• Spring MVC<br>
-• Spring Data JPA<br>
-
-
-<h3>💾 データベース</h3>
-• PostgreSQL<br>
-
-
-<h3>🧰 その他</h3>
-• Maven（ビルドツール）<br>
-• Git / GitHub（バージョン管理）<br>
-
-<h3>📚予定している外部API連携</h3>
-• Gemini API<br>
-• Vision API<br>
-
----
-## 📝学習目的
-
-このプロジェクトは以下の技術習得を目的としています：
-	•	Spring Bootエコシステムの理解
-	•	セキュリティ機能の実装
-	•	外部API連携の実践
-	•	クラウドインフラへのデプロイ経験
-
----
-
-## ⚒️設計
-
-<img src="readme-assets/arc.png" width="250">
+### AI説明文編集
+<img src="readme-assets/rewritesample.png" width="250">
