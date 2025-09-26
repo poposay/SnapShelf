@@ -30,6 +30,9 @@ public class AIDescription {
 	@Column(length = 500, nullable = false)
 	private String content;
 	
+	@Column(length = 500)
+	private String edited_description;
+	
 	
 	@Column(nullable = false)
 	private LocalDateTime created_at;
@@ -71,6 +74,14 @@ public class AIDescription {
 
 	public void setCreated_at(LocalDateTime created_at) {
 		this.created_at = created_at;
+	}
+
+	public String getEdited_description() {
+		return edited_description;
+	}
+
+	public void setEdited_description(String edited_description) {
+		this.edited_description = edited_description;
 	}
 	
 
