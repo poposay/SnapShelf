@@ -51,10 +51,18 @@
       },
       methods: {
         updateDescription() {
-          const id = document.getElementById("aiDescriptionId").value;
+          const idElement = aiDescriptionId;
+		  const id = parseInt(idElement.value);
+		  
+		  console.log("送信するID：",id);
+		  
           axios.post('/api/update-description', {
             id: id,
             description: this.aiDescription
+		  },{
+			headers:{
+				'Content-Type':'application/json'
+			}
           })
           .then(response => {
             this.showDialog = true;

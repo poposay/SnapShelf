@@ -93,7 +93,7 @@ public class ProductCreateService {
 		Optional<AIDescription> optional = aiDescriptionRepository.findById(id);
 		if(optional.isPresent()) {
 			AIDescription entity = optional.get();
-			entity.setContent(desc);
+			entity.setEdited_description(desc);
 			aiDescriptionRepository.save(entity);
 		}
 	}
