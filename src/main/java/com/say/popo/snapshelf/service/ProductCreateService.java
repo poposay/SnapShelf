@@ -60,7 +60,7 @@ public class ProductCreateService {
 		//画像、商品名、価格、在庫を保存
 		Product product = new Product();
 		product.setImage_url("/uploads/" + filename);
-		product.setCaption(name);
+		product.setProduct_name(name);
 		product.setUser(user);
 		product.setPrice(price);
 		product.setStock(stock);

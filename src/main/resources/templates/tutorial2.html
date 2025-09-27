@@ -2,7 +2,7 @@
 <html>
 <head>
   <meta charset="UTF-8">
-  <title>タグ編集チュートリアル</title>
+  <title>説明文編集チュートリアル</title>
   <link rel="stylesheet" href="/css/style.css">
   <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
   <script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
@@ -30,7 +30,8 @@
         <textarea v-model="aiDescription" rows="5" cols="50"></textarea>
       </div>
 
-      <p>登録した商品について、上記の説明文が生成されました。編集が必要な場合、編集し登録してください。</p>
+      <p>商品画像と商品名の情報をもとに、AIが上記のように説明文を生成します。<br>
+		説明文は編集を行い、上書き保存することができます。</p>
 
       <button @click="updateDescription">上書き保存</button>
       <a href="/home" id="btn" class="btn">ホーム画面へ</a>

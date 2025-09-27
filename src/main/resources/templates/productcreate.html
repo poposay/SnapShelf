@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
-<title>アルバム</title>
+<title>商品登録</title>
 <link rel="stylesheet" href="/css/style.css">
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
 </head>
@@ -16,18 +17,28 @@
 		<a class="logoutbtn" href="/login">ログアウト</a>
 	</header>
 	<div class="popo-container">
-		<img src="/images/popo-baby.png" alt="ポポの赤ちゃん" class="popo-baby">
-			<div class="popo-bubble">
-			<h1>今日の<span th:text="${currentUsername}">あなたの</span>の思い出は？</h1>
-			</div>
-		<form action="/productcreate" method="post" enctype="multipart/form-data">
-			<input type = "hidden" name="redirectTo" value="productconfimation">
-			<label for="memory">写真を選ぶ：</label>
-			<input type="file" name="memory" accept="image/*" required>
-			<label for="caption">ひとことコメント：</label>
-			<input type="text" name="caption" id="caption" placeholder="写真の思い出を教えてね">
-			<button type="submit">アルバムに載せる</button>
+
+		<div class="popo-bubble">
+		<h1>商品登録</h1>
+		</div>
+		
+		<p>商品画像と商品名、在庫数、価格を入力してください。<br>
+
 			
-	</form>
-		<a class=btn href="/home">ホームに戻る</a>
+		<form action="/productcreate" method="post" enctype="multipart/form-data">
+			<input type="hidden" name="redirectTo" value="updatedescription">
+			<input type="file" name="productimage" accept="image/*">
+			<label for="name">商品名</label>
+			<input type="text" id="name" name="name" required autocomplete="off">
+			<label for="price">価格</label>
+			<input type="text" id="price" name="price" required autocomplete="off">
+			<label for="stock">在庫数</label>
+			<input type="text" id="stock" name="stock" required autocomplete="off">
+			<button type="submit">商品情報を登録</button>
+		</form>
+		
+		<a href="/home" class="btn">ホームに戻る</a>
 	</div>
+
+</body>
+</html>

@@ -17,12 +17,12 @@
 	</header>
 	<div class="popo-container">
 		<h2>商品一覧</h2>
-		<div th:each="post : ${posts}" class="cheki">
-		    <img th:src="${post.image_url}" alt="投稿画像"/>
-		    <p class="caption" th:text="${post.caption}"></p>
+		<div th:each="product : ${products}" class="cheki">
+		    <img th:src="${product.image_url}" alt="商品画像"/>
+		    <p class="name" th:text="${product.product_name}"></p>
 			<div class="info">
-				<p class="ai-comment" th:text="${post.aiComment.content}"></p>
-				<p class="date" th:text="${post.createdAt}"></p>
+				<p class="ai-comment" th:text="${product.aiDescription.content}"></p>
+				<p class="date" th:text="${product.createdAt}"></p>
 			</div>
 		</div>
 		<a class="btn" href="/home">ホームに戻る</a>

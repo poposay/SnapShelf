@@ -43,8 +43,8 @@
 
 ## 🖥 Screenshots
 
-### メイン画面
-準備中
+### ホーム画面
+<img src="readme-assets/home_sample.png" width="250">
 
 ### 商品登録画面
 準備中
