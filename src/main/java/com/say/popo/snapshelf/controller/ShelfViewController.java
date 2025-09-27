@@ -42,7 +42,9 @@ public class ShelfViewController {
 		if(userOpt.isPresent()) {
 			Users user = userOpt.get();
 			model.addAttribute("currentUsername", user.getUsername());
-			List<Product> products = productRepository.findByUser(user);
+			
+			
+			List<Product> products = productRepository.findAll();
 
 			model.addAttribute("products", products);
 			

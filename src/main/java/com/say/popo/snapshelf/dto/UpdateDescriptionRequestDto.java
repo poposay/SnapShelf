@@ -1,4 +1,5 @@
-/*package com.say.popo.snapshelf.dto;
+/*
+package com.say.popo.snapshelf.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -17,6 +18,7 @@ public class UpdateDescriptionRequestDto {
 
     public String getDescription() { return description; }
     public void setDescription(String description) { this.description = description; }
-}
 
+    }
 */
+

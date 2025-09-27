@@ -83,11 +83,11 @@ public class Product {
 		this.image_url = image_url;
 	}
 
-	public String getCaption() {
+	public String getProduct_name() {
 		return product_name;
 	}
 
-	public void setCaption(String product_name) {
+	public void setProduct_name(String product_name) {
 		this.product_name = product_name;
 	}
 
@@ -107,11 +107,11 @@ public class Product {
 		this.createdAt = createdAt;
 	}
 
-	public AIDescription getAiComment() {
+	public AIDescription getAiDescription() {
 		return aiDescription;
 	}
 
-	public void setAiComment(AIDescription aiDescription) {
+	public void setAiDescription(AIDescription aiDescription) {
 		this.aiDescription = aiDescription;
 	}
 
