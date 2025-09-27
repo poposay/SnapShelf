@@ -1,11 +1,9 @@
 @charset "UTF-8";
 
 /* 全体のベース */
-html,body {
+body {
     font-family: "Helvetica Neue", "Arial", "ヒラギノ角ゴ Pro W3", "Meiryo", sans-serif;
-    background: linear-gradient(to bottom, #f0faff, #e6f7f1); /* 白〜淡い青緑 */
-    margin: 0;
-    padding: 0;
+    background-color: #f0faff;
 	height: 100%;
     color: #1e2a38; /* 濃いネイビーで読みやすく */
 }
@@ -139,9 +137,8 @@ form button:hover,
   background-color: #2ab7ca;
   color: white;
   border: none;
-  width: 120px;
-  height: 120px;
-  font-size: 1rem;
+  height: 200px;
+  font-size: 1.3rem;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -164,7 +161,6 @@ form button:hover,
 
 /* ログアウトボタン（反転スタイル） */
 .logoutbtn {
-    margin-top: 20px;
     padding: 10px 20px;
     background-color: #ffffff;
     border: 2px solid #2ab7ca;
@@ -306,6 +302,13 @@ form button:hover,
   overflow: hidden;
   box-shadow: 0 2px 6px rgba(0,0,0,0.1);
   background-color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.product-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 8px 25px rgba(0,0,0,0.15);
 }
 
 .product-image {

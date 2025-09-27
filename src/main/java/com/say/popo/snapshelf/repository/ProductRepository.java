@@ -13,7 +13,6 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
 	Product findTopByOrderByIdDesc();
 
-
 	List<Product> findByUser(Users user);
 
 }

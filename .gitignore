@@ -48,16 +48,13 @@ application-prod.yml
 .mvn/
 !mvn/wrapper/maven-wrapper.jar
 
-# Generated files
-<<<<<<< HEAD
-out/
 
 #Images(画像ファイル)
 images/
 *.jpeg
-*.jpeg
-*.png
-*.gif
+!readme-assets/*.png
+!readme-assets/*.jpeg
+!readme-assets/*.gif
 *.gif
 *.bmp
 *.tiff
@@ -79,6 +76,3 @@ vision-key.json
 
 #Google Cloud Application Defailt Credentials
 application_default_credentials.json
-=======
-out/
->>>>>>> ba7ac91318d2d62f860c752c2c1aeccd917fb690
