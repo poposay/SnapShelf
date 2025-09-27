@@ -5,6 +5,9 @@
 <title>商品一覧</title>
 <link rel="stylesheet" href="/css/style.css">
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.prod.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
 </head>
 <body>
 	<header class="popo-header">
@@ -15,15 +18,68 @@
 		</div>
 		<a class="logoutbtn" href="/login">ログアウト</a>
 	</header>
-	<div class="popo-container">
+	<div id="app">
 		<h2>商品一覧</h2>
-		<div th:each="product : ${products}" class="cheki">
-		    <img th:src="${product.image_url}" alt="商品画像"/>
-		    <p class="name" th:text="${product.product_name}"></p>
-			<div class="info">
-				<p class="ai-comment" th:text="${product.aiDescription.content}"></p>
-				<p class="date" th:text="${product.createdAt}"></p>
+		<div class="card-container">
+			<div class="product-card" v-for="product in products" :key="product.id">
+				<img :src="product.imageUrl" alt="商品画像" class="product-image">
+				<div class="product-info">
+					<h3 class="product-name">${ product.product_name }</h3>
+					<p class="product-price">
+						<span class="info-label">価格</span>${ product.price }円
+					</p>
+					<p class="product-stock">
+						<span class="info-label">在庫数</span>${ product.stock}個
+					</p>
+				</div>
 			</div>
 		</div>
+		<div  class="btn-group">
+		<button class="btn" @click="prevPage">前へ</button>
+		<button class="btn" @click="nextPage">次へ</button>
 		<a class="btn" href="/home">ホームに戻る</a>
+		</div>
 	</div>
+	
+	<script>
+		const app = Vue.createApp({
+			delimiters: ['${','}'],
+			data(){
+				return{
+					products:[],
+					currentPage: 0,
+					pageSize: 10
+				};
+			},
+			methods: {
+				fetchProducts(){
+					axios.get('/api/products',{
+						params: {
+							page: this.currentPage,
+							size: this.pageSize
+						}
+					})
+					.then(response => {
+						this.products = response.data.content;
+					});
+					
+				},
+				nextPage(){
+					this.currentPage++;
+					this.fetchProducts();
+				},
+				prevPage(){
+					if(this.currentPage > 0) {
+						this.currentPage--;
+						this.fetchProducts();
+					}
+				}
+			},
+			
+		mounted(){
+			this.fetchProducts();
+			
+		}
+	});
+	app.mount('#app');
+	</script>
