@@ -3,6 +3,7 @@ package com.say.popo.snapshelf.controller;
 import java.io.IOException;
 import java.util.Optional;
 
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
@@ -63,24 +64,22 @@ public class ProductCreateController {
 	}
 	
 	@PostMapping("/productcreate")
-	public String handlePostAndResirect(@RequestParam("productimage") MultipartFile file ,
-					@RequestParam String name,@RequestParam int price,@RequestParam int stock,
-					@RequestParam(value = "redirectTo", required=false, defaultValue="prodictconfirmation") String redirectTo,
-					HttpSession session,RedirectAttributes redirectAttributes) throws IOException {
+	public ResponseEntity<PostResult> handlePostAndReturnJson(
+			@RequestParam("productimage") MultipartFile file ,
+			@RequestParam String name,
+			@RequestParam int price,
+			@RequestParam int stock) throws IOException {
+		
 		if(!file.isEmpty()) {
 			//画像・コメント保存とDB登録の処理をサービスへ移譲
 			System.out.println("saveProduct呼び出し");
 			
-			PostResult result = productCreateService.saveProduct(file,name,price,stock,redirectAttributes);
-			System.out.println("PostResultで受け取った内容：" + result.getAIDescription() + result.getImageUrl() + result.getAIDescriptionId());
+			PostResult result = productCreateService.saveProduct(file,name,price,stock);
+			System.out.println("PostResultで受け取った内容：" + result.getAiDescription() + result.getAiDescriptionId());
 			
-			redirectAttributes.addFlashAttribute("aiDescriptionId", result.getAIDescriptionId());
-			redirectAttributes.addFlashAttribute("aiDescription",result.getAIDescription());
-			redirectAttributes.addFlashAttribute("imageUrl",result.getImageUrl());
-		
-			return "redirect:/" + redirectTo;
+			return ResponseEntity.ok(result);
 		}else {
-			return "error";
+			return ResponseEntity.badRequest().build();
 		}
 	}
 

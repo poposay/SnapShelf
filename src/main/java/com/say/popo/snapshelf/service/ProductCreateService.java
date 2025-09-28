@@ -47,7 +47,7 @@ public class ProductCreateService {
 	}
 
 
-	public PostResult saveProduct(MultipartFile file, String name, int price, int stock,RedirectAttributes redirectAttributes) throws IOException {
+	public PostResult saveProduct(MultipartFile file, String name, int price, int stock) throws IOException {
 
 		String filename = UUID.randomUUID() + "_" + file.getOriginalFilename();
 		Path uploadPath = Paths.get("src/main/resources/static/uploads/" + filename);
@@ -57,7 +57,7 @@ public class ProductCreateService {
 		String email = auth.getName();
 		Users user = userRepository.findByEmail(email).orElseThrow();
 		
-		//画像、商品名、価格、在庫を保存
+		//画像、商品名、価格、在庫を非公開状態で一時保存
 		Product product = new Product();
 		product.setImage_url("/uploads/" + filename);
 		product.setProduct_name(name);
@@ -65,7 +65,7 @@ public class ProductCreateService {
 		product.setPrice(price);
 		product.setStock(stock);
 		productRepository.save(product);
-		System.out.println("登録画面からの投稿完了");
+		System.out.println("DBに一時保存完了");
 		
 		//画像解析
 		String fullUrl = "http://localhost:8080/uploads/" + filename;
@@ -85,7 +85,7 @@ public class ProductCreateService {
 		
 		
 
-		return new PostResult(discription,"/uploads/" + filename, aiDescription.getId());
+		return new PostResult(discription,aiDescription.getId());
 
 	}
 	

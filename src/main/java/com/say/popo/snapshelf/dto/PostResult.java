@@ -2,29 +2,20 @@ package com.say.popo.snapshelf.dto;
 
 public class PostResult {
 	private String aiDescription;
-	private String imageUrl;
 	private Long aiDescriptionId;
 	
-	public PostResult(String aiDescription, String imageUrl) {
+	public PostResult(String aiDescription, Long aiDescriptionId) {
 		this.aiDescription = aiDescription;
-		this.imageUrl = imageUrl;
+		this.aiDescriptionId = aiDescriptionId;
 	}
 	
-    public PostResult(String AIDescription, String imageUrl, Long aiDescriptionId) {
-        this.aiDescription = AIDescription;
-        this.imageUrl = imageUrl;
-        this.aiDescriptionId = aiDescriptionId;
-    }
 	
-	public String getAIDescription() {
+	public String getAiDescription() {
 		return aiDescription;
 	}
+
 	
-	public String getImageUrl() {
-		return imageUrl;
-	}
-	
-	public Long getAIDescriptionId() {
+	public Long getAiDescriptionId() {
 		return aiDescriptionId;
 	}
 
