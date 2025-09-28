@@ -2,14 +2,19 @@
 <html xmlns:th="http://www.thymeleaf.org"
       xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
-<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>商品登録チュートリアル</title>
 <link rel="stylesheet" href="/css/style.css">
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
-	<header class="popo-header">
+	<div id="app">
+		<header class="popo-header">
 		<img src="/images/app-icon.png" alt="アイコン" class="app-icon">
 		<h1 class="site-tittle">SnapShelf</h1>
 		<div class="user-info" th:if="${currentUsername}">
@@ -23,21 +28,80 @@
 		<h2>商品登録のチュートリアル</h2>
 		</div>
 		
-		<p>商品画像と商品名、在庫数、価格を入力してください。<br>
+		<p>商品画像と商品名、在庫数、価格を入力したあとに、「説明文生成」ボタンを推してください<br>
+			生成された文章を確認し、必要に応じて編集をしたあとに「保存」を押すことで商品が登録されます。
+			<div class="form-container">
+				<input type="hidden" name="redirectTo" value="updatedescription">
+				<input type="file" @change="handleImageUpload" name="productimage" accept="image/*" required :disabled="isLocked">
+				<label for="name">商品名</label>
+				<input type="text" v-model="name" id="name" name="name" required autocomplete="off" :disabled="isLocked">
+				<label for="price">価格</label>
+				<input type="text" v-model="price" id="price" name="price" required autocomplete="off" :disabled="isLocked">
+				<label for="stock">在庫数</label>
+				<input type="text" v-model="stock" id="stock" name="stock" required autocomplete="off" :disabled="isLocked">
+				<button @click="generateDescription" ><span><i class="bi bi-chat-dots"></i></span> 説明文生成</button>
+				<textarea v-model="aiDescription" rows="5" cols="50" required></textarea>
+			</div>
 
-			
-		<form action="/productcreate" method="post" enctype="multipart/form-data">
-			<input type="hidden" name="redirectTo" value="tutorial2">
-			<input type="file" name="productimage" accept="image/*">
-			<label for="name">商品名</label>
-			<input type="text" id="name" name="name" required autocomplete="off">
-			<label for="price">価格</label>
-			<input type="text" id="price" name="price" required autocomplete="off">
-			<label for="stock">在庫数</label>
-			<input type="text" id="stock" name="stock" required autocomplete="off">
-			<button type="submit">商品情報を登録</button>
-		</form>
+			<button @click="saveProduct">保存</button>
+			<div v-if="showDialog" class="dialog">
+			  <p>保存しました</p>
+			  <button @click="closeDialog">閉じる</button>
+			</div>
+			<a href="/home" class="btn">チュートリアルを終える</a>	
+		</div>
 	</div>
-
+	
+	<script>
+	  new Vue({
+	    el: '#app',
+	    data: {
+			aiDescriptionId:'',
+			name: '',
+			price: '',
+			stock: '',
+			imageFile: null,		
+	      	aiDescription: '', 
+	      	showDialog: false,
+			isLocked: false
+	    },
+	    methods: {
+			handleImageUpload(event) {
+				this.imageFile = event.target.files[0];
+			},
+			async generateDescription() {
+				console.log("画像ファイル：", this.imageFile); 
+				
+				const formData = new FormData();
+				formData.append('name',this.name);
+				formData.append('price',this.price);
+				formData.append('stock',this.stock);
+				formData.append('productimage',this.imageFile);
+				
+				const response = await axios.post('/productcreate',formData)
+				this.aiDescriptionId = response.data.aiDescriptionId;
+				this.aiDescription = response.data.aiDescription;
+				this.isLocked = true;
+				console.log("反映された説明文：", this.aiDescription);
+			},
+			async saveProduct() {
+				axios.post('/api/update-description',{
+					id:this.aiDescriptionId,
+					description:this.aiDescription,
+				})
+				.then(response => {
+					this.showDialog = true;
+				})
+				.catch(error => {
+					console.error("保存失敗",error);
+					alert("保存に失敗しました");
+				});
+			},  
+			closeDialog() {
+				this.showDialog = false;
+			}
+		}
+	   });
+	</script>
 </body>
 </html>
