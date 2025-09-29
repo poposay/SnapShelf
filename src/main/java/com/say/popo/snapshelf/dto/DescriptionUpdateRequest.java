@@ -1,7 +1,12 @@
 package com.say.popo.snapshelf.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class DescriptionUpdateRequest {
-    private Long id;             // AIDescriptionのID
+    @JsonProperty("id")
+	private Long id;             // AIDescriptionのID
+    
+    @JsonProperty("description")
     private String description;  // 編集後の説明文
 
     public DescriptionUpdateRequest() {} // ← デフォルトコンストラクタ

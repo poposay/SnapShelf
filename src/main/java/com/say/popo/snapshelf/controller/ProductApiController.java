@@ -10,6 +10,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,7 +28,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Page;
 
-import io.swagger.v3.oas.annotations.parameters.RequestBody;
+
 import jakarta.validation.Valid;
 
 @RestController
@@ -44,11 +45,11 @@ public class ProductApiController {
 		this.productRepository = productRepository;
 		this.aiDescriptionRepository = aiDescriptionRepository;
 	}
-	//DTOで受け取るver
-/*	@PostMapping("/update-description")
+
+	@PostMapping("/update-description")
 	public ResponseEntity<?> updateDescription(@RequestBody DescriptionUpdateRequest req) {
 		try {
-			System.out.println("受け取ったID：" + req.getId());
+			System.out.println("受け取ったID：" + req.getId() + "受け取った説明文：" + req.getDescription());
 		AIDescription desc = aiDescriptionRepository.findById(req.getId()).orElseThrow();
 		desc.setEdited_description(req.getDescription());
 		Product product = desc.getProduct();
@@ -61,55 +62,6 @@ public class ProductApiController {
 			return ResponseEntity.internalServerError().build();
 		}
 }
-	
-	//HTTPEntityでうけとってパースするver	
-/*	@PostMapping("/update-description")
-	public ResponseEntity<?> updateDescription(HttpEntity<String> httpEntity) {
-
-		try {
-			String json = httpEntity.getBody();
-			System.out.println("受け取ったJSON文字列：" + json);
-			
-			//Jackson ObjectMapperを使ってJSONをパース
-			ObjectMapper objectMapper = new ObjectMapper();
-			Map<String, Object> payload = objectMapper.readValue(json,Map.class);
-			
-			//パースしたMapから値を取得
-			long id = Long.parseLong(payload.get("id").toString());
-			String desc = payload.get("description").toString();
-			
-			System.out.println("id：" + id + " description:" + desc);
-
-		
-			productCreateService.updateDescription(id,desc);
-
-		return ResponseEntity.ok().build();
-		
-		} catch (Exception e) {
-			e.printStackTrace();
-			return ResponseEntity.internalServerError().build();
-		}
-	}
-*/	
-	//HTTPEntityでMapとして受け取るver
-	@PostMapping("/update-description")
-	public ResponseEntity<?> updateDescription(HttpEntity<Map<String, Object>> httpEntity) {
-		Map<String, Object> payload = httpEntity.getBody();
-	    System.out.println("ペイロード：" + payload);
-	    Long id = Long.valueOf(payload.get("id").toString());
-	    String description = payload.get("description").toString();
-
-	    System.out.println("ID：" + id);
-	    System.out.println("説明文：" + description);
-
-	    AIDescription desc = aiDescriptionRepository.findById(id).orElseThrow();
-	    desc.setEdited_description(description);
-	    Product product = desc.getProduct();
-	    product.setIs_published(true);
-	    aiDescriptionRepository.save(desc);
-
-	    return ResponseEntity.ok().build();
-	}
 
 	@GetMapping("/products")
 	public Page<ProductDto> getAllProducts(@RequestParam(defaultValue = "0") int page,
