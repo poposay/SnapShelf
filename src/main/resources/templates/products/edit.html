@@ -1,16 +1,20 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 <head>
 <meta charset="UTF-8">
-<title>商品情報詳細</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>商品編集</title>
 <link rel="stylesheet" href="/css/style.css">
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
-<script src="https://cdn.jsdelivr.net/npm/vue@3.3.4/dist/vue.global.prod.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
+<script src="https://unpkg.com/vue@3"></script>
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
-	<header class="popo-header">
+	<div id="app" v-cloak>
+		<header class="popo-header">
 		<img src="/images/app-icon.png" alt="アイコン" class="app-icon">
 		<h1 class="site-tittle">SnapShelf</h1>
 		<div class="user-info" th:if="${currentUsername}">
@@ -18,17 +22,201 @@
 		</div>
 		<a class="logoutbtn" href="/login">ログアウト</a>
 	</header>
-	
-	<div class="popo-container">
-		<h2>商品詳細</h2>
-	  <div class="thumbnail-wrapper">
-		<h1 th:text="${product.product_name}">商品名</h1>
-	    <img th:src="${product.image_url}" alt="投稿画像" class="post-thumbnail">
-		<p th:text="価格 + ${product.price} + 円">価格</p>
-		<p th:text="在庫数 + ${product.stock} + 個">在庫数</p>
-	  </div>
-	<a href="/shelfview" class="btn">一覧へ</a>
 
 	
+	<div class="popo-container">
+
+		<div>
+		<h2>商品編集</h2>
+		</div>
+		
+		<p>商品画像と商品名、在庫数、価格を編集してください。<br>
+			<div class="form-container">
+				<input type="hidden" name="redirectTo" value="updatedescription">
+				<input type="file" ref="fileInput" @change="handleImageUpload" name="productimage" accept="image/*" required :disabled="isLocked">
+				<div v-if="imagePreview" class="image-preview">
+					<img :src="imagePreview" alt="商品画像" style="max-width: 200px; max-height: 200px">
+				</div>
+				<label for="name">商品名</label>
+				<input type="text" v-model="name" id="name" name="name" autocomplete="off" :disabled="isLocked">
+				<label for="price">価格</label>
+				<input type="text" v-model="price" id="price" name="price" autocomplete="off" :disabled="isLocked">
+				<label for="stock">在庫数</label>
+				<input type="text" v-model="stock" id="stock" name="stock" autocomplete="off" :disabled="isLocked">
+				<button @click="showGenerateModal=true" :disabled="isLocked"><span><i class="bi bi-chat-dots"></i></span> 説明文生成</button>
+				<textarea v-model="aiDescription" rows="5" cols="50" required></textarea>
+			</div>
+
+			<button @click="showSaveModal=true">保存</button>
+
+			<button @click="showCancelModal=true">キャンセル</button>	
+		</div>
+		
+		<!-- モーダル -->
+		
+		<!-- オーバーレイ -->
+		<div v-if="showGenerateModal || showSaveModal || showCancelModal" class="modal-overlay"></div>
+		
+		<!--　モーダル本体　-->
+		<div v-if="showGenerateModal" class="modal">
+			<p>商品情報を確定し、説明文を生成します。よろしいですか？</p>
+			<div class="modal-button-group">
+			<button @click="generateDescription">OK</button>
+			<button @click="showGenerateModal=false">キャンセル</button>
+			</div>
+		</div>
+		
+		<div v-if="showSaveModal" class="modal">
+			<p>商品を登録します。よろしいですか？</p>
+			<div class="modal-button-group">
+			<button @click="saveProduct">OK</button>
+			<button @click="showSaveModal=false">キャンセル</button>
+			</div>
+		</div>
+		
+		<div v-if="showCancelModal" class="modal">
+			<p>登録をキャンセルします。よろしいですか？</p>
+			<div class="modal-button-group">
+			<button @click="goHome">OK</button>
+			<button @click="showCancelModal=false">キャンセル</button>
+			</div>
+		</div>
+		
+		<div v-if="showDialog" class="dialog-bar">
+			<p>保存しました</p>
+			<button @click="closeDialog">閉じる</button>
+		</div>
+
+	</div>
+	<script>
+	Vue.createApp({
+	  data() {
+	    return {
+	      productId: '',
+	      aiDescriptionId: '',
+	      name: '',
+	      price: '',
+	      stock: '',
+	      imageFile: null,
+	      imagePreview: null,
+	      aiDescription: '',
+	      showDialog: false,
+	      isLocked: false,
+	      showGenerateModal: false,
+	      showSaveModal: false,
+	      showCancelModal: false
+	    };
+	  },
+	  methods: {
+	    fetchProduct() {
+	      axios.get(`/api/product/${this.productId}`)
+	        .then(response => {
+	          const product = response.data;
+	          this.name = product.product_name;
+	          this.price = product.price.toString();
+	          this.stock = product.stock.toString();
+	          this.aiDescription = product.description;
+	          this.imagePreview = product.image_url;
+	        })
+	        .catch(error => {
+	          console.error("商品情報取得失敗", error);
+	        });
+	    },
+	    handleImageUpload(event) {
+	      this.imageFile = event.target.files[0];
+	      if (this.imageFile) {
+	        this.imagePreview = URL.createObjectURL(this.imageFile);
+	      }
+	    },
+	    isValidNumber(value) {
+	      const num = Number(value);
+	      return /^[0-9]+$/.test(value) && Number.isInteger(num) && num >= 0;
+	    },
+	    isValidProductInput() {
+	      return (
+	        this.name.trim() &&
+	        this.imageFile &&
+	        this.isValidNumber(this.price) &&
+	        this.isValidNumber(this.stock)
+	      );
+	    },
+	    async generateDescription() {
+	      if (!this.isValidProductInput()) {
+	        this.showGenerateModal = false;
+	        await this.$nextTick();
+	        alert("商品名・画像・価格・在庫数を正しく入力してください（半角整数・0以上）");
+	        return;
+	      }
+	      const formData = new FormData();
+	      formData.append('name', this.name);
+	      formData.append('price', this.price);
+	      formData.append('stock', this.stock);
+	      formData.append('productimage', this.imageFile);
+
+	      try {
+	        const response = await axios.post('/api/product/productcreate', formData);
+	        this.aiDescriptionId = response.data.aiDescriptionId;
+	        this.aiDescription = response.data.aiDescription;
+	        this.isLocked = true;
+	        this.showGenerateModal = false;
+	      } catch (error) {
+	        console.error("説明文生成失敗", error);
+	        alert("説明文の生成に失敗しました");
+	      }
+	    },
+	    async saveProduct() {
+	      if (!this.aiDescription) {
+	        this.showSaveModal = false;
+	        await this.$nextTick();
+	        alert("説明文は必須です");
+	        return;
+	      }
+	      try {
+	        await axios.post('/api/update-description', {
+	          id: parseInt(this.aiDescriptionId),
+	          description: this.aiDescription
+	        }, {
+	          headers: { 'Content-Type': 'application/json' }
+	        });
+	        this.showDialog = true;
+	        this.showSaveModal = false;
+	        this.resetForm();
+	      } catch (error) {
+	        console.error("保存失敗", error);
+	        alert("保存に失敗しました");
+	      }
+	    },
+	    resetForm() {
+	      this.aiDescriptionId = '';
+	      this.name = '';
+	      this.price = '';
+	      this.stock = '';
+	      this.imageFile = null;
+	      this.imagePreview = null;
+	      this.aiDescription = '';
+	      this.isLocked = false;
+	      this.showGenerateModal = false;
+	      this.showSaveModal = false;
+	      this.showCancelModal = false;
+
+	      if (this.$refs.fileInput) {
+	        this.$refs.fileInput.value = null;
+	      }
+	    },
+	    closeDialog() {
+	      this.showDialog = false;
+	    },
+	    goHome() {
+	      window.location.href = '/home';
+	    }
+	  },
+	  mounted() {
+	    const pathParts = window.location.pathname.split('/');
+	    this.productId = pathParts[2];
+		console.log("抽出したID:", this.productId)
+	    this.fetchProduct();
+	  }
+	}).mount('#app');
+	</script>
 </body>
 </html>

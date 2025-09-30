@@ -452,3 +452,6 @@ button:disabled {
   cursor: pointer;
 }
 
+[v-cloak] {
+	display: none;
+}

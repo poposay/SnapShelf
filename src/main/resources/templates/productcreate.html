@@ -9,11 +9,11 @@
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
 
-<script src="https://cdn.jsdelivr.net/npm/vue@2"></script>
+<script src="https://unpkg.com/vue@3"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
-	<div id="app">
+	<div id="app" v-cloak>
 		<header class="popo-header">
 		<img src="/images/app-icon.png" alt="アイコン" class="app-icon">
 		<h1 class="site-tittle">SnapShelf</h1>
@@ -38,11 +38,11 @@
 					<img :src="imagePreview" alt="商品画像" style="max-width: 200px; max-height: 200px">
 				</div>
 				<label for="name">商品名</label>
-				<input type="text" v-model="name" id="name" name="name" required autocomplete="off" :disabled="isLocked">
+				<input type="text" v-model="name" id="name" name="name" autocomplete="off" :disabled="isLocked">
 				<label for="price">価格</label>
-				<input type="text" v-model="price" id="price" name="price" required autocomplete="off" :disabled="isLocked">
+				<input type="text" v-model="price" id="price" name="price" autocomplete="off" :disabled="isLocked">
 				<label for="stock">在庫数</label>
-				<input type="text" v-model="stock" id="stock" name="stock" required autocomplete="off" :disabled="isLocked">
+				<input type="text" v-model="stock" id="stock" name="stock" autocomplete="off" :disabled="isLocked">
 				<button @click="showGenerateModal=true" :disabled="isLocked"><span><i class="bi bi-chat-dots"></i></span> 説明文生成</button>
 				<textarea v-model="aiDescription" rows="5" cols="50" required></textarea>
 			</div>
@@ -55,9 +55,7 @@
 		<!-- モーダル -->
 		
 		<!-- オーバーレイ -->
-		<div v-if="showGenerateModal" class="modal-overlay"></div>
-		<div v-if="showSaveModal" class="modal-overlay"></div>
-		<div v-if="showCancelModal" class="modal-overlay"></div>
+		<div v-if="showGenerateModal || showSaveModal || showCancelModal" class="modal-overlay"></div>
 		
 		<!--　モーダル本体　-->
 		<div v-if="showGenerateModal" class="modal">
@@ -92,9 +90,9 @@
 	</div>
 	
 	<script>
-	  new Vue({
-	    el: '#app',
-	    data: {
+		Vue.createApp({
+	    data() {
+			return {
 			aiDescriptionId:'',
 			name: '',
 			price: '',
@@ -107,7 +105,7 @@
 			showGenerateModal: false,
 			showSaveModal: false,
 			showCancelModal: false
-			
+			};
 	    },
 	    methods: {
 			handleImageUpload(event) {
@@ -116,42 +114,69 @@
 					this.imagePreview = URL.createObjectURL(this.imageFile);
 				}
 			},
+			isValidNumber(value) {
+				//半角整数のみ、整数、0以上
+				const num = Number(value);
+				return /^[0-9]+$/.test(value) && Number.isInteger(num) && num >= 0;
+			},
+			isValidProductInput() {
+				return(
+					this.name.trim() &&
+					this.imageFile &&
+					this.isValidNumber(this.price) &&
+					this.isValidNumber(this.stock)
+				);
+			},
 			async generateDescription() {
 				console.log("画像ファイル：", this.imageFile); 
 				
+				if(!this.isValidProductInput()) {
+					this.showGenerateModal = false;
+					await this.$nextTick();
+					alert("商品名・画像・価格・在庫数を正しく入力してください（半角整数・0以上）")
+					return;
+				}
 				const formData = new FormData();
 				formData.append('name',this.name);
 				formData.append('price',this.price);
 				formData.append('stock',this.stock);
 				formData.append('productimage',this.imageFile);
-				
-				const response = await axios.post('/productcreate',formData)
-				this.aiDescriptionId = response.data.aiDescriptionId;
-				this.aiDescription = response.data.aiDescription;
-				this.isLocked = true;
-				console.log("反映された説明文：", this.aiDescription);
-				this.showGenerateModal = false;
+
+				try {
+					const response = await axios.post('/api/product/productcreate',formData)
+					this.aiDescriptionId = response.data.aiDescriptionId;
+					this.aiDescription = response.data.aiDescription;
+					this.isLocked = true;
+					console.log("反映された説明文：", this.aiDescription);
+					this.showGenerateModal = false;
+				} catch(error) {
+					console.error("説明文生成失敗",error);
+					alert("説明文の生成に失敗しました");
+				}
 			},
 			async saveProduct() {
-				axios.post('/api/update-description',{
-					id:parseInt(this.aiDescriptionId),
-					description:this.aiDescription
-				},
-				{
-					headers: {
-						'Content-Type': 'application/json'
-					}
+				if(!this.aiDescription) {
+					this.showSaveModal = false;
+					this.$nextTick(() => {
+						alert("すべての項目を入力してください");
+					});
+					alert("説明文は必須です");
+					return;
 				}
-				)
-				.then(response => {
+				try {
+					axios.post('/api/update-description',{
+						id:parseInt(this.aiDescriptionId),
+						description:this.aiDescription
+					}, {
+					headers: {'Content-Type': 'application/json'}
+					});
 					this.showDialog = true;
 					this.showSaveModal = false;
 					this.resetForm();
-				})
-				.catch(error => {
+				} catch(error) {
 					console.error("保存失敗",error);
-					alert("保存に失敗しました");
-				});
+					alert("保存に失敗しました")
+				}
 			},  
 			resetForm() {
 				this.aiDescriptionId = '';
@@ -179,7 +204,7 @@
 			}
 		}
 		
-	   });
+	   }).mount('#app');
 	</script>
 </body>
 </html>

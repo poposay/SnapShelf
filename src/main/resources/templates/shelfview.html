@@ -54,7 +54,7 @@
 			},
 			methods: {
 				fetchProducts(){
-					axios.get('/api/products',{
+					axios.get('/api/product/shelfview',{
 						params: {
 							page: this.currentPage,
 							size: this.pageSize
@@ -76,13 +76,11 @@
 					}
 				},
 				goToProductDetail(productId){
-					window.location.href=`/products/${productId}/edit`;
+					window.location.href=`/products/${productId}/detail`;
 				}
 			},
-			
-		mounted(){
-			this.fetchProducts();
-			
+				mounted(){
+					this.fetchProducts();	
 		}
 	});
 	app.mount('#app');
