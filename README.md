@@ -1,53 +1,80 @@
 # SnapShelf 📸✨
-**AI-powered Smart Product Management System**
+Smart product management with auto-generated tags and descriptions.
 
-> 商品画像をアップロードするだけで、AIが自動でタグ抽出と説明文を生成する次世代商品管理アプリ
+## 📝 概要
+個人学習用の Spring Boot Web アプリケーション。
+商品画像を登録すると AI が自動でタグを抽出し、説明文を生成する商品管理システムです。
 
-## 🚀 Features
+現在は基本的な CRUD 機能とユーザー認証を実装済みで、外部 API 連携やクラウドデプロイは今後追加予定です。
 
-### ✅ 実装済み機能
-- 📷 **商品画像アップロード** - 直感的な画像登録システム
-- 👤 **ユーザー認証** - Spring Security による安全なログイン
-- 📝 **商品管理** - 登録・一覧表示・編集機能
--🎨 **レスポンシブUI** - Thymeleaf + 部分的に Vue.js を利用したインタラクティブUI
-- ⚡ **リアルタイム編集** - AI生成説明文のリアルタイム編集
+## ✨ 実装済み機能
+- ✅ ユーザー登録・ログイン（Spring Security）
+- ✅ 商品情報の登録・一覧表示
+- ✅ Spring Data JPA によるデータベース操作
+- ✅ Thymeleaf による画面表示
+- ✅ Vue.js による部分的な動的処理
 
-### 🚧 開発予定機能
-- 🤖 **AI画像解析** - Google Vision API による自動タグ抽出
-- 📖 **AI説明文生成** - Gemini API による商品説明自動生成
-- ☁️ **AWSデプロイ** - EC2 + S3 による本格運用
-- ⭐ **お気に入り機能** - ユーザーの商品お気に入り管理
-- 💬 **レビューシステム** - 商品レビュー・評価機能
+## 🚧 開発予定
+- ⏳ Google Vision API による画像解析・タグ自動生成
+- ⏳ Gemini API による商品説明文の自動生成
+- ⏳ AWS (EC2 + RDS) へのデプロイ
+- ⏳ タグでの分類、入出庫管理などの拡張
 
-## 🛠 Tech Stack
+## 🛠️ 使用技術
 
-### Backend
-- **Spring Boot 3.2.0** - モダンなJavaフレームワーク
-- **Spring Security** - 認証・認可システム
-- **Spring Data JPA** - データベースアクセス層
-- **MySQL** - リレーショナルデータベース
+**バックエンド**
+- Java 17
+- Spring Boot 3.5.3
+- Spring Security / Spring MVC / Spring Data JPA
+- Thymeleaf
+- Maven（ビルド・依存管理）
 
-### Frontend  
-- **Thymeleaf** - サーバーサイドテンプレート（メイン）
-- **Vue.js 2** - 部分的なインタラクティブ機能
-- **Axios** - 非同期通信ライブラリ
-- **HTML/CSS** - レスポンシブデザイン
+**データベース**
+- PostgreSQL
 
-### AI & External APIs
-- **Google Vision API** - 画像解析・タグ抽出（予定）
-- **Google Gemini API** - 自然言語生成（予定）
+**フロントエンド**
+- HTML / CSS
+- JavaScript
+- Vue.js（一部導入）
 
-### Infrastructure（予定）
-- **AWS EC2** - アプリケーションサーバー
-- **AWS S3** - 画像ストレージ
+**その他**
+- Git / GitHub / GitHub Desktop
+- Eclipse → 9月に STS に変更
 
-## 🖥 Screenshots
+## 📚 開発履歴
+- **2025年5月**
+Java学習を開始。
+- 開発環境構築（Eclipse, Git, GitHub Desktop, Maven）
+- データベースはまだ未導入
+- 基本的な開発手順や CRUD 作成方法を試して学習
+- Spring Boot の基礎を習得
 
-### ホーム画面
-<img src="readme-assets/home_sample.png" width="250">
+- **2025年7月**
+趣味開発として *popoalbum* を開始（画像投稿・表示が中心の小規模Webアプリ）。
+- 画像アップロード／表示の実装
+- 初期の画面・ルーティング設計
 
-### 商品登録画面
-準備中
+- **2025年7月下旬〜8月**
+アプリを拡張し本格開発へ。
+- PostgreSQL 接続・DB 設計（商品・ユーザーなど）
+- ユーザー新規登録・認証画面の実装
+- 画像アップロードの品質改善
 
-### AI説明文編集
-<img src="readme-assets/rewritesample.png" width="250">
+- **2025年9月（リファクタリング → 改名）**
+新しいPCで開発環境を再構築（STS に移行）
+Java Silver SE17 を取得。
+大規模リファクタリングを行い、プロジェクト名を *SnapShelf* に変更。
+主な改善：
+- PRG（Post-Redirect-Get）パターン導入による投稿フロー改善
+- Service 層分離、例外処理整備
+- Spring Security によるログイン認証／初回ログインチュートリアル分岐
+- Vue.js 試験導入（動的 UI、フロント → DTO の連携修正）
+- 商品一覧に検索・ページングを追加、一覧 → 詳細遷移
+- 説明文自動生成（AI連携の土台）の実装準備
+- UI改善・バグ修正（画像表示、フォームバリデーションなど）
+
+## 👤 作者
+GitHub: [@poposay](https://github.com/poposay)
+
+## 📄 ライセンス
+This project is licensed under the MIT License.

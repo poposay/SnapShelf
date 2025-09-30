@@ -63,24 +63,6 @@ public class ProductCreateController {
 		}
 	}
 	
-	@PostMapping("/productcreate")
-	public ResponseEntity<PostResult> handlePostAndReturnJson(
-			@RequestParam("productimage") MultipartFile file ,
-			@RequestParam String name,
-			@RequestParam int price,
-			@RequestParam int stock) throws IOException {
-		
-		if(!file.isEmpty()) {
-			//画像・コメント保存とDB登録の処理をサービスへ移譲
-			System.out.println("saveProduct呼び出し");
-			
-			PostResult result = productCreateService.saveProduct(file,name,price,stock);
-			System.out.println("PostResultで受け取った内容：" + result.getAiDescription() + result.getAiDescriptionId());
-			
-			return ResponseEntity.ok(result);
-		}else {
-			return ResponseEntity.badRequest().build();
-		}
-	}
+
 
 }
