@@ -3,12 +3,14 @@ package com.say.popo.snapshelf.controller;
 import java.io.IOException;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -27,7 +29,7 @@ import com.say.popo.snapshelf.entity.AIDescription;
 import com.say.popo.snapshelf.entity.Product;
 import com.say.popo.snapshelf.repository.AIDescriptiontRepository;
 import com.say.popo.snapshelf.repository.ProductRepository;
-import com.say.popo.snapshelf.service.ProductCreateService;
+import com.say.popo.snapshelf.service.ProductService;
 
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.PageRequest;
@@ -40,13 +42,13 @@ import jakarta.validation.Valid;
 @RequestMapping("/api/product")
 public class ProductApiController {
 
-	private ProductCreateService productCreateService;
+	private ProductService productService;
 	private final ProductRepository productRepository;
 	private final AIDescriptiontRepository aiDescriptionRepository;
 	
-	public ProductApiController(ProductCreateService productCreateService,ProductRepository productRepository,
+	public ProductApiController(ProductService productService,ProductRepository productRepository,
 			AIDescriptiontRepository aiDescriptionRepository) {
-		this.productCreateService = productCreateService;
+		this.productService = productService;
 		this.productRepository = productRepository;
 		this.aiDescriptionRepository = aiDescriptionRepository;
 	}
@@ -55,12 +57,9 @@ public class ProductApiController {
 	public ResponseEntity<?> updateDescription(@RequestBody DescriptionUpdateRequest req) {
 		try {
 			System.out.println("受け取ったID：" + req.getId() + "受け取った説明文：" + req.getDescription());
-		AIDescription desc = aiDescriptionRepository.findById(req.getId()).orElseThrow();
-		desc.setEdited_description(req.getDescription());
-		Product product = desc.getProduct();
-		product.setIs_published(true); //商品情報を公開
-		aiDescriptionRepository.save(desc);
-		
+			//説明文の保存と公開フラグ設定をサービスに移譲
+			productService.updateDescriptionAndPublish(req.getId(), req.getDescription());
+			
 		return ResponseEntity.ok().build();
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -78,7 +77,7 @@ public class ProductApiController {
 			//画像・コメント保存とDB登録の処理をサービスへ移譲
 			System.out.println("saveProduct呼び出し");
 			
-			PostResult result = productCreateService.saveProduct(file,name,price,stock);
+			PostResult result = productService.saveProduct(file,name,price,stock);
 			System.out.println("PostResultで受け取った内容：" + result.getAiDescription() + result.getAiDescriptionId());
 			
 			return ResponseEntity.ok(result);
@@ -97,12 +96,24 @@ public class ProductApiController {
 	
 	@GetMapping("/{id}")
 	@ResponseBody
-	public ResponseEntity<Product> getProduct(@PathVariable Long id) {
+	public ResponseEntity<ProductDto> getProduct(@PathVariable Long id) {
 		
 		System.out.println("受け取ったID：" + id);
 		
 		return productRepository.findById(id)
-				.map(ResponseEntity::ok)
+				.map(product -> ResponseEntity.ok(new ProductDto(product)))
 				.orElse(ResponseEntity.notFound().build());
+	}
+	
+	@DeleteMapping("/{id}")
+	public ResponseEntity<Void> deleteProduct(@PathVariable Long id) {
+		Product product = productRepository.findById(id).orElse(null);
+		
+		//関連する説明文を先に削除
+		AIDescription desc = aiDescriptionRepository.findByProduct(product);
+		aiDescriptionRepository.delete(desc);
+		
+		productRepository.delete(product);
+		return ResponseEntity.noContent().build();
 	}
 }

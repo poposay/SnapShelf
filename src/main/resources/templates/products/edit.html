@@ -43,26 +43,25 @@
 				<input type="text" v-model="price" id="price" name="price" autocomplete="off" :disabled="isLocked">
 				<label for="stock">在庫数</label>
 				<input type="text" v-model="stock" id="stock" name="stock" autocomplete="off" :disabled="isLocked">
-				<button @click="showGenerateModal=true" :disabled="isLocked"><span><i class="bi bi-chat-dots"></i></span> 説明文生成</button>
-				<textarea v-model="aiDescription" rows="5" cols="50" required></textarea>
+				<label for="description">説明文</label>
+				<textarea v-model="description" rows="5" cols="50" required></textarea>
 			</div>
-
+			<button @click="showDeleteModal=true">削除</button>
 			<button @click="showSaveModal=true">保存</button>
-
 			<button @click="showCancelModal=true">キャンセル</button>	
 		</div>
 		
 		<!-- モーダル -->
 		
 		<!-- オーバーレイ -->
-		<div v-if="showGenerateModal || showSaveModal || showCancelModal" class="modal-overlay"></div>
+		<div v-if="showDeleteModal || showSaveModal || showCancelModal" class="modal-overlay"></div>
 		
 		<!--　モーダル本体　-->
-		<div v-if="showGenerateModal" class="modal">
-			<p>商品情報を確定し、説明文を生成します。よろしいですか？</p>
+		<div v-if="showDeleteModal" class="modal">
+			<p>商品を削除します。よろしいですか？</p>
 			<div class="modal-button-group">
-			<button @click="generateDescription">OK</button>
-			<button @click="showGenerateModal=false">キャンセル</button>
+			<button @click="deleteProduct">OK</button>
+			<button @click="showDeleteModal=false">キャンセル</button>
 			</div>
 		</div>
 		
@@ -75,9 +74,9 @@
 		</div>
 		
 		<div v-if="showCancelModal" class="modal">
-			<p>登録をキャンセルします。よろしいですか？</p>
+			<p>編集をキャンセルします。よろしいですか？</p>
 			<div class="modal-button-group">
-			<button @click="goHome">OK</button>
+			<button @click="goShelf">OK</button>
 			<button @click="showCancelModal=false">キャンセル</button>
 			</div>
 		</div>
@@ -99,24 +98,25 @@
 	      stock: '',
 	      imageFile: null,
 	      imagePreview: null,
-	      aiDescription: '',
+	      description: '',
 	      showDialog: false,
 	      isLocked: false,
-	      showGenerateModal: false,
+	      showDeleteModal: false,
 	      showSaveModal: false,
 	      showCancelModal: false
 	    };
 	  },
 	  methods: {
 	    fetchProduct() {
+			console.log("fetchProduct呼び出し")
 	      axios.get(`/api/product/${this.productId}`)
 	        .then(response => {
 	          const product = response.data;
 	          this.name = product.product_name;
 	          this.price = product.price.toString();
 	          this.stock = product.stock.toString();
-	          this.aiDescription = product.description;
-	          this.imagePreview = product.image_url;
+	          this.description = product.description;
+	          this.imagePreview = product.imageUrl;
 	        })
 	        .catch(error => {
 	          console.error("商品情報取得失敗", error);
@@ -186,6 +186,16 @@
 	        alert("保存に失敗しました");
 	      }
 	    },
+		async deleteProduct() {
+			try {
+				await axios.delete(`/api/product/${this.productId}`)
+			alert("削除しました");
+			window.location.href = 'shelfview';
+			} catch(error) {
+				console.error("削除失敗",error);
+				alert("削除に失敗しました");
+			}
+		},
 	    resetForm() {
 	      this.aiDescriptionId = '';
 	      this.name = '';
@@ -206,8 +216,8 @@
 	    closeDialog() {
 	      this.showDialog = false;
 	    },
-	    goHome() {
-	      window.location.href = '/home';
+	    goShelf() {
+	      window.location.href = '/shelfview';
 	    }
 	  },
 	  mounted() {

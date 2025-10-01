@@ -27,7 +27,7 @@ import com.say.popo.snapshelf.repository.UserRepository;
 import jakarta.servlet.http.HttpSession;
 
 @Service
-public class ProductCreateService {
+public class ProductService {
 	
 	private final ProductRepository productRepository;
 	private final UserRepository userRepository;
@@ -36,7 +36,7 @@ public class ProductCreateService {
 	private final VisionService visionService;
 	private final GeminiService geminiService;
 	
-	public ProductCreateService(ProductRepository productRepository, UserRepository userRepository, AIDescriptiontRepository aiDescriptionRepository,PromptService promptService,
+	public ProductService(ProductRepository productRepository, UserRepository userRepository, AIDescriptiontRepository aiDescriptionRepository,PromptService promptService,
 			VisionService visionService, GeminiService geminiService) {
 		this.productRepository = productRepository;
 		this.userRepository = userRepository;
@@ -89,12 +89,13 @@ public class ProductCreateService {
 
 	}
 	
-	public void updateDescription(Long id,String desc) {
-		Optional<AIDescription> optional = aiDescriptionRepository.findById(id);
-		if(optional.isPresent()) {
-			AIDescription entity = optional.get();
-			entity.setEdited_description(desc);
-			aiDescriptionRepository.save(entity);
-		}
+	public void updateDescriptionAndPublish(Long descriptionId,String newDescription) {
+		
+		AIDescription desc = aiDescriptionRepository.findById(descriptionId).orElseThrow();
+		desc.setEdited_description(newDescription);
+		Product product = desc.getProduct();
+		product.setIs_published(true); //商品情報を公開
+		aiDescriptionRepository.save(desc);
+		productRepository.save(product);
 	}
 }
