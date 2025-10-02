@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -115,5 +116,25 @@ public class ProductApiController {
 		
 		productRepository.delete(product);
 		return ResponseEntity.noContent().build();
+	}
+	
+	@PutMapping("/{id}")
+	public ResponseEntity<?> apdateProduct(@PathVariable Long id,
+			@RequestParam(value = "productimage", required = false) MultipartFile file ,
+			@RequestParam String name,
+			@RequestParam int price,
+			@RequestParam int stock,
+			@RequestParam String description) throws IOException  {
+		
+		try {
+			System.out.println("更新する内容：" + id + file + name + price + stock + description);
+			//更新をサービスへ移譲
+			productService.updateProduct(id,file,name,price,stock,description);
+
+			return ResponseEntity.ok().build();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return ResponseEntity.internalServerError().build();
+	}
 	}
 }

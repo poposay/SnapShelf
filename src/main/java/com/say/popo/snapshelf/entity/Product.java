@@ -3,6 +3,7 @@ package com.say.popo.snapshelf.entity;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -31,7 +32,7 @@ public class Product {
 	@JoinColumn(name = "user_id", nullable = false)
 	private Users user;
 	
-	@OneToOne(mappedBy = "product", fetch = FetchType.LAZY)
+	@OneToOne(mappedBy = "product", fetch = FetchType.LAZY, cascade = CascadeType.ALL, orphanRemoval = true)
 	private AIDescription aiDescription;
 	
 	@Column(length = 255, nullable = false)

@@ -21,14 +21,17 @@
 	
 	<div class="popo-container">
 		<h2>商品詳細</h2>
-	  <div class="thumbnail-wrapper">
 		<h1 th:text="${product.product_name}">商品名</h1>
+		<div class="thumbnail-wrapper">
 	    <img th:src="${product.image_url}" alt="投稿画像" class="post-thumbnail">
-		<p th:text="価格 + ${product.price} + 円">価格</p>
-		<p th:text="在庫数 + ${product.stock} + 個">在庫数</p>
+		</div>
+		<p th:text="|価格: ${product.price} 円|">価格</p>
+		<p th:text="|在庫数: ${product.stock} 個|">在庫数</p>
+		<p th:text="|説明文: ${product.aiDescription.edited_description}|">説明文</p>
+		<a href="/shelfview" class="btn">一覧へ</a>
+		<a th:href="@{/products/{id}/edit(id=${product.id})}" class="btn">編集・削除</a>
 	  </div>
-	<a href="/shelfview" class="btn">一覧へ</a>
-	<a th:href="@{/products/{id}/edit(id=${product.id})}" class="btn">編集・削除</a>
+
 
 
 	
