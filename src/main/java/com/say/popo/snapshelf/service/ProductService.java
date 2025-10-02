@@ -82,13 +82,10 @@ public class ProductService {
 		aiDescription.setProduct(product);
 		aiDescription.setContent(discription);
 		aiDescriptionRepository.save(aiDescription);
-		
-		
 
 		return new PostResult(discription,aiDescription.getId());
 
 	}
-	
 	public void updateDescriptionAndPublish(Long descriptionId,String newDescription) {
 		
 		AIDescription desc = aiDescriptionRepository.findById(descriptionId).orElseThrow();
@@ -97,5 +94,24 @@ public class ProductService {
 		product.setIs_published(true); //商品情報を公開
 		aiDescriptionRepository.save(desc);
 		productRepository.save(product);
+	}
+	
+	public void updateProduct(Long id,MultipartFile file, String name, int price, int stock, String description) throws IOException{
+		
+		Product product = productRepository.findById(id).orElseThrow();
+		AIDescription desc = product.getAiDescription();
+		if (file != null && !file.isEmpty()) {
+		String filename = UUID.randomUUID() + "_" + file.getOriginalFilename();
+		Path uploadPath = Paths.get("src/main/resources/static/uploads/" + filename);
+		Files.copy(file.getInputStream(),uploadPath);
+		product.setImage_url("/uploads/" + filename);
+		}
+		product.setProduct_name(name);
+		product.setPrice(price);
+		product.setStock(stock);
+		productRepository.save(product);
+		
+		desc.setEdited_description(description);
+		aiDescriptionRepository.save(desc);
 	}
 }

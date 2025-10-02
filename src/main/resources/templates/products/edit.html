@@ -66,9 +66,9 @@
 		</div>
 		
 		<div v-if="showSaveModal" class="modal">
-			<p>商品を登録します。よろしいですか？</p>
+			<p>更新します。よろしいですか？</p>
 			<div class="modal-button-group">
-			<button @click="saveProduct">OK</button>
+			<button @click="updateProduct">OK</button>
 			<button @click="showSaveModal=false">キャンセル</button>
 			</div>
 		</div>
@@ -130,89 +130,64 @@
 	    },
 	    isValidNumber(value) {
 	      const num = Number(value);
-	      return /^[0-9]+$/.test(value) && Number.isInteger(num) && num >= 0;
+	      return Number.isInteger(num) && num >= 0;
 	    },
 	    isValidProductInput() {
 	      return (
 	        this.name.trim() &&
-	        this.imageFile &&
+	        (this.imageFile || this.imagePreview) &&
+			this.description &&
 	        this.isValidNumber(this.price) &&
 	        this.isValidNumber(this.stock)
 	      );
 	    },
-	    async generateDescription() {
+	    async updateProduct() {
+			
+			console.log({
+			　　id: this.productId,
+			  name: this.name,
+			  imageFile: this.imageFile,
+			  description: this.description,
+			  price: this.price,
+			  stock: this.stock
+			});
+
 	      if (!this.isValidProductInput()) {
-	        this.showGenerateModal = false;
+	        this.showSaveModal = false;
 	        await this.$nextTick();
-	        alert("商品名・画像・価格・在庫数を正しく入力してください（半角整数・0以上）");
+	        alert("商品名・画像・説明文・価格・在庫数を正しく入力してください（半角整数・0以上）");
 	        return;
 	      }
 	      const formData = new FormData();
+		  formData.append('id', this.productId);
 	      formData.append('name', this.name);
 	      formData.append('price', this.price);
 	      formData.append('stock', this.stock);
-	      formData.append('productimage', this.imageFile);
+		  formData.append('description', this.description);
+		  if(this.imageFile) {
+			formData.append('productimage',this.imageFile);
+		  }	
+	      try {
+	        const response = await axios.put(`/api/product/${this.productId}`, formData);
+			alert("商品情報を更新しました");
+		  	window.location.href = `/products/${this.productId}/detail`;
+		  }catch (error) {
+	        console.error("更新失敗", error);
+	        alert("更新に失敗しました");
+	      }
+	    },
 
-	      try {
-	        const response = await axios.post('/api/product/productcreate', formData);
-	        this.aiDescriptionId = response.data.aiDescriptionId;
-	        this.aiDescription = response.data.aiDescription;
-	        this.isLocked = true;
-	        this.showGenerateModal = false;
-	      } catch (error) {
-	        console.error("説明文生成失敗", error);
-	        alert("説明文の生成に失敗しました");
-	      }
-	    },
-	    async saveProduct() {
-	      if (!this.aiDescription) {
-	        this.showSaveModal = false;
-	        await this.$nextTick();
-	        alert("説明文は必須です");
-	        return;
-	      }
-	      try {
-	        await axios.post('/api/update-description', {
-	          id: parseInt(this.aiDescriptionId),
-	          description: this.aiDescription
-	        }, {
-	          headers: { 'Content-Type': 'application/json' }
-	        });
-	        this.showDialog = true;
-	        this.showSaveModal = false;
-	        this.resetForm();
-	      } catch (error) {
-	        console.error("保存失敗", error);
-	        alert("保存に失敗しました");
-	      }
-	    },
 		async deleteProduct() {
 			try {
 				await axios.delete(`/api/product/${this.productId}`)
 			alert("削除しました");
-			window.location.href = 'shelfview';
+			window.location.href = '/shelfview';
 			} catch(error) {
 				console.error("削除失敗",error);
 				alert("削除に失敗しました");
 			}
 		},
-	    resetForm() {
-	      this.aiDescriptionId = '';
-	      this.name = '';
-	      this.price = '';
-	      this.stock = '';
-	      this.imageFile = null;
-	      this.imagePreview = null;
-	      this.aiDescription = '';
-	      this.isLocked = false;
-	      this.showGenerateModal = false;
-	      this.showSaveModal = false;
-	      this.showCancelModal = false;
 
-	      if (this.$refs.fileInput) {
-	        this.$refs.fileInput.value = null;
-	      }
-	    },
 	    closeDialog() {
 	      this.showDialog = false;
 	    },

@@ -39,12 +39,12 @@ public class ProductPageController {
 	@GetMapping("/productcreate")
 	public String showPostPage(Model model) {
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-		String email = auth.getName();
-		
+		String email = auth.getName();		
 		Optional<Users> userOpt = userRepository.findByEmail(email);
 		if(userOpt.isPresent()) {
 			Users user = userOpt.get();
 			model.addAttribute("currentUsername", user.getUsername());
+		
 			return "productcreate";
 		}else {
 			//ユーザーが見つからなかった場合
@@ -77,12 +77,12 @@ public class ProductPageController {
 			Users user = userOpt.get();
 			model.addAttribute("currentUsername", user.getUsername());
 		}
-			
+
 		Optional<Product> optionalProduct = productRepository.findById(id);
 		if(optionalProduct.isPresent()) {
 			Product product = optionalProduct.get();
 			model.addAttribute("product",product);
-			return "products/detail";
+			return "products/detail"; 
 		}
 		return "error/404";
 	}
