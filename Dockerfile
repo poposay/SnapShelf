@@ -1,4 +1,4 @@
-FROM eclipse-temurin:11.0.17_8-jdk-alpine
+FROM eclipse-temurin:17.0.8_7-jdk-alpine
 WORKDIR /app
 COPY .mvn/ .mvn
 COPY mvnw mvnw.cmd pom.xml ./
