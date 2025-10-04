@@ -19,6 +19,12 @@ public class HomeController {
 	public HomeController(UserRepository userRepository) {
 		this.userRepository = userRepository;
 	}
+		    
+	    @GetMapping("/")
+	    public String home() {
+	        return "redirect:/login";
+	    }
+	
 	
 	@GetMapping("/home")
 	public String showHomePage(Model model) {
