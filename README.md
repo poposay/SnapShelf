@@ -7,6 +7,20 @@ Smart product management with auto-generated tags and descriptions.
 
 現在は基本的な CRUD 機能とユーザー認証を実装済みで、外部 API 連携やクラウドデプロイは今後追加予定です。
 
+## 📷スクリーンショット
+
+**ホーム画面**
+
+<img src="readme-assets/home.png" alt="ホーム画面" width="300">
+
+**商品登録画面**
+
+<img src="readme-assets/productcreate.png" alt="ホーム画面" width="300">
+
+**商品一覧画面**
+
+<img src="readme-assets/shelfview.png" alt="ホーム画面" width="300">
+
 ## ✨ 実装済み機能
 - ✅ ユーザー登録・ログイン（Spring Security）
 - ✅ 商品情報の登録・一覧表示

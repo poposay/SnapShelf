@@ -44,10 +44,10 @@
 				<label for="stock">在庫数</label>
 				<input type="text" v-model="stock" id="stock" name="stock" autocomplete="off" :disabled="isLocked">
 				<button @click="showGenerateModal=true" :disabled="isLocked"><span><i class="bi bi-chat-dots"></i></span> 説明文生成</button>
-				<textarea v-model="aiDescription" rows="5" cols="50" required></textarea>
+				<textarea v-model="aiDescription" rows="5" cols="50" :disabled="isLocked_generatebefore" required></textarea>
 			</div>
 
-			<button @click="showSaveModal=true">保存</button>
+			<button @click="showSaveModal=true" :disabled="isLocked_generatebefore">保存</button>
 
 			<button @click="showCancelModal=true">キャンセル</button>	
 		</div>
@@ -102,6 +102,7 @@
 	      	aiDescription: '', 
 	      	showDialog: false,
 			isLocked: false,
+			isLocked_generatebefore: true,
 			showGenerateModal: false,
 			showSaveModal: false,
 			showCancelModal: false
@@ -149,6 +150,7 @@
 					this.isLocked = true;
 					console.log("反映された説明文：", this.aiDescription);
 					this.showGenerateModal = false;
+					this.isLocked_generatebefore = false;
 				} catch(error) {
 					console.error("説明文生成失敗",error);
 					alert("説明文の生成に失敗しました");
@@ -187,6 +189,7 @@
 				this.imagePreview = null;		
 			  	this.aiDescription = '';
 				this.isLocked = false;
+				this.isLocked_generatebefore = true;
 				this.showGenerateModal = false;
 				this.showSaveModal = false;
 				this.showCancelModal = false

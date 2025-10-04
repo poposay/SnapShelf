@@ -1,9 +1,9 @@
-/*
  package com.say.popo.snapshelf.dto;
  
 
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
 public class RegisterRequest {
@@ -17,6 +17,7 @@ public class RegisterRequest {
 	private String email;
 
 	@NotBlank(message = "パスワードは必須です")
+	@Pattern(regexp = "^[a-zA-Z0-9]+$", message = "パスワードは半角英数字のみで入力してください")
 	private String password;
 
 	public String getUsername() {
@@ -43,6 +44,6 @@ public class RegisterRequest {
 		this.email = email;
 	}
 }
-*/
+
 
 
