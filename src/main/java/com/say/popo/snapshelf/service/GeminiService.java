@@ -8,7 +8,7 @@ public class GeminiService {
 	public String callGeminiApi(String prompt) {
 		//未実装
 	
-		String aiDescription = "テスト商品説明";
+		String aiDescription = "（テスト）AIが生成した説明文が表示されます";
 		return aiDescription;
 	}
 }
