@@ -7,6 +7,15 @@ Smart product management with auto-generated tags and descriptions.
 
 現在は基本的な CRUD 機能とユーザー認証を実装済みで、外部 API 連携やクラウドデプロイは今後追加予定です。
 
+## デモ
+🚀 **https://snapshelf-hs6j.onrender.com**
+
+**注意：** 無料プランのため、初回アクセス時は起動に30秒〜1分ほどかかります。
+
+### テストアカウント
+- メールアドレス: test@test
+- パスワード: test
+
 ## 📷スクリーンショット
 
 **ホーム画面**
