@@ -44,10 +44,6 @@ public class ShelfViewController {
 			model.addAttribute("currentUsername", user.getUsername());
 			
 			
-			List<Product> products = productRepository.findAll();
-
-			model.addAttribute("products", products);
-			
 			return "shelfview";
 		
 		}else {

@@ -91,7 +91,7 @@ public class ProductApiController {
 	public Page<ProductDto> getAllProducts(@RequestParam(defaultValue = "0") int page,
 											@RequestParam(defaultValue = "10") int size) {
 		Pageable pageable = PageRequest.of(page, size);
-		return productRepository.findAll(pageable)
+		return productRepository.findByPublishedTrue(pageable)
 				.map(ProductDto::new);
 	}
 	

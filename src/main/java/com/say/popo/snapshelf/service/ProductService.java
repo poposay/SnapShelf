@@ -91,7 +91,7 @@ public class ProductService {
 		AIDescription desc = aiDescriptionRepository.findById(descriptionId).orElseThrow();
 		desc.setEdited_description(newDescription);
 		Product product = desc.getProduct();
-		product.setIs_published(true); //商品情報を公開
+		product.setPublished(true); //商品情報を公開
 		aiDescriptionRepository.save(desc);
 		productRepository.save(product);
 	}

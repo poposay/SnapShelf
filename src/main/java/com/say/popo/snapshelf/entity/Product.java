@@ -48,7 +48,7 @@ public class Product {
 	private String tags;
 	
 	@Column(nullable=false)
-	private boolean is_published = false;
+	private boolean published = false;
 	
 	@Column(nullable = false)
 	private LocalDateTime createdAt;
@@ -135,13 +135,16 @@ public class Product {
 		this.stock = stock;
 	}
 
-	public boolean isIs_published() {
-		return is_published;
+	public boolean isPublished() {
+		return published;
 	}
 
-	public void setIs_published(boolean is_published) {
-		this.is_published = is_published;
+	public void setPublished(boolean published) {
+		this.published = published;
 	}
-	
+
+
+
+
 
 }
