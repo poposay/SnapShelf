@@ -3,9 +3,9 @@ spring:
     name: SnapShelf
   
   datasource:
-    url: ${DATABASE_URL:jdbc:postgresql://localhost:5432/snapshelf}
-    username: ${DB_USERNAME:postgres}
-    password: ${DB_PASSWORD:saypg0509}
+    url: jdbc:postgresql://localhost:5432/snapshelf
+    username: postgres
+    password: saypg0509
     driver-class-name: org.postgresql.Driver
   
   jpa:
