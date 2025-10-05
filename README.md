@@ -32,10 +32,11 @@ Smart product management with auto-generated tags and descriptions.
 
 ## ✨ 実装済み機能
 - ✅ ユーザー登録・ログイン（Spring Security）
-- ✅ 商品情報の登録・一覧表示
+- ✅ 商品情報の登録・一覧表示・編集・保存
 - ✅ Spring Data JPA によるデータベース操作
 - ✅ Thymeleaf による画面表示
 - ✅ Vue.js による部分的な動的処理
+- ✅　Renderへのデプロイ
 
 ## 🚧 開発予定
 - ⏳ Google Vision API による画像解析・タグ自動生成

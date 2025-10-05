@@ -50,7 +50,7 @@ public class HomeController {
 		if(userOpt.isPresent()) {
 			Users user = userOpt.get();
 			model.addAttribute("currentUsername", user.getUsername());
-			return "/error/comingsoon";
+			return "error/comingsoon";
 		}else {
 			//ユーザーが見つからなかった場合
 			return "redirect:/error/unauthorized";
