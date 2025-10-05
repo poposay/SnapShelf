@@ -49,16 +49,8 @@ application-prod.yml
 
 
 #Images(画像ファイル)
-images/
-*.jpeg
-!readme-assets/*.png
-!readme-assets/*.jpeg
-!readme-assets/*.gif
-*.gif
-*.bmp
-*.tiff
-*.svg
-*.webp
+uploads/
+/uploads/
 
 #Google Cloud関連のトークン・認証情報
 #サービスアカウントキー

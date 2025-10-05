@@ -25,6 +25,7 @@ import com.say.popo.snapshelf.repository.ProductRepository;
 import com.say.popo.snapshelf.repository.UserRepository;
 
 import jakarta.servlet.http.HttpSession;
+import net.coobird.thumbnailator.Thumbnails;
 
 @Service
 public class ProductService {
@@ -51,7 +52,11 @@ public class ProductService {
 
 		String filename = UUID.randomUUID() + "_" + file.getOriginalFilename();
 		Path uploadPath = Paths.get("src/main/resources/static/uploads/" + filename);
-		Files.copy(file.getInputStream(),uploadPath);
+		//Files.copy(file.getInputStream(),uploadPath);
+		Thumbnails.of(file.getInputStream())
+			.size(800, 800)
+			.outputQuality(0.8)
+			.toFile(uploadPath.toFile());
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();

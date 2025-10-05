@@ -53,7 +53,7 @@ body {
     display: flex;
     align-items: center;
     padding: 4px 12px;
-    height: auto;
+    height: 50px;
     background-color: #2ab7ca; /* ターコイズブルー */
     box-shadow: 0 2px 8px rgba(0, 128, 128, 0.1);
     
@@ -68,8 +68,8 @@ body {
 
 /* アイコン */
 .app-icon {
-    width: 48px;
-    height: auto;
+    width: 32px;
+    height: 48px;
     margin-right: 10px;
 }
 
@@ -431,7 +431,7 @@ button:disabled {
 
 .dialog-bar {
   position: fixed;
-  top: 75px; 
+  top: 54px; 
   left: 0;
   height: 12px;
   width: 100%;

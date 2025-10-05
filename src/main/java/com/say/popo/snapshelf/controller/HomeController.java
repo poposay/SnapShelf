@@ -41,4 +41,19 @@ public class HomeController {
 			return "redirect:/error/unauthorized";
 		}
 	}
+	
+	@GetMapping("/comingsoon")
+	public String showcomingsoon(Model model) {
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+		Optional<Users> userOpt = userRepository.findByEmail(email);
+		if(userOpt.isPresent()) {
+			Users user = userOpt.get();
+			model.addAttribute("currentUsername", user.getUsername());
+			return "/error/comingsoon";
+		}else {
+			//ユーザーが見つからなかった場合
+			return "redirect:/error/unauthorized";
+		}
+	}
 }
