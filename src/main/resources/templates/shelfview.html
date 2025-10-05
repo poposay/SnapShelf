@@ -20,7 +20,18 @@
 		<a class="logoutbtn" href="/login">ログアウト</a>
 	</header>
 	<div id="app">
-		<h2>商品一覧</h2>
+		<div class="search-container">
+			<input
+				type="text"
+				v-model="searchKeyword"
+				@input="onSearchInput"
+				@keypress.enter="doSearch"
+				placeholder="商品名で検索"
+				class="search-input"
+			>
+			<button v-if="searchKeyword" @click="clearSearch" class="btn">クリア</button>
+		</div>
+		
 		<div class="card-container">
 			<div class="product-card" v-for="product in products" :key="product.id"
 			@click="goToProductDetail(product.id)">
@@ -50,22 +61,55 @@
 				return{
 					products:[],
 					currentPage: 0,
-					pageSize: 10
+					pageSize: 10,
+					searchKeyword: '',
+					searchTimeout: null
+					
 				};
 			},
 			methods: {
 				fetchProducts(){
-					axios.get('/api/product/shelfview',{
-						params: {
-							page: this.currentPage,
-							size: this.pageSize
-						}
-					})
+					
+					
+					const params = {
+						page: this.currentPage,
+						size: this.pageSize
+					};
+					
+					//キーワードがあれば追加
+					if(this.searchKeyword) {
+						params.keyword = this.searchKeyword;
+					}
+					
+
+					axios.get('/api/product/shelfview',{ params })
+
 					.then(response => {
 						this.products = response.data.content;
 					});
 					
 				},
+				
+				onSearchInput() {
+					//入力中は検索しない
+					clearTimeout(this.searchTimeout);
+					this.searchTimeout = setTimeout(() => {
+						this.doSearch();
+					},500);
+				},
+				
+				doSearch() {
+					//検索時にページリセット
+					this.currentPage = 0;
+					this.fetchProducts();
+				},
+				
+				clearSearch() {
+					this.searchKeyword = '';
+					this.currentPage = 0;
+					this.fetchProducts();
+				},
+				
 				nextPage(){
 					this.currentPage++;
 					this.fetchProducts();

@@ -89,8 +89,16 @@ public class ProductApiController {
 
 	@GetMapping("/shelfview")
 	public Page<ProductDto> getAllProducts(@RequestParam(defaultValue = "0") int page,
-											@RequestParam(defaultValue = "10") int size) {
+											@RequestParam(defaultValue = "10") int size,
+											@RequestParam(required = false) String keyword) {
 		Pageable pageable = PageRequest.of(page, size);
+		
+		// キーワードがある場合は検索、ない場合は全件表示
+	    if (keyword != null && !keyword.isEmpty()) {
+	        return productRepository.searchByKeyword(keyword, pageable)
+	            .map(ProductDto::new);
+	    }		
+		
 		return productRepository.findByPublishedTrue(pageable)
 				.map(ProductDto::new);
 	}

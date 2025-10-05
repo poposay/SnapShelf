@@ -23,7 +23,7 @@ public class AIDescription {
 	private Long id;
 	
 	@OneToOne
-	@JoinColumn(name = "product_id", nullable = false)
+	@JoinColumn(name = "product_id",nullable = false)
 	private Product product;
 	
 	
