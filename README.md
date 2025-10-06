@@ -5,7 +5,7 @@ Smart product management with auto-generated tags and descriptions.
 個人学習用の Spring Boot Web アプリケーション。
 商品画像を登録すると AI が自動でタグを抽出し、説明文を生成する商品管理システムです。
 
-現在は基本的な CRUD 機能とユーザー認証を実装しRenderへデプロイ済みで、外部API連携やAWSへのデプロイは今後追加予定です。
+現在は基本的な CRUD 機能とユーザー認証、Vision API連携を実装しRenderへデプロイ済みで、Gemini　API連携やAWSへのデプロイは今後追加予定です。
 
 ## デモ
 🚀 **https://snapshelf-hs6j.onrender.com**
@@ -37,9 +37,9 @@ Smart product management with auto-generated tags and descriptions.
 - ✅ Thymeleaf による画面表示
 - ✅ Vue.js による部分的な動的処理
 - ✅ Renderへのデプロイ
+- ✅ Google Vision API による画像解析・タグ自動生成
 
 ## 🚧 開発予定
-- ⏳ Google Vision API による画像解析・タグ自動生成
 - ⏳ Gemini API による商品説明文の自動生成
 - ⏳ AWS (EC2 + RDS) へのデプロイ
 - ⏳ タグでの分類、入出庫管理などの拡張
@@ -60,6 +60,9 @@ Smart product management with auto-generated tags and descriptions.
 - HTML / CSS
 - JavaScript
 - Vue.js（一部導入）
+
+**外部API**
+- Vision API
 
 **その他**
 - Git / GitHub / GitHub Desktop
