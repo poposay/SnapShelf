@@ -54,10 +54,10 @@ uploads/
 
 #Google Cloud関連のトークン・認証情報
 #サービスアカウントキー
-*.json
 service-account-*.json
 google-cloude-key.json
 vision-key.json
+src/main/resources/keys/
 
 #環境変数ファイル
 .env
