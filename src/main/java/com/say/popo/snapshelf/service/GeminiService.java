@@ -8,7 +8,7 @@ public class GeminiService {
 	public String callGeminiApi(String prompt) {
 		//未実装
 	
-		String aiDescription = "（テスト）AIが生成した説明文が表示されます";
+		String aiDescription = ("【タグ抽出・プロンプト作成まで実装済みのため、プロンプトを表示】" + prompt);
 		return aiDescription;
 	}
 }

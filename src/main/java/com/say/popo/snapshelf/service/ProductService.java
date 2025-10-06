@@ -52,12 +52,14 @@ public class ProductService {
 
 		String filename = UUID.randomUUID() + "_" + file.getOriginalFilename();
 		Path uploadPath = Paths.get("src/main/resources/static/uploads/" + filename);
-		//Files.copy(file.getInputStream(),uploadPath);
+		
+		//画像を保存（リサイズ+圧縮）
 		Thumbnails.of(file.getInputStream())
 			.size(800, 800)
 			.outputQuality(0.8)
 			.toFile(uploadPath.toFile());
 		
+		//認証ユーザーの取得
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
 		Users user = userRepository.findByEmail(email).orElseThrow();
@@ -73,11 +75,16 @@ public class ProductService {
 		System.out.println("DBに一時保存完了");
 		
 		//画像解析
+		byte[] imageBytes = file.getBytes();
 		String fullUrl = "http://localhost:8080/uploads/" + filename;
-		List<String> tags = visionService.analyzeImageByUrl(fullUrl);
+		List<String> tags = visionService.extractLabels(imageBytes);
+		
+		System.out.println("抽出されたタグ" + tags);
+		
 		//プロンプト作成
 		String prompt = promptService.buildPrompt(tags,name);
 		System.out.println("受け取ったプロンプト：" + prompt);
+		
 		//AIメッセージ生成
 		String discription = geminiService.callGeminiApi(prompt);
 		System.out.println("受け取った説明文：" + discription);
