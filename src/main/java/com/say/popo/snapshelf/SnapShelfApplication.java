@@ -18,12 +18,15 @@ public class SnapShelfApplication {
 		SpringApplication.run(SnapShelfApplication.class, args);
 	}
 	
-    @Bean
+  /*  @Bean
     public ApplicationRunner credentialsInitializer() {
         return args -> {
             String base64 = System.getenv("GOOGLE_APPLICATION_CREDENTIALS_BASE64");
 
             if (base64 != null && !base64.isEmpty()) {
+                base64 = base64.replaceAll("\\s", "");  // 改行やスペース除去
+                System.out.println("Base64 length: " + base64.length());
+
                 byte[] decoded = Base64.getDecoder().decode(base64);
                 Path tempFile = Files.createTempFile("gcp-key-", ".json");
                 Files.write(tempFile, decoded);
@@ -36,5 +39,5 @@ public class SnapShelfApplication {
                 System.err.println("❌ GOOGLE_APPLICATION_CREDENTIALS_BASE64 is not set.");
             }
         };
-    }
+    }*/
 }
