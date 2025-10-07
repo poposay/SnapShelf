@@ -15,7 +15,7 @@ import java.util.Base64;
 @Configuration
 public class GoogleConfig {
 
-    @Value("${google.credentials.base64:}")
+    @Value("${GOOGLE_APPLICATION_CREDENTIALS_BASE64:}")
     private String credentialsBase64;
   
 
