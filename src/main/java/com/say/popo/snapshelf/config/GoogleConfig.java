@@ -6,7 +6,7 @@ import com.google.cloud.vision.v1.ImageAnnotatorSettings;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.io.Resource;
+import org.springframework.core.io.ClassPathResource;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
@@ -17,9 +17,7 @@ public class GoogleConfig {
 
     @Value("${google.credentials.base64:}")
     private String credentialsBase64;
-
-    @Value("${google.credentials.location}")  
-    private Resource credentialsLocation;      
+  
 
     @Bean
     public ImageAnnotatorClient imageAnnotatorClient() throws IOException {
@@ -34,9 +32,13 @@ public class GoogleConfig {
         } else {
             // ローカル環境：ファイルから読み込み
             System.out.println("✅ ローカル環境: ファイルから認証情報を読み込み");
-            credentials = GoogleCredentials.fromStream(credentialsLocation.getInputStream());
+            ClassPathResource resource = new ClassPathResource("keys/vision-key.json");
+            if (!resource.exists()) {
+                throw new IllegalStateException("認証情報が見つかりません。" );
         }
-
+            credentials = GoogleCredentials.fromStream(resource.getInputStream());
+        }
+        
         ImageAnnotatorSettings settings = ImageAnnotatorSettings.newBuilder()
                 .setCredentialsProvider(() -> credentials)
                 .build();

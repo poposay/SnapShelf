@@ -36,7 +36,4 @@ server:
 google:
   credentials:
     # 本番環境（Render）ではBase64エンコードした値を使用
-    # ローカルでは空文字列なので、下記のファイルパスが使われる
     base64: ${GOOGLE_CREDENTIALS_BASE64:}
-    # ローカル環境用のファイルパス
-    location: classpath:/keys/vision-key.json
