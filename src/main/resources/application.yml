@@ -28,6 +28,17 @@ spring:
       max-file-size: 5MB
       max-request-size: 10MB
 
+  cloud:
+    gcp:
+      core:
+        enabled: false  # GCPの自動設定を無効化
+      secretmanager:
+        enabled: false
+      pubsub:
+        enabled: false
+      storage:
+        enabled: false
+
 server:
   address: 0.0.0.0
   port: ${PORT:8080}
