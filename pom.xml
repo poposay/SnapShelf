@@ -86,8 +86,8 @@
         <!-- Google Cloud Vision API -->
 		<dependency>
   			<groupId>com.google.cloud</groupId>
-  			<artifactId>spring-cloud-gcp-starter-vision</artifactId>
-  			<version>7.3.0</version> <!-- 最新版（2025年10月時点） -->
+  			<artifactId>google-cloud-vision</artifactId>
+  			<version>3.30.0</version> <!-- 最新版（2025年10月時点） -->
 		</dependency>
 
 
