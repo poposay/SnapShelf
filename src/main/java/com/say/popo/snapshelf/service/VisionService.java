@@ -18,6 +18,12 @@ import com.google.protobuf.ByteString;
 
 @Service
 public class VisionService {
+	
+	private final ImageAnnotatorClient imageAnnotatorClient;
+	
+	public VisionService(ImageAnnotatorClient imageAnnotatorClient) {
+		this.imageAnnotatorClient = imageAnnotatorClient;
+	}
 
     public List<String> extractLabels(byte[] imageBytes)  throws IOException {
             
@@ -37,8 +43,9 @@ public class VisionService {
     	
     	List<String> tags = new ArrayList<>();
     	
-    	try (ImageAnnotatorClient client = ImageAnnotatorClient.create()) {
-    		AnnotateImageResponse response = client.batchAnnotateImages(requests).getResponses(0);
+    	AnnotateImageResponse response = imageAnnotatorClient
+    	        .batchAnnotateImages(requests)
+    	        .getResponses(0);
     		
     		if (response.hasError()) {
     			System.out.println("Error:" + response.getError().getMessage());
@@ -148,5 +155,5 @@ public class VisionService {
     	 return tags;
      }
       */ 
-    }
+    
 }
