@@ -26,6 +26,12 @@ Smart product management with auto-generated tags and descriptions.
 
 <img src="readme-assets/productcreate.png" alt="ホーム画面" width="300">
 
+**説明文生成ボタン押下時**
+
+現在は、Vision APIによって抽出されたタグをもとにGemini連携時に渡すプロンプトを仮表示します。
+
+<img src="readme-assets/prompt.png" alt="プロンプト" width="300">
+
 **商品一覧画面**
 
 <img src="readme-assets/shelfview.png" alt="ホーム画面" width="300">
