@@ -1,5 +1,7 @@
 package com.say.popo.snapshelf.config;
 
+import com.google.api.gax.core.CredentialsProvider;
+import com.google.api.gax.core.FixedCredentialsProvider;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.vision.v1.ImageAnnotatorClient;
 import com.google.cloud.vision.v1.ImageAnnotatorSettings;
@@ -18,7 +20,22 @@ public class GoogleConfig {
     @Value("${GOOGLE_APPLICATION_CREDENTIALS_BASE64:}")
     private String credentialsBase64;
   
+    @Bean
+    public CredentialsProvider credentialsProvider() throws IOException {
+        GoogleCredentials credentials;
 
+        if (credentialsBase64 != null && !credentialsBase64.isEmpty()) {
+            byte[] decodedBytes = Base64.getDecoder().decode(credentialsBase64);
+            credentials = GoogleCredentials.fromStream(new ByteArrayInputStream(decodedBytes));
+        } else {
+            ClassPathResource resource = new ClassPathResource("keys/vision-key.json");
+            credentials = GoogleCredentials.fromStream(resource.getInputStream());
+        }
+
+        return FixedCredentialsProvider.create(credentials);
+    }
+
+    
     @Bean
     public ImageAnnotatorClient imageAnnotatorClient() throws IOException {
         GoogleCredentials credentials;
