@@ -4,6 +4,7 @@ import com.google.api.gax.core.CredentialsProvider;
 import com.google.auth.oauth2.GoogleCredentials;
 import com.google.cloud.vision.v1.ImageAnnotatorClient;
 import com.google.cloud.vision.v1.ImageAnnotatorSettings;
+import com.google.genai.Client;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -18,7 +19,8 @@ public class GoogleConfig {
 
     @Value("${GOOGLE_APPLICATION_CREDENTIALS_BASE64:}")
     private String credentialsBase64;
-  
+    @Value("${GEMINI_API_KEY:}")
+    private String geminiApiKey;
 
     
     @Bean
@@ -47,4 +49,12 @@ public class GoogleConfig {
 
         return ImageAnnotatorClient.create(settings);
     }
+    
+    @Bean
+    public Client geminiClient() {
+    return Client.builder()
+    		.apiKey(geminiApiKey)
+    		.build();
+    }
+   
 }

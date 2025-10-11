@@ -469,19 +469,96 @@ button:disabled {
     border-radius: 8px;
 }
 
-
-.search-input {
-    flex: 1;
-    max-width: 400px;
-    padding: 12px 15px;
-    font-size: 16px;
-    border: 2px solid #ddd;
-    border-radius: 6px;
-    font-family: "Helvetica Neue", "Arial", "ヒラギノ角ゴ Pro W3", "Meiryo", sans-serif;
-    transition: border-color 0.3s;
+/* ローディングアニメ */
+.fixed {
+  position: fixed;
 }
 
-.search-input:focus {
-    outline: none;
-    border-color: #4CAF50;
+.inset-0 {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.bg-black {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.bg-white {
+  background-color: white;
+}
+
+.p-8 {
+  padding: 2rem;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-gray-700 {
+  color: #374151;
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
+
+.h-12 {
+  height: 3rem;
+}
+
+.w-12 {
+  width: 3rem;
+}
+
+.border-b-2 {
+  border-bottom: 2px solid;
+}
+
+.border-blue-500 {
+  border-bottom-color: #3b82f6;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }

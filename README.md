@@ -5,7 +5,8 @@ Smart product management with auto-generated tags and descriptions.
 個人学習用の Spring Boot Web アプリケーション。
 商品画像を登録すると AI が自動でタグを抽出し、説明文を生成する商品管理システムです。
 
-現在は基本的な CRUD 機能とユーザー認証、Vision API連携を実装しRenderへデプロイ済みで、Gemini　API連携やAWSへのデプロイは今後追加予定です。
+Google Vision API で画像解析、Gemini API で説明文生成を実装し、Render へデプロイ済みです。
+AWS（EC2 + RDS）へのデプロイや、タグ分類・入出庫管理などの拡張機能は今後追加予定です。
 
 ## デモ
 🚀 **https://snapshelf-hs6j.onrender.com**
@@ -20,21 +21,25 @@ Smart product management with auto-generated tags and descriptions.
 
 **ホーム画面**
 
-<img src="readme-assets/home.png" alt="ホーム画面" width="300">
+<img src="readme-assets/home.png" alt="ホーム画面" width="400">
 
 **商品登録画面**
 
-<img src="readme-assets/productcreate.png" alt="ホーム画面" width="300">
+<img src="readme-assets/productcreate.png" alt="ホーム画面" width="400">
 
-**説明文生成ボタン押下時**
+**説明文生成デモ**
 
-現在は、Vision APIによって抽出されたタグをもとにGemini連携時に渡すプロンプトを仮表示します。
+Vision API でタグを抽出後、Gemini API で説明文を自動生成します。
 
-<img src="readme-assets/prompt.png" alt="プロンプト" width="300">
+<img src="readme-assets/generate-description.gif" alt="説明文生成" width="400">
+
+**生成された説明文**
+
+<img src="readme-assets/description.png" alt="説明文" width="400">
 
 **商品一覧画面**
 
-<img src="readme-assets/shelfview.png" alt="ホーム画面" width="300">
+<img src="readme-assets/shelfview.png" alt="ホーム画面" width="400">
 
 ## ✨ 実装済み機能
 - ✅ ユーザー登録・ログイン（Spring Security）
@@ -44,11 +49,11 @@ Smart product management with auto-generated tags and descriptions.
 - ✅ Vue.js による部分的な動的処理
 - ✅ Renderへのデプロイ
 - ✅ Google Vision API による画像解析・タグ自動生成
+- ✅ Gemini API による商品説明文の自動生成
 
 ## 🚧 開発予定
-- ⏳ Gemini API による商品説明文の自動生成
 - ⏳ AWS (EC2 + RDS) へのデプロイ
-- ⏳ タグでの分類、入出庫管理などの拡張
+- ⏳ カテゴリによる商品分類・入出庫管理機能
 
 ## 🛠️ 使用技術
 
@@ -68,7 +73,8 @@ Smart product management with auto-generated tags and descriptions.
 - Vue.js（一部導入）
 
 **外部API**
-- Vision API
+- Google Vision API（画像解析・タグ抽出）
+- Gemini API（説明文生成）
 
 **その他**
 - Git / GitHub / GitHub Desktop
@@ -105,6 +111,13 @@ Java Silver SE17 を取得。
 - 商品一覧に検索・ページングを追加、一覧 → 詳細遷移
 - 説明文自動生成（AI連携の土台）の実装準備
 - UI改善・バグ修正（画像表示、フォームバリデーションなど）
+
+- **2025年10月**
+Renderへのデプロイを行い、AI連携機能を実装。
+- 商品編集・削除機能の実装
+- Dockerfileを使用してRenderへデプロイ
+- Google Vision APIによるタグ抽出機能の完成
+- Gemini APIによる説明文自動生成を実装
 
 ## 👤 作者
 GitHub: [@poposay](https://github.com/poposay)

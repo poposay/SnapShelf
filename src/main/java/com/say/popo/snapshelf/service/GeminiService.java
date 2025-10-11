@@ -1,14 +1,22 @@
 package com.say.popo.snapshelf.service;
 
+import com.google.genai.Client;
+import com.google.genai.types.GenerateContentResponse;
 import org.springframework.stereotype.Service;
 
 @Service
 public class GeminiService {
-
-	public String callGeminiApi(String prompt) {
-		//未実装
 	
-		String aiDescription = ("【タグ抽出・プロンプト作成まで実装済みのため、プロンプトを表示】" + prompt);
-		return aiDescription;
+	private final Client client;
+	
+	public GeminiService(Client client) {
+		this.client = client;
+	}
+	
+	public String callGeminiApi(String prompt) {
+		GenerateContentResponse response = client.models.generateContent("gemini-2.5-flash", prompt, null);
+		
+		return response.text();
+
 	}
 }

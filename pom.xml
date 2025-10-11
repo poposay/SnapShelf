@@ -89,9 +89,13 @@
   			<artifactId>google-cloud-vision</artifactId>
   			<version>3.30.0</version> <!-- 最新版（2025年10月時点） -->
 		</dependency>
-
-
-        
+        <!-- Google Cloud Gemini API -->
+		<dependency>
+   			<groupId>com.google.genai</groupId>
+    		<artifactId>google-genai</artifactId>
+    		<version>1.22.0</version>
+  		</dependency>
+  
         <dependency>
       		<groupId>com.google.cloud</groupId>
         	<artifactId>google-cloud-translate</artifactId>
