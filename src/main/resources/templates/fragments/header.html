@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<header class="popo-header" th:fragment="header">
+    <img src="/images/app-icon.png" alt="アイコン" class="app-icon">
+    <h1 class="site-tittle">SnapShelf</h1>
+
+    <div class="user-info" th:if="${currentUsername}">
+        <span th:text="'担当者：' + ${currentUsername}">担当者名</span>
+    </div>
+
+    <a class="logoutbtn" href="/login">ログアウト</a>
+</header>
+</body>
+</html>

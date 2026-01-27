@@ -3,7 +3,7 @@
 /* 全体のベース */
 body {
     font-family: "Helvetica Neue", "Arial", "ヒラギノ角ゴ Pro W3", "Meiryo", sans-serif;
-    background-color: #f0faff;
+    background-color: #FFFFFF !important;
 	height: 100%;
     color: #1e2a38; /* 濃いネイビーで読みやすく */
 }
@@ -144,7 +144,7 @@ button,
     padding: 10px 20px;
     background-color: #2ab7ca; /* 爽やかなターコイズブルー */
     border: none;
-    border-radius: 10px;
+    border-radius: 6px;
     color: #ffffff;
     font-weight: bold;
     font-size: 16px;
@@ -225,7 +225,7 @@ button:disabled {
 	margin-right: 20px;
     background-color: #ffffff;
     border: 2px solid #2ab7ca;
-    border-radius: 10px;
+    border-radius: 6px;
     color: #2ab7ca;
     font-weight: bold;
     font-size: 16px;
@@ -561,4 +561,43 @@ button:disabled {
   to {
     transform: rotate(360deg);
   }
+}
+
+.side {
+  background-color: #F5FAFC;
+  width:140px;
+  height:1000px;
+  text-align:center;
+  margin-top:50px
+} 
+
+.content {
+  width:250px;
+  height:300px;
+  text-align:center;
+  margin-left:10px;/*サイドバーとメインコンテンツの間に隙間をあけた*/
+}
+
+article {
+  display:flex;/*サイドバーとメインコンテンツを横並びにする指定をした*/
+}
+
+.side-btn {
+	color: dimgray;
+	display: block;
+	padding: 12px 20px;
+	text-decoration: none;
+	font-weight: 500;
+	font-size: 0.9rem;
+	transition: all 0.3s ease;
+	text-align: center;
+}
+.side-btn:hover {
+    background-color: #00a8cc;
+    color:white;
+}
+
+.main-layout {
+	display: flex;
+	min-height: calc(100vh - 50px);
 }

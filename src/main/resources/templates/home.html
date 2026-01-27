@@ -12,43 +12,17 @@
 
 </head>
 <body>
-	<header class="popo-header">
-		<img src="/images/app-icon.png" alt="アイコン" class="app-icon">
-		<h1 class="site-tittle">SnapShelf</h1>
-		<div class="user-info" th:if="${currentUsername}">
-			<span th:text="'担当者：' + ${currentUsername} ">担当者名</span>
-		</div>
-		<a class="logoutbtn" href="/login">ログアウト</a>
-	</header>
+	<div th:replace="fragments/header :: header"></div>
 	
+	<div class="main-layout">	
+		
+	<aside class="sidebar">
+	<div th:replace="fragments/sidebar :: sidebar"></div>
+	</aside>
 	
-	<div class="container d-flex justify-content-center align-items-start pt-5 vh-100">
-	  <div class="row text-center">
-	    <div class="col-6 mb-3">
-	      <a class="btn-custom" href="/productcreate">
-	        <i class="bi bi-camera-fill fs-2 mb-2"></i>
-	        <span>商品新規登録</span>
-	      </a>
-	    </div>
-	    <div class="col-6 mb-3">
-	      <a class="btn-custom" href="/shelfview">
-	        <i class="bi bi-search fs-2 mb-2"></i>
-	        <span>照会・編集</span>
-	      </a>
-	    </div>
-	    <div class="col-6">
-	      <a class="btn-custom" href="/comingsoon">
-	        <i class="bi bi-tags fs-2 mb-2"></i>
-	        <span>カテゴリ編集</span>
-	      </a>
-	    </div>
-	    <div class="col-6">
-	      <a class="btn-custom" href="/comingsoon">
-	        <i class="bi bi-box-seam fs-2 mb-2"></i>
-	        <span>入出庫履歴</span>
-	      </a>
-	    </div>
-	  </div>
+	<div class="content">
+	</div>
+	
 	</div>
 
 </body>
