@@ -11,19 +11,19 @@
 
 </head>
 <body>
-	<header class="popo-header">
-		<img src="/images/app-icon.png" alt="アイコン" class="app-icon">
-		<h1 class="site-tittle">SnapShelf</h1>
-		<div class="user-info" th:if="${currentUsername}">
-			<span th:text="'担当者：' + ${currentUsername} ">担当者名</span>
-		</div>
-		<a class="logoutbtn" href="/login">ログアウト</a>
-	</header>
+	<div th:replace="fragments/header :: header"></div>
+
+	<div class="main-layout">
+
+		<aside class="sidebar">
+			<div th:replace="fragments/sidebar :: sidebar"></div>
+		</aside>
 	
 	<h1  style="margin-top: 80px;">カテゴリの追加と編集機能を実装予定です。</h1>
 	<a  class="btn" href="/home">
 	  <i class="bi bi-emoji-astonished"></i> ホームへ戻る
 	</a>
+	</div>
 
 	
 </body>

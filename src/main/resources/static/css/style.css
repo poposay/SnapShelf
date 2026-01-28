@@ -1,8 +1,18 @@
 @charset "UTF-8";
 
+/* reset */
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
 /* 全体のベース */
 body {
-    font-family: "Helvetica Neue", "Arial", "ヒラギノ角ゴ Pro W3", "Meiryo", sans-serif;
+    font-family: "Helvetica Neue", "Arial", "ヒラギノ角ゴ Pro W3", "Meiryo", sans-serif !important;
     background-color: #FFFFFF !important;
 	height: 100%;
     color: #1e2a38; /* 濃いネイビーで読みやすく */
@@ -10,6 +20,7 @@ body {
 
 /* コンテナ（SnapShelfのフレーム） */
 .popo-container {
+	font-family: "Helvetica Neue", "Arial", "ヒラギノ角ゴ Pro W3", "Meiryo", sans-serif !important;
     max-width: 480px;
     margin: 90px auto;
     padding: 16px 24px;
@@ -76,7 +87,7 @@ body {
 /* サイトタイトル */
 .site-tittle {
     font-family: 'Zen Maru Gothic', 'Rounded M+ 1c', 'Noto Sans JP', sans-serif;
-    font-size: 24px;
+    font-size: 22px;
     color: #ffffff;
     margin: 0;
 }
@@ -84,7 +95,7 @@ body {
 /* ユーザー情報 */
 .user-info {
 	font-family: "Helvetica Neue", "Arial", "ヒラギノ角ゴ Pro W3", "Meiryo", sans-serif;	
-    font-size: 16px;
+    font-size: 0.9rem;
     color: #ffffff;
     display: inline-block;
     margin-left: auto;
@@ -193,6 +204,7 @@ button:disabled {
 
 
 .btn-custom {
+	font-family: "Helvetica Neue", "Arial", "ヒラギノ角ゴ Pro W3", "Meiryo", sans-serif !important;
   background-color: #2ab7ca;
   margin-top: 60px;
   color: white;
@@ -221,14 +233,15 @@ button:disabled {
 
 /* ログアウトボタン（反転スタイル） */
 .logoutbtn {
-    padding: 10px 20px;
+    padding: 8px;
 	margin-right: 20px;
     background-color: #ffffff;
     border: 2px solid #2ab7ca;
     border-radius: 6px;
     color: #2ab7ca;
-    font-weight: bold;
-    font-size: 16px;
+	font-family: "Helvetica Neue", "Arial", "ヒラギノ角ゴ Pro W3", "Meiryo", sans-serif !important;
+    font-weight: 530px;
+    font-size: 0.9rem;
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
     text-decoration: none !important;
@@ -405,17 +418,18 @@ button:disabled {
   color: #555;
 }
 
-.modal {
+.modal-custom {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 300px; 
+  max-width: 90%;
   padding: 20px;
   background-color: #f0faff;
   border-radius: 8px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-  z-index: 1000;
+  z-index: 10000;
 }
 
 /* 背景の暗いオーバーレイ */
@@ -565,37 +579,47 @@ button:disabled {
 
 .side {
   background-color: #F5FAFC;
-  width:140px;
-  height:1000px;
+  width:160px;
+  display:flex;
+  justify-content: flex-start;
+  flex-direction: column; 
   text-align:center;
-  margin-top:50px
+  margin-top:50px;
+  height: 100%;
 } 
 
 .content {
-  width:250px;
+  width:1100px;
   height:300px;
   text-align:center;
   margin-left:10px;/*サイドバーとメインコンテンツの間に隙間をあけた*/
 }
 
-article {
-  display:flex;/*サイドバーとメインコンテンツを横並びにする指定をした*/
-}
-
 .side-btn {
-	color: dimgray;
-	display: block;
-	padding: 12px 20px;
-	text-decoration: none;
-	font-weight: 500;
-	font-size: 0.9rem;
-	transition: all 0.3s ease;
-	text-align: center;
+  font-family: "Helvetica Neue", "Arial", "ヒラギノ角ゴ Pro W3", "Meiryo", sans-serif;
+  color: dimgray;
+
+  display: flex;
+  align-items: center;
+  gap: 6px;
+
+  height: 40px;
+  padding: 20px 15px;
+
+  text-decoration: none;
+  font-weight: 530;
+  font-size: 0.9rem;
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 .side-btn:hover {
     background-color: #00a8cc;
     color:white;
 }
+
+.side-btn i {
+  font-size: 1.25rem; /* fs-5 相当 */
+}
+
 
 .main-layout {
 	display: flex;

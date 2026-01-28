@@ -5,22 +5,16 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>商品登録</title>
-<link rel="stylesheet" href="/css/style.css">
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="stylesheet" href="/css/style.css">
+
 <script src="https://unpkg.com/vue@3"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
 	<div id="app" v-cloak>
-		<header class="popo-header">
-			<img src="/images/app-icon.png" alt="アイコン" class="app-icon">
-			<h1 class="site-tittle">SnapShelf</h1>
-			<div class="user-info" th:if="${currentUsername}">
-				<span th:text="'担当者：' + ${currentUsername} ">担当者名</span>
-			</div>
-		<a class="logoutbtn" href="/login">ログアウト</a>
-		</header>
+		<div th:replace="fragments/header :: header"></div>
 
 		<div class="main-layout">
 		
@@ -28,6 +22,7 @@
 				<div th:replace="fragments/sidebar :: sidebar"></div>
 			</aside>
 		
+			<div class="content">
 			<div class="popo-container">
 
 				<div>
@@ -55,6 +50,7 @@
 
 			<button @click="showCancelModal=true">キャンセル</button>	
 		</div>
+		</div>
 	</div>
 		
 		<!-- モーダル -->
@@ -63,7 +59,7 @@
 		<div v-if="showGenerateModal || showSaveModal || showCancelModal" class="modal-overlay"></div>
 		
 		<!--　モーダル本体　-->
-		<div v-if="showGenerateModal" class="modal">
+		<div v-if="showGenerateModal" class="modal-custom">
 			<p>商品情報を確定し、説明文を生成します。よろしいですか？</p>
 			<div class="modal-button-group">
 			<button @click="generateDescription">OK</button>
@@ -71,7 +67,7 @@
 			</div>
 		</div>
 		
-		<div v-if="showSaveModal" class="modal">
+		<div v-if="showSaveModal" class="modal-custom">
 			<p>商品を登録します。よろしいですか？</p>
 			<div class="modal-button-group">
 			<button @click="saveProduct">OK</button>
@@ -79,7 +75,7 @@
 			</div>
 		</div>
 		
-		<div v-if="showCancelModal" class="modal">
+		<div v-if="showCancelModal" class="modal-custom">
 			<p>登録をキャンセルします。よろしいですか？</p>
 			<div class="modal-button-group">
 			<button @click="goHome">OK</button>
