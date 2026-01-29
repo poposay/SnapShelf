@@ -3,7 +3,10 @@
 <body>
 <header class="popo-header" th:fragment="header">
     <img src="/images/app-icon.png" alt="アイコン" class="app-icon">
+	
+	<a href="/home" style="text-decoration: none;">
     <h1 class="site-tittle">SnapShelf</h1>
+	</a>
 
     <div class="user-info" th:if="${currentUsername}">
         <span th:text="'担当者：' + ${currentUsername}">担当者名</span>

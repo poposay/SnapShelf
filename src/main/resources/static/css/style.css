@@ -80,7 +80,7 @@ body {
 /* アイコン */
 .app-icon {
     width: 32px;
-    height: 48px;
+    height: 32px;
     margin-right: 10px;
 }
 
@@ -603,7 +603,7 @@ button:disabled {
   align-items: center;
   gap: 6px;
 
-  height: 40px;
+  height: 50px;
   padding: 20px 15px;
 
   text-decoration: none;
