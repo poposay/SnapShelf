@@ -22,12 +22,33 @@ body {
 .popo-container {
 	font-family: "Helvetica Neue", "Arial", "ヒラギノ角ゴ Pro W3", "Meiryo", sans-serif !important;
     max-width: 480px;
-    margin: 90px auto;
+    margin: 50px auto;
     padding: 16px 24px;
     border-radius: 16px;
     background-color: #ffffffee; /* ほぼ白の半透明 */
     box-shadow: 0 6px 18px rgba(0, 128, 128, 0.08); /* 青緑系の柔らかい影 */
     text-align: center;
+}
+
+.popo-container--wide {
+	max-width: 860px;
+	font-family: "Helvetica Neue", "Arial", "ヒラギノ角ゴ Pro W3", "Meiryo", sans-serif !important;
+	margin: 50px auto;
+	padding: 16px 24px;
+	border-radius: 16px;
+	background-color: #ffffffee; /* ほぼ白の半透明 */
+	box-shadow: 0 6px 18px rgba(0, 128, 128, 0.08); /* 青緑系の柔らかい影 */
+	text-align: center;
+}
+
+.popo-container--wide h2 {
+    margin: 0 0 8px;
+}
+
+.popo-container--wide p {
+    margin: 0;
+    font-size: 14px;
+    color: #555;
 }
 
 .form-container {
@@ -150,7 +171,6 @@ form input {
 /* ボタン */
 button,
 .btn {
-    margin-top: 20px;
 	margin: 10px;
     padding: 10px 20px;
     background-color: #2ab7ca; /* 爽やかなターコイズブルー */
@@ -227,7 +247,7 @@ button:disabled {
   display: flex;
   justify-content: center;
   gap: 10px;
-  margin-top: 30px;
+  margin-top: 10px;
 }
 
 
@@ -624,4 +644,167 @@ button:disabled {
 .main-layout {
 	display: flex;
 	min-height: calc(100vh - 50px);
+}
+
+/* 2カラム全体のラッパー */
+.two-col-layout {
+  display: flex;
+  gap: 32px;
+  align-items: flex-start;
+  margin-top: 24px;
+  text-align: left;
+}
+
+/* 左カラム：画像エリア */
+.col-image {
+  flex: 0 0 200px; /* 幅固定・縮まない */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.col-image label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #1e2a38;
+}
+
+.col-image input[type="file"] {
+  font-size: 13px;
+  width: 100%;
+}
+
+.col-image .image-preview img {
+  max-width: 200px;
+  max-height: 200px;
+  border-radius: 8px;
+  border: 1px solid #cce5ea;
+}
+
+/* 右カラム：フォーム */
+.col-form {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  text-align: left;
+}
+
+.col-form label {
+  font-size: 14px;
+  font-weight: bold;
+  color: #1e2a38;
+  margin-top: 4px;
+  margin-left: 100px;
+}
+
+.col-form input[type="text"],
+.col-form textarea {
+  width: 70%;
+  padding: 10px;
+  border: 1px solid #cce5ea;
+  border-radius: 8px;
+  background-color: #f0faff;
+  font-size: 14px;
+  color: #1e2a38;
+  box-sizing: border-box;
+}
+
+.col-form input[type="text"],
+.col-form textarea,
+.col-form button {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.col-form button {
+  width: 70%; /* 入力欄と同じ幅 */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* スマホ対応：1カラムに戻す */
+@media (max-width: 576px) {
+  .two-col-layout {
+    flex-direction: column;
+    align-items: center;
+  }
+  .col-image {
+    flex: none;
+    width: 100%;
+  }
+  
+}
+
+.dashboard-container {
+  max-width: 1000px;
+  margin: 60px auto;
+  padding: 20px;
+}
+
+.dashboard-container h1 {
+  font-size: 28px;
+  color: #1e2a38;
+  margin-bottom: 30px;
+  text-align: center;
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2列 */
+  gap: 24px;
+}
+
+.dashboard-card {
+  background-color: #ffffff;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 128, 128, 0.1);
+  text-align: center;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  cursor: pointer;
+}
+
+.dashboard-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 20px rgba(0, 128, 128, 0.15);
+}
+
+.card-icon {
+  font-size: 48px;
+  margin-bottom: 12px;
+}
+
+.dashboard-card h3 {
+  font-size: 18px;
+  color: #1e2a38;
+  margin: 8px 0;
+}
+
+.card-value {
+  font-size: 32px;
+  font-weight: bold;
+  color: #2ab7ca;
+  margin: 16px 0;
+}
+
+.card-link {
+  display: inline-block;
+  margin-top: 12px;
+  color: #00a8cc;
+  text-decoration: none;
+  font-size: 14px;
+  transition: color 0.3s ease;
+}
+
+.card-link:hover {
+  color: #2ab7ca;
+}
+
+/* スマホ対応：1列に */
+@media (max-width: 768px) {
+  .dashboard-grid {
+    grid-template-columns: 1fr;
+  }
 }

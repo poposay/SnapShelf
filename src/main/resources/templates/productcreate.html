@@ -23,32 +23,43 @@
 			</aside>
 		
 			<div class="content">
-			<div class="popo-container">
+			<div class="popo-container--wide">
 
 				<div>
 					<h2>商品登録</h2>
 				</div>
 		
-			<p>商品画像と商品名、在庫数、価格を入力してください。</p><br>
-				<div class="form-container">
+			<p>商品画像と商品名を入力後、説明文生成ボタンを押してください。</p>
+			
+				<div class="two-col-layout">
+					
+					<!-- 左カラム：画像選択 -->
+					<div class="col-image">
 					<input type="hidden" name="redirectTo" value="updatedescription">
+					<label for="productimage">商品画像</label>
 					<input type="file" ref="fileInput" @change="handleImageUpload" name="productimage" accept="image/*" required :disabled="isLocked">
 						<div v-if="imagePreview" class="image-preview">
 						<img :src="imagePreview" alt="商品画像" style="max-width: 200px; max-height: 200px">
 						</div>
-					<label for="name">商品名</label>
-					<input type="text" v-model="name" id="name" name="name" autocomplete="off" :disabled="isLocked">
-					<label for="price">価格</label>
-					<input type="text" v-model="price" id="price" name="price" autocomplete="off" :disabled="isLocked">
-					<label for="stock">在庫数</label>
-					<input type="text" v-model="stock" id="stock" name="stock" autocomplete="off" :disabled="isLocked">
-					<button @click="showGenerateModal=true" :disabled="isLocked"><span><i class="bi bi-chat-dots"></i></span> 説明文生成</button>
-					<textarea v-model="aiDescription" rows="5" cols="50" :disabled="isLocked_generatebefore" required></textarea>
+					</div>
+					
+					<!-- 右カラム：入力フォーム -->
+					<div class="col-form">
+						<label for="name">商品名</label>
+						<input type="text" v-model="name" id="name" name="name" autocomplete="off" :disabled="isLocked">
+						<label for="price">価格</label>
+						<input type="text" v-model="price" id="price" name="price" autocomplete="off" :disabled="isLocked">
+						<label for="stock">在庫数</label>
+						<input type="text" v-model="stock" id="stock" name="stock" autocomplete="off" :disabled="isLocked">
+						<button @click="showGenerateModal=true" :disabled="isLocked"><span><i class="bi bi-chat-dots"></i></span> 説明文生成</button>
+						<textarea v-model="aiDescription" rows="5" cols="50" :disabled="isLocked_generatebefore" required></textarea>
+					</div>
 				</div>
-
+			
+			<div class="btn-group">
 			<button @click="showSaveModal=true" :disabled="isLocked_generatebefore">保存</button>
-
 			<button @click="showCancelModal=true">キャンセル</button>	
+			</div>
 		</div>
 		</div>
 	</div>

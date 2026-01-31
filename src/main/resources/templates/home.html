@@ -15,13 +15,48 @@
 	
 	<div class="main-layout">	
 		
-	<aside class="sidebar">
-	<div th:replace="fragments/sidebar :: sidebar"></div>
-	</aside>
+		<aside class="sidebar">
+			<div th:replace="fragments/sidebar :: sidebar"></div>
+		</aside>
 	
 	<div class="content">
-	</div>
-	
+		<div class="dashboard-container">
+			<h1>ダッシュボード</h1>
+			
+			<div class="dashboard-grid">
+				
+				<div class="dashboard-card">
+					<div class="card-icon"></div>
+					<h3>総商品数</h3>
+					<p class="card-value">128</p>
+					<a href="/shelfview" class="card-link">詳細を見る</a>
+				</div>
+				
+				<div class="dashboard-card">
+					<div class="card-icon"></div>
+					<h3>新商品</h3>
+					<p class="card-value">お寿司</p>
+					<a href="/shelfview" class="card-link">詳細を見る</a>
+				</div>
+				
+				<div class="dashboard-card">
+					<div class="card-icon"></div>
+					<h3>在庫状況</h3>
+					<p class="card-value">85%</p>
+					<a href="/comming-soon" class="card-link">詳細を見る</a>
+				</div>
+				
+				<div class="dashboard-card">
+					<div class="card-icon"></div>
+					<h3>ユーザー数</h3>
+					<p class="card-value">53</p>
+					<a href="/comming-soon" class="card-link">詳細を見る</a>
+				</div>
+
+			</div>
+				
+			</div>
+		</div>
 	</div>
 
 </body>
