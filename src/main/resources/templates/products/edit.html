@@ -14,42 +14,55 @@
 </head>
 <body>
 	<div id="app" v-cloak>
-		<header class="popo-header">
-		<img src="/images/app-icon.png" alt="アイコン" class="app-icon">
-		<h1 class="site-tittle">SnapShelf</h1>
-		<div class="user-info" th:if="${currentUsername}">
-			<span th:text="'担当者：' + ${currentUsername} ">担当者名</span>
-		</div>
-		<a class="logoutbtn" href="/login">ログアウト</a>
-	</header>
+		
+	<div th:replace="fragments/header :: header"></div>
+	<div class="main-layout">	
+		
+		<aside class="sidebar">
+			<div th:replace="fragments/sidebar :: sidebar"></div>
+		</aside>
 
+	<div class="content">
 	
-	<div class="popo-container">
+	<div class="popo-container--wide">
 
 		<div>
-		<h2>商品編集</h2>
+			<h2>商品編集</h2>
 		</div>
 		
-		<p>商品画像と商品名、在庫数、価格を編集してください。<br>
-			<div class="form-container">
-				<input type="hidden" name="redirectTo" value="updatedescription">
-				<input type="file" ref="fileInput" @change="handleImageUpload" name="productimage" accept="image/*" required :disabled="isLocked">
-				<div v-if="imagePreview" class="image-preview">
-					<img :src="imagePreview" alt="商品画像" style="max-width: 200px; max-height: 200px">
+		<p>商品画像と商品名、在庫数、価格を編集してください。</p>
+		
+			<div class="two-col-layout">
+				
+				<!-- 左カラム：画像選択 -->
+				<div class="col-image">
+					<input type="hidden" name="redirectTo" value="updatedescription">
+					<input type="file" ref="fileInput" @change="handleImageUpload" name="productimage" accept="image/*" required :disabled="isLocked">
+					<div v-if="imagePreview" class="image-preview">
+						<img :src="imagePreview" alt="商品画像" style="max-width: 200px; max-height: 200px">
+					</div>
 				</div>
-				<label for="name">商品名</label>
-				<input type="text" v-model="name" id="name" name="name" autocomplete="off" :disabled="isLocked">
-				<label for="price">価格</label>
-				<input type="text" v-model="price" id="price" name="price" autocomplete="off" :disabled="isLocked">
-				<label for="stock">在庫数</label>
-				<input type="text" v-model="stock" id="stock" name="stock" autocomplete="off" :disabled="isLocked">
-				<label for="description">説明文</label>
-				<textarea v-model="description" rows="5" cols="50" required></textarea>
+				
+				<!-- 右カラム：入力フォーム -->
+				<div class="col-form">
+					<label for="name">商品名</label>
+					<input type="text" v-model="name" id="name" name="name" autocomplete="off" :disabled="isLocked">
+					<label for="price">価格</label>
+					<input type="text" v-model="price" id="price" name="price" autocomplete="off" :disabled="isLocked">
+					<label for="stock">在庫数</label>
+					<input type="text" v-model="stock" id="stock" name="stock" autocomplete="off" :disabled="isLocked">
+					<label for="description">説明文</label>
+					<textarea v-model="description" rows="5" cols="50" required></textarea>
+				</div>
 			</div>
-			<button @click="showDeleteModal=true">削除</button>
-			<button @click="showSaveModal=true">保存</button>
-			<button @click="showCancelModal=true">キャンセル</button>	
+			
+			<div class="btn-group">
+				<button @click="showDeleteModal=true" class="btn btn-delete">削除</button>
+				<button @click="showSaveModal=true">保存</button>
+			<button @click="showCancelModal=true" class="btn btn-cancel">キャンセル</button>	
 		</div>
+		</div>
+	</div>
 		
 		<!-- モーダル -->
 		
@@ -57,7 +70,7 @@
 		<div v-if="showDeleteModal || showSaveModal || showCancelModal" class="modal-overlay"></div>
 		
 		<!--　モーダル本体　-->
-		<div v-if="showDeleteModal" class="modal">
+		<div v-if="showDeleteModal" class="modal-custom">
 			<p>商品を削除します。よろしいですか？</p>
 			<div class="modal-button-group">
 			<button @click="deleteProduct">OK</button>
@@ -65,7 +78,7 @@
 			</div>
 		</div>
 		
-		<div v-if="showSaveModal" class="modal">
+		<div v-if="showSaveModal" class="modal-custom">
 			<p>更新します。よろしいですか？</p>
 			<div class="modal-button-group">
 			<button @click="updateProduct">OK</button>
@@ -73,7 +86,7 @@
 			</div>
 		</div>
 		
-		<div v-if="showCancelModal" class="modal">
+		<div v-if="showCancelModal" class="modal-custom">
 			<p>編集をキャンセルします。よろしいですか？</p>
 			<div class="modal-button-group">
 			<button @click="goShelf">OK</button>
@@ -85,6 +98,8 @@
 			<p>保存しました</p>
 			<button @click="closeDialog">閉じる</button>
 		</div>
+	</div>
+	</div>
 
 	</div>
 	<script>

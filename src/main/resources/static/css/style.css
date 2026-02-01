@@ -189,12 +189,23 @@ button,
 button:hover,
 form button:hover,
 .btn:hover {
-    background-color: #00a8cc; /* 少し濃い青系でホバー感 */
+	filter: brightness(0.85); /* 15%暗くする */
 }
 button:disabled {
   background-color: #cccccc;
   cursor: not-allowed;
   opacity: 0.6;
+}
+
+.btn-cancel {
+	background-color: #FFFFFF;
+	border: 1px solid;
+	border-color: gray;
+	color: gray;
+}
+
+.btn-delete {
+	background-color:#DF7474;
 }
 
 
@@ -465,9 +476,9 @@ button:disabled {
 
 .dialog-bar {
   position: fixed;
-  top: 54px; 
+  top: 50px; 
   left: 0;
-  height: 12px;
+  height: 35px;
   width: 100%;
   background-color: rgb(38, 247, 148); 
   color: rgb(0, 0, 0);
@@ -478,6 +489,7 @@ button:disabled {
   justify-content: space-between;
   align-items: center;
   z-index: 1000;
+  opacity: 0.5;
 }
 
 .dialog-bar button {
