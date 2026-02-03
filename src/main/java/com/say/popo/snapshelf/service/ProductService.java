@@ -98,13 +98,21 @@ public class ProductService {
 		return new PostResult(discription,aiDescription.getId());
 
 	}
-	public void updateDescriptionAndPublish(Long descriptionId,String newDescription) {
+	public void updateDescriptionAndPublish(Long descId,String newDescription, String name, int price, int stock) {
 		
-		AIDescription desc = aiDescriptionRepository.findById(descriptionId).orElseThrow();
-		desc.setEdited_description(newDescription);
+		// 商品情報を取得
+		AIDescription desc = aiDescriptionRepository.findById(descId).orElseThrow();
 		Product product = desc.getProduct();
-		product.setPublished(true); //商品情報を公開
+		
+		// 修正後の説明文を保存
+		desc.setEdited_description(newDescription);
 		aiDescriptionRepository.save(desc);
+		
+		// 商品情報をUPDATE
+		product.setProduct_name(name);
+		product.setPrice(price);
+		product.setStock(stock);
+		product.setPublished(true); // 商品情報を公開
 		productRepository.save(product);
 	}
 	

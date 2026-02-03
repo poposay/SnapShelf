@@ -173,7 +173,6 @@
 					const response = await axios.post('/api/product/productcreate',formData)
 					this.aiDescriptionId = response.data.aiDescriptionId;
 					this.aiDescription = response.data.aiDescription;
-					this.isLocked = true;
 					console.log("反映された説明文：", this.aiDescription);
 					this.isLocked_generatebefore = false;
 				} catch(error) {
@@ -194,8 +193,12 @@
 				}
 				try {
 					axios.post('/api/product/update-description',{
-						id:parseInt(this.aiDescriptionId),
-						description:this.aiDescription
+						descId:parseInt(this.aiDescriptionId),
+						description:this.aiDescription,
+						name:this.name,
+						price:parseInt(this.price),
+						stock:parseInt(this.stock)
+						
 					}, {
 					headers: {'Content-Type': 'application/json'}
 					});

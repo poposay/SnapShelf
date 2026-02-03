@@ -57,9 +57,10 @@ public class ProductApiController {
 	@PostMapping("/update-description")
 	public ResponseEntity<?> updateDescription(@RequestBody DescriptionUpdateRequest req) {
 		try {
-			System.out.println("受け取ったID：" + req.getId() + "受け取った説明文：" + req.getDescription());
+			System.out.println("受け取った説明文ID：" + req.getDescId() + "受け取った説明文：" + req.getDescription() + 
+								"変更後の商品情報" + req.getName() + req.getPrice() + req.getStock());
 			//説明文の保存と公開フラグ設定をサービスに移譲
-			productService.updateDescriptionAndPublish(req.getId(), req.getDescription());
+			productService.updateDescriptionAndPublish(req.getDescId(), req.getDescription(), req.getName(), req.getPrice(), req.getStock());
 			
 		return ResponseEntity.ok().build();
 		} catch (Exception e) {

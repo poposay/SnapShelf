@@ -630,14 +630,11 @@ button:disabled {
 .side-btn {
   font-family: "Helvetica Neue", "Arial", "ヒラギノ角ゴ Pro W3", "Meiryo", sans-serif;
   color: dimgray;
-
   display: flex;
   align-items: center;
   gap: 6px;
-
   height: 50px;
   padding: 20px 15px;
-
   text-decoration: none;
   font-weight: 530;
   font-size: 0.9rem;
