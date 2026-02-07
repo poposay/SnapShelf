@@ -13,12 +13,12 @@ import com.say.popo.snapshelf.entity.Users;
 import com.say.popo.snapshelf.repository.UserRepository;
 
 @Controller
-public class CategotyEditController {
+public class CategotyController {
 	
 	@Autowired
 	UserRepository userRepository;
 
-	@GetMapping("/categoryedit")
+	@GetMapping("/categories")
 	public String showCategoryEditPage(Model model) {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -28,7 +28,7 @@ public class CategotyEditController {
 		if(userOpt.isPresent()) {
 			Users user = userOpt.get();
 			model.addAttribute("currentUsername", user.getUsername());
-			return "categoryedit";
+			return "category/list";
 		}else {
 			//ユーザーが見つからなかった場合
 			return "redirect:/error/unauthorized";

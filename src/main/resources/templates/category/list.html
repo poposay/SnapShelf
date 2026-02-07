@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>ホーム</title>
+<link rel="stylesheet" href="/css/style.css">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+</head>
+<body>
+	<div th:replace="fragments/header :: header"></div>
+	
+	<div class="main-layout">	
+		
+		<aside class="sidebar">
+			<div th:replace="fragments/sidebar :: sidebar"></div>
+		</aside>
+	
+		<div class="content">
+			<div class="popo-container--wide">
+				<div class="category-search-container">
+					
+					<form th:action="@{/catgories}" method="get" class="category-search-form">
+						<input type="text" id="keyword" name="keyword" placeholder="カテゴリ名で検索">
+						<button type="submit" class="btn btn-cancel">検索</button>						
+					</form>
+
+					<a th:href="@{/category/create}" class="btn">新規登録</a>
+				</div>
+
+
+			
+			<table>
+				<tr>
+					<th>ID</th>
+					<th>カテゴリ名</th>
+					<th>作成日</th>
+					<th>操作</th>
+				</tr>
+				<tr>
+					<td>1</td>
+					<td>食品</td>
+					<td>2026.2.7</td>
+					<td>
+						<button class="btn">編集</button>
+						<button class="btn btn-delete">削除</button>
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+
+</body>
+</html>
