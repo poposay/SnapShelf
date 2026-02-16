@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -26,27 +26,30 @@
 				<h2>カテゴリ一覧</h2>
 				
 				<div class="search-container">
-					<form th:action="@{/catgories}" method="get" class="form form-search">
+					<form th:action="@{/categories}" method="get" class="form form-search">
 						<input type="text" id="keyword" name="keyword" placeholder="カテゴリ名で検索">
 						<p><button type="submit" class="btn btn-cancel">検索</button></p>	
 						<p><a href="/categorycreate" class="btn">新規登録</a></p>				
 					</form>
 
 				</div>
+			<!-- カテゴリが0件の場合 -->
+			<div th:if="${#lists.isEmpty(categories)}">
+				<p>登録されているカテゴリがありません</p>
+			</div>
 
-
-			
-			<table>
+			<!-- カテゴリ登録がある場合 -->
+			<table th:if="${!#lists.isEmpty(categories)}">
 				<tr>
 					<th>ID</th>
 					<th>カテゴリ名</th>
 					<th>作成日</th>
 					<th>操作</th>
 				</tr>
-				<tr>
-					<td>1</td>
-					<td>食品</td>
-					<td>2026.2.7</td>
+				<tr th:each="category : ${categories}">
+					<td th:text="${category.id}"></td>
+					<td th:text="${category.categoryName}"></td>
+					<td th:text="${#temporals.format(category.createdAt, 'yyyy.MM.dd')}"></td>
 					<td>
 						<button class="btn">編集</button>
 						<button class="btn btn-delete">削除</button>

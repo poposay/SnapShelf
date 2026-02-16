@@ -6,18 +6,18 @@ Smart product management with auto-generated tags and descriptions.
 商品画像を登録すると AI が自動でタグを抽出し、説明文を生成する商品管理システムです。
 
 Google Vision API で画像解析、Gemini API で説明文生成を実装し、Render へデプロイ済みです。
-AWS（EC2 + RDS）へのデプロイや、タグ分類・入出庫管理などの拡張機能は今後追加予定です。
+カテゴリ管理機能・入出庫管理機能を実装中です。
 
 ## デモ
-🚀 **https://snapshelf-hs6j.onrender.com**
+Renderの無料プランが終了したため、再度デプロイ予定です。
 
-**注意：** 無料プランのため、初回アクセス時は起動に30秒〜1分ほどかかります。
 
-### テストアカウント
-- メールアドレス: test@test
-- パスワード: test
 
 ## 📷スクリーンショット
+
+**ログイン画面**
+
+<img src="readme-assets/login.png" alt="ログイン画面" width="400">
 
 **ホーム画面**
 
@@ -27,7 +27,7 @@ AWS（EC2 + RDS）へのデプロイや、タグ分類・入出庫管理など�
 
 <img src="readme-assets/productcreate.png" alt="ホーム画面" width="400">
 
-**説明文生成デモ**
+**説明文生成デモ** （差し替え予定）
 
 Vision API でタグを抽出後、Gemini API で説明文を自動生成します。
 
@@ -37,7 +37,7 @@ Vision API でタグを抽出後、Gemini API で説明文を自動生成しま�
 
 <img src="readme-assets/description.png" alt="説明文" width="400">
 
-**商品一覧画面**
+**商品一覧画面** （差し替え予定）
 
 <img src="readme-assets/shelfview.png" alt="ホーム画面" width="400">
 

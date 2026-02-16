@@ -1,5 +1,7 @@
 package com.say.popo.snapshelf.service;
 
+import java.util.List;
+
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -17,6 +19,10 @@ public class CategoryService {
 	
 	public CategoryService(CategoryRepository categoryRepository) {
 		this.categoryRepository = categoryRepository;
+	}
+	
+	public List<Category> findAll() {
+		return categoryRepository.findAll();
 	}
 
 	public Category saveCategory(CategoryCreateDTO dto) {
