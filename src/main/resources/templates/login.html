@@ -4,16 +4,17 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ログイン</title>
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/login.css">
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
 </head>
 <body>
-	<header class="popo-header">
+	<header class="header">
 		<img src="/images/app-icon.png" alt="アイコン" class="app-icon">
 		<h1 class="site-tittle">SnapShelf</h1>
 	</header>
 	
-	<div class="popo-container">
+	<div class="container">
 		<h2>ログイン</h2>
 		
 		<!--エラーメッセージ表示-->
@@ -26,7 +27,7 @@
 			ログアウトしました
 		</div>
 		
-		<form action="/login" method="post">
+		<form action="/login" method="post" class="form form-login">
 			<div>
 				<label for="email">メールアドレス</label>
 				<input type="email" id="email" name="username" required autocomplete="off">
@@ -37,7 +38,8 @@
 				<input type="password" id="password" name="password" required autocomplete="off">
 			</div>
 			
-			<button type="submit">ログイン</button>
+			<p><button type="submit" class="btn">ログイン</button></p>
 		</form>
 		
+
 		<p><a th:href="@{/register}">新規登録はこちら</a></p>

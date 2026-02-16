@@ -7,7 +7,8 @@
 <title>商品登録</title>
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
 <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/product.css">
 
 <script src="https://unpkg.com/vue@3"></script>
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
@@ -23,13 +24,11 @@
 			</aside>
 		
 			<div class="content">
-			<div class="popo-container--wide">
+			<div class="container--wide">
 
 				<div>
 					<h2>商品登録</h2>
 				</div>
-		
-			<p>商品画像と商品名を入力後、説明文生成ボタンを押してください。</p>
 			
 				<div class="two-col-layout">
 					
@@ -46,19 +45,19 @@
 					<!-- 右カラム：入力フォーム -->
 					<div class="col-form">
 						<label for="name">商品名</label>
-						<input type="text" v-model="name" id="name" name="name" autocomplete="off" :disabled="isLocked">
+						<input type="text" v-model="name" id="name" name="name" autocomplete="off" placeholder="商品名を入力" :disabled="isLocked">
 						<label for="price">価格</label>
-						<input type="text" v-model="price" id="price" name="price" autocomplete="off" :disabled="isLocked">
+						<input type="text" v-model="price" id="price" name="price" autocomplete="off" placeholder="価格（円）を入力"　:disabled="isLocked">
 						<label for="stock">在庫数</label>
-						<input type="text" v-model="stock" id="stock" name="stock" autocomplete="off" :disabled="isLocked">
-						<button @click="showGenerateModal=true" :disabled="isLocked"><span><i class="bi bi-chat-dots"></i></span> 説明文生成</button>
-						<textarea v-model="aiDescription" rows="5" cols="50" :disabled="isLocked_generatebefore" required></textarea>
+						<input type="text" v-model="stock" id="stock" name="stock" autocomplete="off" placeholder="在庫数を入力"　:disabled="isLocked">
+						<button @click="showGenerateModal=true" class="btn" :disabled="isLocked"><span><i class="bi bi-chat-dots"></i></span> 説明文生成</button>
+						<textarea v-model="aiDescription" rows="5" cols="50" :disabled="isLocked_generatebefore" placeholder="商品情報を入力後、説明文生成ボタンを押すと説明文が自動で生成されます。"　required></textarea>
 					</div>
 				</div>
-			
-			<div class="btn-group">
-			<button @click="showSaveModal=true" :disabled="isLocked_generatebefore">保存</button>
-			<button @click="showCancelModal=true" class="btn btn-cancel">キャンセル</button>	
+				
+			<div class="btn-area">
+				<p><button @click="showSaveModal=true" :disabled="isLocked_generatebefore" class="btn">保存</button></p>
+				<p><button @click="showCancelModal=true" class="btn btn-cancel">キャンセル</button></p>
 			</div>
 		</div>
 		</div>
@@ -73,24 +72,24 @@
 		<div v-if="showGenerateModal" class="modal-custom">
 			<p>商品情報を確定し、説明文を生成します。よろしいですか？</p>
 			<div class="modal-button-group">
-			<button @click="generateDescription">OK</button>
-			<button @click="showGenerateModal=false">キャンセル</button>
+			<button @click="generateDescription" class="modalbtn">OK</button>
+			<button @click="showGenerateModal=false" class="modalbtn">キャンセル</button>
 			</div>
 		</div>
 		
 		<div v-if="showSaveModal" class="modal-custom">
 			<p>商品を登録します。よろしいですか？</p>
 			<div class="modal-button-group">
-			<button @click="saveProduct">OK</button>
-			<button @click="showSaveModal=false">キャンセル</button>
+			<button @click="saveProduct" class="modalbtn">OK</button>
+			<button @click="showSaveModal=false" class="modalbtn">キャンセル</button>
 			</div>
 		</div>
 		
 		<div v-if="showCancelModal" class="modal-custom">
 			<p>登録をキャンセルします。よろしいですか？</p>
 			<div class="modal-button-group">
-			<button @click="goHome">OK</button>
-			<button @click="showCancelModal=false">キャンセル</button>
+			<button @click="goHome" class="modalbtn">OK</button>
+			<button @click="showCancelModal=false" class="modalbtn">キャンセル</button>
 			</div>
 		</div>
 		

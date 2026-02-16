@@ -1,0 +1,292 @@
+/* 商品の登録・検索・編集画面で使用 */
+
+/* ------- 商品検索画面 -------*/
+
+/* 検索ボックスのスタイル */
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 50px; 
+    padding: 15px;
+    border-radius: 8px;
+	padding: 12px;
+}
+
+/* 検索ボックス */
+.search-box {
+	padding: 10px;
+	border: 1px solid #cce5ea; /* 淡いブルーグレー */
+	border-radius: 8px;
+	background-color: #f0faff; /* 白に近い淡いブルー */
+	font-size: 14px;
+	color: #1e2a38;
+	box-sizing: border-box;
+	width: 200px;
+}
+
+/* 商品一覧のカード表示 */
+.card-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(0, 128, 128, 0.08);
+  background-color:   #ffffffee;
+  border-radius: 16px;
+  width: 95%;
+  padding: 8px;
+}
+
+.product-card {
+  width: 180px;
+  height: 220px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  overflow: hidden;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  background-color: #fff;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.post-thumbnail, .illustration {
+	width: 200px;
+	height: auto;
+	border-radius: 8px;
+}
+
+.product-card:hover {
+	transform: translateY(-5px);
+	box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.product-image {
+  width: 90%;
+  height: 120px;
+  object-fit: cover;
+  margin-top: 5px;
+}
+
+.product-info {
+  padding: 8px;
+}
+
+.product-name {
+  font-size: 0.9rem;
+  margin: 0;
+}
+
+.product-price {
+  color: #444;
+  margin: 5px 0;
+  text-align: left;
+}
+
+.product-stock {
+  color: #444;
+  margin: 5px 0;
+  text-align: left;
+}
+
+.product-user {
+  font-size: 0.9em;
+  color: #888;
+}
+.info-label {
+  background-color: #f0f0f0;
+  border-radius: 10px;
+  padding: 2px 8px;
+  font-size: 0.85em;
+  color: #555;
+}
+
+
+/* ------- 商品登録画面 -------*/ 
+
+/* ローディングアニメ（要修正） */
+.fixed {
+  position: fixed;
+}
+
+.inset-0 {
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
+.flex {
+  display: flex;
+}
+
+.items-center {
+  align-items: center;
+}
+
+.justify-center {
+  justify-content: center;
+}
+
+.bg-black {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+.bg-white {
+  background-color: white;
+}
+
+.p-8 {
+  padding: 2rem;
+}
+
+.rounded-lg {
+  border-radius: 0.5rem;
+}
+
+.shadow-lg {
+  box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+}
+
+.mx-auto {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mt-4 {
+  margin-top: 1rem;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.text-gray-700 {
+  color: #374151;
+}
+
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+.rounded-full {
+  border-radius: 9999px;
+}
+
+.h-12 {
+  height: 3rem;
+}
+
+.w-12 {
+  width: 3rem;
+}
+
+.border-b-2 {
+  border-bottom: 2px solid;
+}
+
+.border-blue-500 {
+  border-bottom-color: #3b82f6;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* 2カラム全体のラッパー */
+.two-col-layout {
+	display: flex;
+    gap: 32px;
+    align-items: flex-start;
+    margin-top: 24px;
+	margin-bottom: 32px;
+    text-align: left;
+  }  
+  
+/* 左カラム：画像エリア */
+  .col-image {
+    flex: 0 0 200px; /* 幅固定・縮まない */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+}
+
+.col-image label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #1e2a38;
+}
+
+.col-image input[type="file"] {
+    font-size: 13px;
+    width: 100%;
+}
+
+.col-image .image-preview img {
+    max-width: 200px;
+    max-height: 200px;
+    border-radius: 8px;
+    border: 1px solid #cce5ea;
+}
+
+/* 右カラム：フォーム */
+.col-form {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-align: left;
+}
+
+.col-form label {
+    font-size: 14px;
+    font-weight: bold;
+    color: #1e2a38;
+    margin-top: 4px;
+    margin-left: 100px;
+}
+
+.col-form input[type="text"],
+.col-form textarea {
+    width: 70%;
+    padding: 10px;
+    border: 1px solid #cce5ea;
+    border-radius: 8px;
+    background-color: #f0faff;
+    font-size: 14px;
+    color: #1e2a38;
+    box-sizing: border-box;
+}
+
+.col-form input[type="text"],
+.col-form textarea,
+.col-form button {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.col-form button {
+    width: 70%; /* 入力欄と同じ幅 */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* スマホ対応：1カラムに戻す */
+@media (max-width: 576px) {
+    .two-col-layout {
+      flex-direction: column;
+      align-items: center;
+  }
+    .col-image {
+      flex: none;
+      width: 100%;
+    }
+    
+}
+

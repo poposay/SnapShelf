@@ -4,37 +4,46 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>ユーザー登録</title>
-<link rel="stylesheet" href="/css/style.css">
+<link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/login.css">
 <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
 </head>
 <body>
-	<header class="popo-header">
+	<header class="header">
 		<img src="/images/app-icon.png" alt="アイコン" class="app-icon">
 		<h1 class="site-tittle">SnapShelf</h1>
 	</header>
-	<div class="popo-container">
+	<div class="container">
 		<div>
 		<h2>新規登録</h2>
 		</div>
-		<form action="/register" th:object="${registerRequest}" method="post" id="registerForm">
+		
+		<form action="/register" th:object="${registerRequest}" method="post" id="registerForm" class="form form-login">
 			
 			<p th:text="${error}"></p>
-
+			<div>
 			<label for="username">氏名</label>
 			<input type="text" th:field="*{username}" required autocomplete="off">
 			<div th:if="${#fields.hasErrors('username')}"} th:errors="*{username}"></div>
+			</div>
 			
+			<div>
 			<label for="email">メールアドレス</label>
 			<input type="email" th:field="*{email}" required autocomplete="off">
 			<div th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></div>
+			</div>
 			
+			<div>
 			<label for="password">パスワード</label>
 			<input type="password" th:field="*{password}" required autocomplete="off">
 			<div th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
+			</div>
 			
-			<button type="submit">登録</button>
+
+			<p><button type="submit" class="btn">登録</button></p>
 		</form>
-		<a href="/login">登録済みの方はこちら</a>
+
+		<p><a href="/login">登録済みの方はこちら</a></p>
 	</div>
 
 	

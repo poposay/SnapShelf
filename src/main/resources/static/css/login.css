@@ -1,0 +1,14 @@
+/* ログイン・新規登録画面で使用 */
+
+.form-login {
+	display: flex;
+	flex-direction:column;
+	align-items: center;
+	margin-bottom: 18px;
+}
+
+.form-login input {
+	width: 300px;
+}
+
+

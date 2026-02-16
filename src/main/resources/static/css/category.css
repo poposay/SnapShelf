@@ -1,0 +1,40 @@
+@charset "UTF-8";
+/* カテゴリ管理画面で使用 */
+
+.form {
+	display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+.form-search p:last-child {
+      margin-left: auto;
+}
+  
+.form input[type="text"] {
+	width: 200px;
+} 
+  
+.form-edit {
+	display: flex;
+    align-items: center;
+    gap: 8px;
+	justify-content: center;
+  }
+
+
+table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 16px;
+  }
+
+th, td {
+      border: 1px solid #ddd;
+      padding: 8px 12px;
+      text-align: center;
+  }
+
+th {
+      background-color: #f5f5f5;
+  }

@@ -19,7 +19,7 @@ public class CategotyController {
 	UserRepository userRepository;
 
 	@GetMapping("/categories")
-	public String showCategoryEditPage(Model model) {
+	public String showCategoryList(Model model) {
 		
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
@@ -35,4 +35,20 @@ public class CategotyController {
 		}
 	}
 	
+	@GetMapping("/categorycreate")
+	public String showCategoryCreatePage(Model model) {
+		
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		String email = auth.getName();
+		
+		Optional<Users> userOpt = userRepository.findByEmail(email);
+		if(userOpt.isPresent()) {
+			Users user = userOpt.get();
+			model.addAttribute("currentUsername", user.getUsername());
+			return "category/create";
+		}else {
+			//ユーザーが見つからなかった場合
+			return "redirect:/error/unauthorized";
+		}
+	}
 }

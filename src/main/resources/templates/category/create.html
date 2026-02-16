@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>ホーム</title>
+<link rel="stylesheet" href="/css/common.css">
+<link rel="stylesheet" href="/css/category.css">
+<link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+
+</head>
+<body>
+	<div th:replace="fragments/header :: header"></div>
+	
+	<div class="main-layout">	
+		
+		<aside class="sidebar">
+			<div th:replace="fragments/sidebar :: sidebar"></div>
+		</aside>
+	
+		<div class="content">
+			<div class="container">
+				<h2>カテゴリ作成</h2>
+				<p>カテゴリ名を入力し、保存ボタンを押してください。</p>
+				
+				<form th:action="@{/catgories}" method="get" class="form form-edit">
+					<input type="text" id="categoryName" name="categoryName" placeholder="カテゴリ名を入力">
+					<p><button type="submit" class="btn">保存</button></p>				
+				</form>
+				
+			</div>
+		</div>
+	</div>
+</body>
+</html>
