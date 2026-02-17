@@ -22,10 +22,10 @@
 	
 		<div class="content">
 			<div class="container">
-				<h2>カテゴリ作成</h2>
-				<p>カテゴリ名を入力し、保存ボタンを押してください。</p>
+				<h2>カテゴリ編集</h2>
+				<p>カテゴリ名を編集し、保存ボタンを押してください。</p>
 				
-				<form th:action="@{/categorycreate}" method="post" class="form form-edit">
+				<form th:action="@{/categoryedit}" method="post" class="form form-edit">
 					<input type="text" id="categoryName" name="categoryName" placeholder="カテゴリ名を入力">
 					<p><button type="submit" class="btn">保存</button></p>				
 				</form>

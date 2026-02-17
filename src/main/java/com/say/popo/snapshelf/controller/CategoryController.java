@@ -8,23 +8,31 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.say.popo.snapshelf.dto.CategoryCreateDTO;
 import com.say.popo.snapshelf.entity.Category;
 import com.say.popo.snapshelf.entity.Users;
+import com.say.popo.snapshelf.repository.CategoryRepository;
 import com.say.popo.snapshelf.repository.UserRepository;
 import com.say.popo.snapshelf.service.CategoryService;
+
+import jakarta.validation.Valid;
 
 @Controller
 public class CategoryController {
 	
 	private final UserRepository userRepository;
 	private final CategoryService categoryService;
+	private final CategoryRepository categoryRepository;
 	
-	public CategoryController(UserRepository userRepository, CategoryService categoryService) {
+	public CategoryController(UserRepository userRepository, CategoryService categoryService, CategoryRepository categoryRepository) {
 		this.userRepository = userRepository;
 		this.categoryService = categoryService;
+		this.categoryRepository = categoryRepository;
 	}
 
 	@GetMapping("/categories")
@@ -68,8 +76,22 @@ public class CategoryController {
 		}
 	}
 	
-	/* 実装途中
-	@PostMapping
-	public String CreateCategory()
-	*/
+	
+	@PostMapping("/categorycreate")
+	public String categoryCreate(@Valid CategoryCreateDTO dto,  BindingResult result, Model model) {
+		
+		if(result.hasErrors()) {
+			return "categorycreate";
+		}
+		
+		// 重複チェック
+		if (categoryService.isDuplicate(dto.getCategoryName())) {
+			model.addAttribute("error","このカテゴリは既に存在します。");
+			return "categorycreate";
+		}
+
+		categoryService.saveCategory(dto);
+		return "redirect:/categories";
+	}
+
 }

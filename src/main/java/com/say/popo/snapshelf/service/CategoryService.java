@@ -42,4 +42,8 @@ public class CategoryService {
 		UserDetails userDetails = (UserDetails) auth.getPrincipal();
 	    return ((CustomUserDetails) userDetails).getId();
 	}
+	
+	public boolean isDuplicate(String categoryName) {
+	    return categoryRepository.existsByCategoryName(categoryName);
+	}
 }
