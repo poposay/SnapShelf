@@ -78,6 +78,10 @@ public class Category {
 	public LocalDateTime getUpdatedAt() {
 		return updatedAt;
 	}
+	
+	public Long setUpdatedBy(Long userId) {
+		return updatedBy;
+	}
 
 	public Long getUpdatedBy() {
 		return updatedBy;
