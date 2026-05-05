@@ -14,59 +14,48 @@
 <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
 </head>
 <body>
-	<div id="app" v-cloak>
-		
-	<div th:replace="fragments/header :: header"></div>
-	<div class="main-layout">	
-		
-		<aside class="sidebar">
-			<div th:replace="fragments/sidebar :: sidebar"></div>
-		</aside>
-
-	<div class="content">
-	
-	<div class="container--wide">
-
-		<div>
-			<h2>商品編集</h2>
-		</div>
-		
-		<p>商品画像と商品名、在庫数、価格を編集してください。</p>
-		
-			<div class="two-col-layout">
-				
-				<!-- 左カラム：画像選択 -->
-				<div class="col-image">
-					<input type="hidden" name="redirectTo" value="updatedescription">
-					<input type="file" ref="fileInput" @change="handleImageUpload" name="productimage" accept="image/*" required :disabled="isLocked">
-					<div v-if="imagePreview" class="image-preview">
-						<img :src="imagePreview" alt="商品画像" style="max-width: 200px; max-height: 200px">
-					</div>
-				</div>
-				
-				<!-- 右カラム：入力フォーム -->
-				<div class="col-form">
-					<label for="name">商品名</label>
-					<input type="text" v-model="name" id="name" name="name" autocomplete="off" :disabled="isLocked">
-					<label for="price">価格</label>
-					<input type="text" v-model="price" id="price" name="price" autocomplete="off" :disabled="isLocked">
-					<label for="stock">在庫数</label>
-					<input type="text" v-model="stock" id="stock" name="stock" autocomplete="off" :disabled="isLocked">
-					<label for="description">説明文</label>
-					<textarea v-model="description" rows="5" cols="50" required></textarea>
+	<div id="app" v-cloak>		
+		<div th:replace="fragments/header :: header"></div>
+		<div class="main-layout">	
+			<aside class="sidebar">
+				<div th:replace="fragments/sidebar :: sidebar"></div>
+			</aside>
+			<div class="content">	
+				<div class="container--wide">
+					<div>
+						<h2>商品編集</h2>
+					</div>	
+					<p>商品画像と商品名、在庫数、価格を編集してください。</p>	
+					<div class="two-col-layout">			
+						<!-- 左カラム：画像選択 -->
+						<div class="col-image">
+							<input type="hidden" name="redirectTo" value="updatedescription">
+							<input type="file" ref="fileInput" @change="handleImageUpload" name="productimage" accept="image/*" required :disabled="isLocked">
+							<div v-if="imagePreview" class="image-preview">
+								<img :src="imagePreview" alt="商品画像" style="max-width: 200px; max-height: 200px">
+							</div>
+						</div>				
+						<!-- 右カラム：入力フォーム -->
+						<div class="col-form">
+							<label for="name">商品名</label>
+							<input type="text" v-model="name" id="name" name="name" autocomplete="off" :disabled="isLocked">
+							<label for="price">価格</label>
+							<input type="text" v-model="price" id="price" name="price" autocomplete="off" :disabled="isLocked">
+							<label for="stock">在庫数</label>
+							<input type="text" v-model="stock" id="stock" name="stock" autocomplete="off" :disabled="isLocked">
+							<label for="description">説明文</label>
+							<textarea v-model="description" rows="5" cols="50" required></textarea>
+						</div>
+					</div>	
+				<div class="btn-area">
+					<button @click="showDeleteModal=true" class="btn btn-delete">削除</button>
+					<button @click="showSaveModal=true" class="btn">保存</button>
+					<button @click="showCancelModal=true" class="btn btn-cancel">キャンセル</button>	
 				</div>
 			</div>
-			
-			<div class="btn-area">
-				<button @click="showDeleteModal=true" class="btn btn-delete">削除</button>
-				<button @click="showSaveModal=true" class="btn">保存</button>
-			<button @click="showCancelModal=true" class="btn btn-cancel">キャンセル</button>	
 		</div>
-		</div>
-	</div>
 		
-		<!-- モーダル -->
-		
+		<!-- モーダル -->		
 		<!-- オーバーレイ -->
 		<div v-if="showDeleteModal || showSaveModal || showCancelModal" class="modal-overlay"></div>
 		
@@ -74,24 +63,24 @@
 		<div v-if="showDeleteModal" class="modal-custom">
 			<p>商品を削除します。よろしいですか？</p>
 			<div class="modal-button-group">
-			<button @click="deleteProduct" class="modalbtn">OK</button>
-			<button @click="showDeleteModal=false" class="modalbtn">キャンセル</button>
+				<button @click="deleteProduct" class="modalbtn">OK</butto>
+				<button @click="showDeleteModal=false" class="modalbtn">キャンセル</button>
 			</div>
 		</div>
 		
 		<div v-if="showSaveModal" class="modal-custom">
 			<p>更新します。よろしいですか？</p>
 			<div class="modal-button-group">
-			<button @click="updateProduct" class="modalbtn">OK</button>
-			<button @click="showSaveModal=false" class="modalbtn">キャンセル</button>
+				<button @click="updateProduct" class="modalbtn">OK</button>
+				<button @click="showSaveModal=false" class="modalbtn">キャンセル</button>
 			</div>
 		</div>
 		
 		<div v-if="showCancelModal" class="modal-custom">
 			<p>編集をキャンセルします。よろしいですか？</p>
 			<div class="modal-button-group">
-			<button @click="goShelf" class="modalbtn">OK</button>
-			<button @click="showCancelModal=false" class="modalbtn">キャンセル</button>
+				<button @click="goShelf" class="modalbtn">OK</button>
+				<button @click="showCancelModal=false" class="modalbtn">キャンセル</button>
 			</div>
 		</div>
 		

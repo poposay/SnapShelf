@@ -8,6 +8,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.say.popo.snapshelf.dto.CategoryCreateDTO;
+import com.say.popo.snapshelf.dto.CategoryUpdateDTO;
 import com.say.popo.snapshelf.entity.Category;
 import com.say.popo.snapshelf.repository.CategoryRepository;
 import com.say.popo.snapshelf.security.CustomUserDetails;
@@ -65,7 +66,7 @@ public class CategoryService {
 	
 	// カテゴリのアップデート
 	@Transactional
-	public Category updateCategory(Long categoryId, CategoryCreateDTO dto) {
+	public Category updateCategory(Long categoryId, CategoryUpdateDTO dto) {
 		Long userId = getCurrentUserId();
 		
 		Category category = categoryRepository.findById(categoryId)
