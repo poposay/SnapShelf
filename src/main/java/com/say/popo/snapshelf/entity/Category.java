@@ -7,6 +7,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EntityListeners;
@@ -27,6 +29,7 @@ public class Category {
 	private String categoryName;
 	
 	@OneToMany(mappedBy = "category")
+	@JsonIgnore
 	private List<Product> products;
 	
 	@Column(updatable = false)

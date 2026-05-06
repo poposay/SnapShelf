@@ -143,6 +143,14 @@ public class Product {
 		this.published = published;
 	}
 
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
+	}
+
 
 
 

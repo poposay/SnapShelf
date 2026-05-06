@@ -19,6 +19,8 @@ public class DescriptionUpdateRequest {
     @JsonProperty("stock")
     private int stock;
     
+    @JsonProperty("categoryId")
+    private long categoryId;
     
     public DescriptionUpdateRequest() {} // ← デフォルトコンストラクタ
 
@@ -68,5 +70,15 @@ public class DescriptionUpdateRequest {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+
+	public long getCategoryId() {
+		return categoryId;
+	}
+
+
+	public void setCategoryId(long categoryId) {
+		this.categoryId = categoryId;
 	}
 }

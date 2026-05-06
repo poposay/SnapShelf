@@ -27,12 +27,9 @@
 			<div class="content">
 				<div class="container--wide">
 					<h2>カテゴリ一覧</h2>
-					<div class="search-container">
-						<form th:action="@{/categories}" method="get" class="form form-search">
-							<input type="text" id="keyword" name="keyword" placeholder="カテゴリ名で検索">
-							<p><button type="submit" class="btn btn-cancel">検索</button></p>
-							<p><a href="/categorycreate" class="btn">新規登録</a></p>
-						</form>
+					<div class="btn-container">
+						<p><a href="/home" class="btn btn-cancel">戻る</a></p>
+						<p><a href="/categorycreate" class="btn">新規登録</a></p>
 					</div>
 					<div v-if="categories.length === 0">
 						<p>登録されているカテゴリがありません</p>

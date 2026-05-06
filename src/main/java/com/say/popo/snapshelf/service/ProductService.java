@@ -20,6 +20,7 @@ import com.say.popo.snapshelf.dto.PostResult;
 import com.say.popo.snapshelf.entity.AIDescription;
 import com.say.popo.snapshelf.entity.Product;
 import com.say.popo.snapshelf.entity.Users;
+import com.say.popo.snapshelf.entity.Category;
 import com.say.popo.snapshelf.repository.AIDescriptiontRepository;
 import com.say.popo.snapshelf.repository.ProductRepository;
 import com.say.popo.snapshelf.repository.UserRepository;
@@ -48,7 +49,7 @@ public class ProductService {
 	}
 
 
-	public PostResult saveProduct(MultipartFile file, String name, int price, int stock) throws IOException {
+	public PostResult saveProduct(MultipartFile file, String name, int price, int stock, Category category) throws IOException {
 
 		String filename = UUID.randomUUID() + "_" + file.getOriginalFilename();
 		Path uploadPath = Paths.get("src/main/resources/static/uploads/" + filename);
@@ -71,6 +72,7 @@ public class ProductService {
 		product.setUser(user);
 		product.setPrice(price);
 		product.setStock(stock);
+		product.setCategory(category);
 		productRepository.save(product);
 		System.out.println("DBに一時保存完了");
 		
@@ -98,7 +100,7 @@ public class ProductService {
 		return new PostResult(discription,aiDescription.getId());
 
 	}
-	public void updateDescriptionAndPublish(Long descId,String newDescription, String name, int price, int stock) {
+	public void updateDescriptionAndPublish(Long descId,String newDescription, String name, int price, int stock, Category category) {
 		
 		// 商品情報を取得
 		AIDescription desc = aiDescriptionRepository.findById(descId).orElseThrow();
@@ -112,6 +114,7 @@ public class ProductService {
 		product.setProduct_name(name);
 		product.setPrice(price);
 		product.setStock(stock);
+		product.setCategory(category);
 		product.setPublished(true); // 商品情報を公開
 		productRepository.save(product);
 	}

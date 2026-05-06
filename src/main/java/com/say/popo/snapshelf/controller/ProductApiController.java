@@ -28,7 +28,9 @@ import com.say.popo.snapshelf.dto.PostResult;
 import com.say.popo.snapshelf.dto.ProductDto;
 import com.say.popo.snapshelf.entity.AIDescription;
 import com.say.popo.snapshelf.entity.Product;
+import com.say.popo.snapshelf.entity.Category;
 import com.say.popo.snapshelf.repository.AIDescriptiontRepository;
+import com.say.popo.snapshelf.repository.CategoryRepository;
 import com.say.popo.snapshelf.repository.ProductRepository;
 import com.say.popo.snapshelf.service.ProductService;
 
@@ -46,21 +48,28 @@ public class ProductApiController {
 	private ProductService productService;
 	private final ProductRepository productRepository;
 	private final AIDescriptiontRepository aiDescriptionRepository;
+	private final CategoryRepository categoryRepository;
 	
 	public ProductApiController(ProductService productService,ProductRepository productRepository,
-			AIDescriptiontRepository aiDescriptionRepository) {
+			AIDescriptiontRepository aiDescriptionRepository, CategoryRepository categoryRepository) {
 		this.productService = productService;
 		this.productRepository = productRepository;
 		this.aiDescriptionRepository = aiDescriptionRepository;
+		this.categoryRepository = categoryRepository;
 	}
 
-	@PostMapping("/update-description")
+	@PostMapping("/save-product")
 	public ResponseEntity<?> updateDescription(@RequestBody DescriptionUpdateRequest req) {
 		try {
 			System.out.println("受け取った説明文ID：" + req.getDescId() + "受け取った説明文：" + req.getDescription() + 
-								"変更後の商品情報" + req.getName() + req.getPrice() + req.getStock());
+								"変更後の商品情報" + req.getName() + req.getPrice() + req.getStock() + req.getCategoryId());
+			
+			// カテゴリの取得
+			Optional<Category> optionalCategory = categoryRepository.findById(req.getCategoryId());
+			Category category = optionalCategory.get();			
+			
 			//説明文の保存と公開フラグ設定をサービスに移譲
-			productService.updateDescriptionAndPublish(req.getDescId(), req.getDescription(), req.getName(), req.getPrice(), req.getStock());
+			productService.updateDescriptionAndPublish(req.getDescId(), req.getDescription(), req.getName(), req.getPrice(), req.getStock(), category);
 			
 		return ResponseEntity.ok().build();
 		} catch (Exception e) {
@@ -73,13 +82,15 @@ public class ProductApiController {
 			@RequestParam("productimage") MultipartFile file ,
 			@RequestParam String name,
 			@RequestParam int price,
-			@RequestParam int stock) throws IOException {
+			@RequestParam int stock,
+			@RequestParam long categoryId) throws IOException {
 		
 		if(!file.isEmpty()) {
 			//画像・コメント保存とDB登録の処理をサービスへ移譲
 			System.out.println("saveProduct呼び出し");
-			
-			PostResult result = productService.saveProduct(file,name,price,stock);
+			Optional<Category> optionalCateogry = categoryRepository.findById(categoryId);
+			Category category = optionalCateogry.get();
+			PostResult result = productService.saveProduct(file,name,price,stock,category);
 			System.out.println("PostResultで受け取った内容：" + result.getAiDescription() + result.getAiDescriptionId());
 			
 			return ResponseEntity.ok(result);

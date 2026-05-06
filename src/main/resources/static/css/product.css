@@ -271,6 +271,32 @@
     margin-right: auto;
 }
 
+select {
+	width: 70%;
+	padding: 10px;
+	border: 1px solid #cce5ea;
+	border-radius: 8px;
+	background-color: #f0faff;
+	font-size: 14px;
+	color: #1e2a38;
+	box-sizing: border-box;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.search-select {
+	padding: 10px;
+	border: 1px solid #cce5ea;
+	border-radius: 8px;
+	background-color: #f0faff;
+	font-size: 14px;
+	color: #1e2a38;
+	box-sizing: border-box;
+	margin-right: auto;
+	margin-left: 0px;
+	width: 150px;
+}
+
 .col-form button {
     width: 70%; /* 入力欄と同じ幅 */
     margin-left: auto;

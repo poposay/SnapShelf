@@ -1,6 +1,7 @@
 package com.say.popo.snapshelf.controller;
 
 import java.io.IOException;
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.http.ResponseEntity;
@@ -16,11 +17,15 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.say.popo.snapshelf.dto.PostResult;
+import com.say.popo.snapshelf.entity.Category;
 import com.say.popo.snapshelf.entity.Product;
 import com.say.popo.snapshelf.entity.Users;
 import com.say.popo.snapshelf.repository.ProductRepository;
 import com.say.popo.snapshelf.repository.UserRepository;
+import com.say.popo.snapshelf.service.CategoryService;
 import com.say.popo.snapshelf.service.ProductService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 
 import jakarta.servlet.http.HttpSession;
 
@@ -29,11 +34,16 @@ public class ProductPageController {
 	private final ProductService productCreateService;
 	private final UserRepository userRepository;
 	private final ProductRepository productRepository;
+	private final ObjectMapper objectMapper;
+	private final CategoryService categoryService;
 	
-	public ProductPageController(ProductService productCreateService, UserRepository userRepository, ProductRepository productRepository) {
+	public ProductPageController(ProductService productCreateService, UserRepository userRepository, ProductRepository productRepository,
+			ObjectMapper objectMapper, CategoryService categoryService) {
 		this.productCreateService = productCreateService;
 		this.userRepository = userRepository;
 		this.productRepository = productRepository;
+		this.objectMapper = objectMapper;
+		this.categoryService = categoryService;
 	}
 
 	@GetMapping("/productcreate")
@@ -44,6 +54,12 @@ public class ProductPageController {
 		if(userOpt.isPresent()) {
 			Users user = userOpt.get();
 			model.addAttribute("currentUsername", user.getUsername());
+			List<Category> categories = categoryService.findAll();
+			try {
+				model.addAttribute("categoriesJson", objectMapper.writeValueAsString(categories));
+			} catch (JsonProcessingException e) {
+				e.printStackTrace();
+			}
 		
 			return "productcreate";
 		}else {

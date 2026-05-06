@@ -46,6 +46,15 @@
 					<div class="col-form">
 						<label for="name">商品名</label>
 						<input type="text" v-model="name" id="name" name="name" autocomplete="off" placeholder="商品名を入力" :disabled="isLocked">
+						<label for="category">カテゴリ</label>
+						<select v-model="selectedCategoryId" id="category" name="categoryId" :disabled="isLocked">
+							<option value="">--未選択--</option>
+							<option v-for="category in categories"
+								:key="category.id"
+								:value="category.id">
+								{{ category.categoryName}}
+							</option>
+						</select>
 						<label for="price">価格</label>
 						<input type="text" v-model="price" id="price" name="price" autocomplete="off" placeholder="価格（円）を入力"　:disabled="isLocked">
 						<label for="stock">在庫数</label>
@@ -110,7 +119,7 @@
 	</div>
 	
 	
-	<script>
+	<script th:inline="javascript">
 		Vue.createApp({
 	    data() {
 			return {
@@ -118,6 +127,8 @@
 			name: '',
 			price: '',
 			stock: '',
+			categories: [],
+			selectedCategoryId: null,
 			imageFile: null,
 			imagePreview: null,		
 	      	aiDescription: '', 
@@ -130,6 +141,11 @@
 			loading: false
 			};
 	    },
+		mounted() {
+			const json = /*[[${categoriesJson}]]*/ '[]';
+			this.categories = JSON.parse(json);
+			console.log(this.categories);
+		},
 	    methods: {
 			handleImageUpload(event) {
 				this.imageFile = event.target.files[0];
@@ -167,6 +183,7 @@
 				formData.append('price',this.price);
 				formData.append('stock',this.stock);
 				formData.append('productimage',this.imageFile);
+				formData.append('categoryId', this.selectedCategoryId);
 
 				try {
 					const response = await axios.post('/api/product/productcreate',formData)
@@ -191,12 +208,13 @@
 					return;
 				}
 				try {
-					axios.post('/api/product/update-description',{
+					axios.post('/api/product/save-product',{
 						descId:parseInt(this.aiDescriptionId),
 						description:this.aiDescription,
 						name:this.name,
 						price:parseInt(this.price),
-						stock:parseInt(this.stock)
+						stock:parseInt(this.stock),
+						categoryId:parseInt(this.selectedCategoryId)
 						
 					}, {
 					headers: {'Content-Type': 'application/json'}
@@ -215,7 +233,8 @@
 				this.price =  '';
 				this.stock = '';
 				this.imageFile =  null;
-				this.imagePreview = null;		
+				this.imagePreview = null;	
+				this.selectedCategoryId = null,	
 			  	this.aiDescription = '';
 				this.isLocked = false;
 				this.isLocked_generatebefore = true;

@@ -355,5 +355,8 @@ form input {
 	/*フォームサイズや並びは各ページで設定*/
 }
 
-
+.btn-container {
+    display: flex;
+    gap: 8px; /* ボタン間のスペース */
+}
 
