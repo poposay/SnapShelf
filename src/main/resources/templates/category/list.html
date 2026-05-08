@@ -46,8 +46,8 @@
 							<td>{{ category.categoryName }}</td>
 							<td>{{ category.createdAt }}</td>
 							<td>
-								<a :href="'/categoryedit/' + category.id" class="btn">編集</a>
-								<button @click="openDeleteModal(category.id)" class="btn btn-delete">削除</button>
+								<a :href="'/categoryedit/' + category.id" class="btn btn-category">編集</a>
+								<button @click="openDeleteModal(category.id)" class="btn btn-delete btn-category">削除</button>
 							</td>
 						</tr>
 					</table>

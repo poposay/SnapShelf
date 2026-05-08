@@ -75,6 +75,7 @@
 .product-name {
   font-size: 0.9rem;
   margin: 0;
+  font-weight: bold;
 }
 
 .product-price {
@@ -242,6 +243,7 @@
     flex-direction: column;
     gap: 8px;
     text-align: left;
+	max-width: 500px;
 }
 
 .col-form label {
@@ -298,7 +300,7 @@ select {
 }
 
 .col-form button {
-    width: 70%; /* 入力欄と同じ幅 */
+    width: 287px; /* 入力欄と同じ幅 */
     margin-left: auto;
     margin-right: auto;
 }
@@ -316,3 +318,18 @@ select {
     
 }
 
+.form-group {
+	display: flex;               /* 中身を横並びにする */
+	  align-items: center;         /* 縦方向の中央で揃える（重要！） */
+	  margin-bottom: 8px;
+}
+.form-group label {
+  width: 120px;                /* ラベルの幅を固定する（※ここがポイント） */
+  margin-right: 16px;          /* 入力欄との間の余白 */
+  font-weight: bold;
+}
+
+.form-group .form-control {
+  flex: 1;                     /* 余っている幅をすべて入力欄に使う */
+  /* padding: 8px; border: 1px solid #ccc; などのスタイル */
+}

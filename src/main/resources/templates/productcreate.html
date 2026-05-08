@@ -36,7 +36,7 @@
 					<div class="col-image">
 					<input type="hidden" name="redirectTo" value="updatedescription">
 					<label for="productimage">商品画像</label>
-					<input type="file" ref="fileInput" @change="handleImageUpload" name="productimage" accept="image/*" required :disabled="isLocked">
+					<input type="file" ref="fileInput" @change="handleImageUpload" name="productimage" accept="image/*" required>
 						<div v-if="imagePreview" class="image-preview">
 						<img :src="imagePreview" alt="商品画像" style="max-width: 200px; max-height: 200px">
 						</div>
@@ -44,23 +44,37 @@
 					
 					<!-- 右カラム：入力フォーム -->
 					<div class="col-form">
-						<label for="name">商品名</label>
-						<input type="text" v-model="name" id="name" name="name" autocomplete="off" placeholder="商品名を入力" :disabled="isLocked">
-						<label for="category">カテゴリ</label>
-						<select v-model="selectedCategoryId" id="category" name="categoryId" :disabled="isLocked">
-							<option value="">--未選択--</option>
-							<option v-for="category in categories"
-								:key="category.id"
-								:value="category.id">
-								{{ category.categoryName}}
-							</option>
-						</select>
-						<label for="price">価格</label>
-						<input type="text" v-model="price" id="price" name="price" autocomplete="off" placeholder="価格（円）を入力"　:disabled="isLocked">
-						<label for="stock">在庫数</label>
-						<input type="text" v-model="stock" id="stock" name="stock" autocomplete="off" placeholder="在庫数を入力"　:disabled="isLocked">
-						<button @click="showGenerateModal=true" class="btn" :disabled="isLocked"><span><i class="bi bi-chat-dots"></i></span> 説明文生成</button>
-						<textarea v-model="aiDescription" rows="5" cols="50" :disabled="isLocked_generatebefore" placeholder="商品情報を入力後、説明文生成ボタンを押すと説明文が自動で生成されます。"　required></textarea>
+						<div class="form-group">
+							<label for="name">商品名</label>
+							<input type="text" v-model="name" id="name" name="name" autocomplete="off" placeholder="商品名を入力">
+						</div>
+						<div class="form-group">
+							<label for="category">カテゴリ</label>
+							<select v-model="selectedCategoryId" id="category" name="categoryId">
+								<option value="" selected>--未選択--</option>
+								<option v-for="category in categories"
+									:key="category.id"
+									:value="category.id">
+									{{ category.categoryName}}
+								</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label for="price">価格</label>
+							<input type="text" v-model="price" id="price" name="price" autocomplete="off" placeholder="価格（円）を入力">
+						</div>
+						<div class="form-group">
+							<label for="stock">在庫数</label>
+							<input type="text" v-model="stock" id="stock" name="stock" autocomplete="off" placeholder="在庫数を入力">
+						</div>
+						<div class="form-group">
+							<label></label>
+							<button @click="showGenerateModal=true" class="btn" :disabled="isLocked"><span><i class="bi bi-chat-dots"></i></span> 説明文生成</button>
+						</div>	
+						<div class="form-group">
+							<label for="aiDescription">商品説明文</label>
+							<textarea v-model="aiDescription" id="aiDescription" rows="5" cols="50" :disabled="isLocked_generatebefore" placeholder="商品情報を入力後、説明文生成ボタンを押すと説明文が自動で生成されます。"　required></textarea>
+						</div>
 					</div>
 				</div>
 				
@@ -102,10 +116,20 @@
 			</div>
 		</div>
 		
-		<div v-if="showDialog" class="dialog-bar">
-			<p>保存しました</p>
-			<button @click="closeDialog">閉じる</button>
-		</div>
+		<transition name="fade">
+			<div v-if="showDialog" class="dialog-bar">
+				<p>保存しました</p>
+				<button @click="closeDialog">閉じる</button>
+			</div>
+		</transition>
+		
+		<transition name="fade">
+			<div v-if="showErrorDialog" class="dialog-bar bar-error">
+				<p>{{ errorMessage }}</p>
+				<button @click="closeDialog">閉じる</button>
+			</div>
+		</transition>
+		
 		
 		<!-- くるくるアニメ -->
 		<div v-if="loading" class="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
@@ -128,11 +152,13 @@
 			price: '',
 			stock: '',
 			categories: [],
-			selectedCategoryId: null,
+			selectedCategoryId: '',
 			imageFile: null,
 			imagePreview: null,		
 	      	aiDescription: '', 
 	      	showDialog: false,
+			showErrorDialog: false,
+			errorMessage: '',
 			isLocked: false,
 			isLocked_generatebefore: true,
 			showGenerateModal: false,
@@ -174,7 +200,11 @@
 				if(!this.isValidProductInput()) {
 					this.showGenerateModal = false;
 					await this.$nextTick();
-					alert("商品名・画像・価格・在庫数を正しく入力してください（半角整数・0以上）")
+					this.errorMessage = '商品名・画像・価格・在庫数を正しく入力してください（半角整数・0以上）';
+					this.showErrorDialog = true;
+					setTimeout(() => {
+					    this.showErrorDialog = false;
+					}, 3000);
 					this.loading = false;
 					return;
 				}
@@ -190,10 +220,20 @@
 					this.aiDescriptionId = response.data.aiDescriptionId;
 					this.aiDescription = response.data.aiDescription;
 					console.log("反映された説明文：", this.aiDescription);
+					this.isLocked = true;
 					this.isLocked_generatebefore = false;
 				} catch(error) {
-					console.error("説明文生成失敗",error);
-					alert("説明文の生成に失敗しました");
+					if (error.response && error.response.status === 503) {
+						this.errorMessage = 'ただいまAIが混雑しています。しばらく待ってから再試行してください。'
+						this.showErrorDialog = true;
+					}
+					else {
+						this.errorMessage = '説明文の生成に失敗しました。しばらくしてからお試しください。';
+						this.showErrorDialog = true;
+						setTimeout(() => {
+						    this.showErrorDialog = false;
+						}, 3000);
+					}
 				} finally {
 				this.loading = false;
 				}
@@ -220,11 +260,14 @@
 					headers: {'Content-Type': 'application/json'}
 					});
 					this.showDialog = true;
+					setTimeout(() => {
+					    this.showDialog = false;
+					}, 3000);
 					this.showSaveModal = false;
 					this.resetForm();
 				} catch(error) {
-					console.error("保存失敗",error);
-					alert("保存に失敗しました")
+					this.errorMessage = '保存処理に失敗しました。'
+					this.showErrorDialog = true;
 				}
 			},  
 			resetForm() {
@@ -249,6 +292,7 @@
 			},
 			closeDialog() {
 				this.showDialog = false;
+				this.showErrorDialog = false;
 			},
 			goHome() {
 				window.location.href = '/home';

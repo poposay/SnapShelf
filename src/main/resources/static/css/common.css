@@ -214,6 +214,10 @@ body {
 	flex-shrink: 0;
 }
 
+.btn-category {
+	width: 60px !important;
+}
+
 button:hover,
 form button:hover,
 .btn:hover {
@@ -308,6 +312,10 @@ button:disabled {
   align-items: center;
   z-index: 1000;
   opacity: 0.5;
+}
+
+.bar-error {
+	background-color: #DF7474 !important;
 }
 
 .dialog-bar button {

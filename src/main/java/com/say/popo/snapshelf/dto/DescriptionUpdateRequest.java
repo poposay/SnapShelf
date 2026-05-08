@@ -20,7 +20,7 @@ public class DescriptionUpdateRequest {
     private int stock;
     
     @JsonProperty("categoryId")
-    private long categoryId;
+    private Long categoryId;
     
     public DescriptionUpdateRequest() {} // ← デフォルトコンストラクタ
 
@@ -73,7 +73,7 @@ public class DescriptionUpdateRequest {
 	}
 
 
-	public long getCategoryId() {
+	public Long getCategoryId() {
 		return categoryId;
 	}
 

@@ -58,15 +58,41 @@ public class ProductApiController {
 		this.categoryRepository = categoryRepository;
 	}
 
+	@PostMapping("/productcreate")
+	public ResponseEntity<PostResult> handlePostAndReturnJson(
+			@RequestParam("productimage") MultipartFile file ,
+			@RequestParam String name,
+			@RequestParam int price,
+			@RequestParam int stock,
+			@RequestParam(required = false) Long categoryId) throws IOException {
+		
+		if(!file.isEmpty()) {
+			//画像・コメント保存とDB登録の処理をサービスへ移譲
+			System.out.println("saveProduct呼び出し");
+			Category category = null;
+			if(categoryId != null) {
+			Optional<Category> optionalCateogry = categoryRepository.findById(categoryId);
+			category = optionalCateogry.get();
+			}
+			PostResult result = productService.saveProduct(file,name,price,stock,category);
+			System.out.println("PostResultで受け取った内容：" + result.getAiDescription() + result.getAiDescriptionId());
+			
+			return ResponseEntity.ok(result);
+		}else {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
 	@PostMapping("/save-product")
 	public ResponseEntity<?> updateDescription(@RequestBody DescriptionUpdateRequest req) {
 		try {
-			System.out.println("受け取った説明文ID：" + req.getDescId() + "受け取った説明文：" + req.getDescription() + 
-								"変更後の商品情報" + req.getName() + req.getPrice() + req.getStock() + req.getCategoryId());
 			
 			// カテゴリの取得
-			Optional<Category> optionalCategory = categoryRepository.findById(req.getCategoryId());
-			Category category = optionalCategory.get();			
+			Category category = null;
+			if(req.getCategoryId() != null) {
+				Optional<Category> optionalCategory = categoryRepository.findById(req.getCategoryId());
+				category = optionalCategory.orElse(null);	
+			}
 			
 			//説明文の保存と公開フラグ設定をサービスに移譲
 			productService.updateDescriptionAndPublish(req.getDescId(), req.getDescription(), req.getName(), req.getPrice(), req.getStock(), category);
@@ -75,27 +101,6 @@ public class ProductApiController {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return ResponseEntity.internalServerError().build();
-		}
-}
-	@PostMapping("/productcreate")
-	public ResponseEntity<PostResult> handlePostAndReturnJson(
-			@RequestParam("productimage") MultipartFile file ,
-			@RequestParam String name,
-			@RequestParam int price,
-			@RequestParam int stock,
-			@RequestParam long categoryId) throws IOException {
-		
-		if(!file.isEmpty()) {
-			//画像・コメント保存とDB登録の処理をサービスへ移譲
-			System.out.println("saveProduct呼び出し");
-			Optional<Category> optionalCateogry = categoryRepository.findById(categoryId);
-			Category category = optionalCateogry.get();
-			PostResult result = productService.saveProduct(file,name,price,stock,category);
-			System.out.println("PostResultで受け取った内容：" + result.getAiDescription() + result.getAiDescriptionId());
-			
-			return ResponseEntity.ok(result);
-		}else {
-			return ResponseEntity.badRequest().build();
 		}
 	}
 
