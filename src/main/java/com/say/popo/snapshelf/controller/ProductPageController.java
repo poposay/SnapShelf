@@ -48,19 +48,23 @@ public class ProductPageController {
 
 	@GetMapping("/productcreate")
 	public String showPostPage(Model model) {
+		
+		// SpringSecurityからユーザー情報を取得
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();		
 		Optional<Users> userOpt = userRepository.findByEmail(email);
+		// ログインユーザー名をmodelに追加
 		if(userOpt.isPresent()) {
 			Users user = userOpt.get();
 			model.addAttribute("currentUsername", user.getUsername());
+			
+			// カテゴリリストを取得しmodelに追加
 			List<Category> categories = categoryService.findAll();
 			try {
 				model.addAttribute("categoriesJson", objectMapper.writeValueAsString(categories));
 			} catch (JsonProcessingException e) {
 				e.printStackTrace();
-			}
-		
+			}	
 			return "productcreate";
 		}else {
 			//ユーザーが見つからなかった場合
@@ -70,10 +74,12 @@ public class ProductPageController {
 	
 	@GetMapping("/tutorial") 
 		public String showTutorialPage(Model model) {
+		
+		// ユーザー情報を取得
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
-		
-		Optional<Users> userOpt = userRepository.findByEmail(email);
+		Optional<Users> userOpt = userRepository.findByEmail(email);	
+		// ログインユーザー名をmodelに追加
 		if(userOpt.isPresent()) {
 			Users user = userOpt.get();
 			model.addAttribute("currentUsername", user.getUsername());
@@ -86,14 +92,17 @@ public class ProductPageController {
 	
 	@GetMapping("/products/{id}/detail")
 	public String showProductDetail(@PathVariable Long id, Model model) {
+		
+		// ユーザー情報を取得
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
 		Optional<Users> userOpt = userRepository.findByEmail(email);
+		// ログインユーザー名をmodelに追加
 		if(userOpt.isPresent()) {
 			Users user = userOpt.get();
 			model.addAttribute("currentUsername", user.getUsername());
 		}
-
+		// 対象商品を取得しmodelに追加
 		Optional<Product> optionalProduct = productRepository.findById(id);
 		if(optionalProduct.isPresent()) {
 			Product product = optionalProduct.get();
@@ -105,17 +114,29 @@ public class ProductPageController {
 	
 	@GetMapping("products/{id}/edit")
 	public String showProductEditPage(@PathVariable Long id, Model model) {
+		// ユーザー情報を取得
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		String email = auth.getName();
 		Optional<Users> userOpt = userRepository.findByEmail(email);
+		// ログインユーザー名をmodelに追加
 		if(userOpt.isPresent()) {
 			Users user = userOpt.get();
 			model.addAttribute("currentUsername", user.getUsername());
 		}	
+		// 対象商品をmodelに追加
 		Optional<Product> optionalProduct = productRepository.findById(id);
 		if(optionalProduct.isPresent()) {
 			Product product = optionalProduct.get();
 			model.addAttribute("product",product);	
+			
+			// カテゴリリストを取得
+			List<Category> categories = categoryService.findAll();
+			try {
+				model.addAttribute("categoriesJson", objectMapper.writeValueAsString(categories));
+			} catch (JsonProcessingException e) {
+				e.printStackTrace();
+			}
+			
 		return "products/edit";
 		}
 		return "error/404";

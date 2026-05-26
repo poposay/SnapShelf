@@ -29,6 +29,7 @@
 		<div class="thumbnail-wrapper">
 	    <img th:src="${product.image_url}" alt="投稿画像" class="post-thumbnail">
 		</div>
+		<p th:text="|カテゴリ: ${product.category != null ? product.category.categoryName : '未設定'}|">カテゴリ</p>
 		<p th:text="|価格: ${product.price} 円|">価格</p>
 		<p th:text="|在庫数: ${product.stock} 個|">在庫数</p>
 		<p th:text="|説明文: ${product.aiDescription.edited_description}|">説明文</p>
