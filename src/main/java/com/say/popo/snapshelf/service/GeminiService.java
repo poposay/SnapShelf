@@ -14,9 +14,7 @@ public class GeminiService {
 	}
 	
 	public String callGeminiApi(String prompt) {
-		GenerateContentResponse response = client.models.generateContent("gemini-2.5-flash", prompt, null);
-		
+		GenerateContentResponse response = client.models.generateContent("gemini-2.5-flash", prompt, null);	
 		return response.text();
-
 	}
 }
