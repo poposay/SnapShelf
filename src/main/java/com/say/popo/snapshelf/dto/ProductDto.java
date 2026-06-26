@@ -1,6 +1,7 @@
 package com.say.popo.snapshelf.dto;
 
 import com.say.popo.snapshelf.entity.AIDescription;
+import com.say.popo.snapshelf.entity.Category;
 import com.say.popo.snapshelf.entity.Product;
 
 public class ProductDto {
@@ -10,6 +11,7 @@ public class ProductDto {
 	private int stock;
 	private String imageUrl;
 	private String description;
+	private Category category;
 	
 	public ProductDto(Product product) {
 		this.id = product.getId();
@@ -19,6 +21,7 @@ public class ProductDto {
 		this.imageUrl = product.getImage_url();
 		AIDescription desc = product.getAiDescription();
 		this.description = desc.getEdited_description();
+		this.category = product.getCategory();
 	}
 
 	public Long getId() {
@@ -67,5 +70,13 @@ public class ProductDto {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public Category getCategory() {
+		return category;
+	}
+
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 }

@@ -120,6 +120,7 @@ public class ProductApiController {
 				.map(ProductDto::new);
 	}
 	
+	// 編集画面での商品情報取得
 	@GetMapping("/{id}")
 	@ResponseBody
 	public ResponseEntity<ProductDto> getProduct(@PathVariable Long id) {

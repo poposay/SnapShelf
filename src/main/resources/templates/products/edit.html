@@ -37,14 +37,33 @@
 						</div>				
 						<!-- 右カラム：入力フォーム -->
 						<div class="col-form">
-							<label for="name">商品名</label>
-							<input type="text" v-model="name" id="name" name="name" autocomplete="off" :disabled="isLocked">
-							<label for="price">価格</label>
-							<input type="text" v-model="price" id="price" name="price" autocomplete="off" :disabled="isLocked">
-							<label for="stock">在庫数</label>
-							<input type="text" v-model="stock" id="stock" name="stock" autocomplete="off" :disabled="isLocked">
-							<label for="description">説明文</label>
-							<textarea v-model="description" rows="5" cols="50" required></textarea>
+							<div class="form-group">
+								<label for="name">商品名</label>
+								<input type="text" v-model="name" id="name" name="name" autocomplete="off" placeholder="商品名を入力">
+							</div>
+							<div class="form-group">
+								<label for="category">カテゴリ</label>
+								<select v-model="selectedCategoryId" id="category" name="categoryId">
+									<option value="" selected>--未選択--</option>
+									<option v-for="category in categories"
+										:key="category.id"
+										:value="category.id">
+										{{ category.categoryName}}
+									</option>
+								</select>
+							</div>
+							<div class="form-group">
+								<label for="price">価格</label>
+								<input type="text" v-model="price" id="price" name="price" autocomplete="off" placeholder="価格（円）を入力">
+							</div>
+							<div class="form-group">
+								<label for="stock">在庫数</label>
+								<input type="text" v-model="stock" id="stock" name="stock" autocomplete="off" placeholder="在庫数を入力">
+							</div>
+							<div class="form-group">
+								<label for="description">説明文</label>
+								<textarea v-model="description" rows="5" cols="50" required></textarea>
+							</div>
 						</div>
 					</div>	
 				<div class="btn-area">
@@ -92,7 +111,7 @@
 	</div>
 
 	</div>
-	<script>
+	<script th:inline="javascript">
 	Vue.createApp({
 	  data() {
 	    return {
@@ -100,7 +119,9 @@
 	      aiDescriptionId: '',
 	      name: '',
 	      price: '',
+		  categories: [],
 	      stock: '',
+		  selectedCategoryId: '',
 	      imageFile: null,
 	      imagePreview: null,
 	      description: '',
@@ -109,6 +130,7 @@
 	      showDeleteModal: false,
 	      showSaveModal: false,
 	      showCancelModal: false
+		  
 	    };
 	  },
 	  methods: {
@@ -117,11 +139,13 @@
 	      axios.get(`/api/product/${this.productId}`)
 	        .then(response => {
 	          const product = response.data;
+			  console.log(product); 
 	          this.name = product.product_name;
 	          this.price = product.price.toString();
 	          this.stock = product.stock.toString();
 	          this.description = product.description;
 	          this.imagePreview = product.imageUrl;
+			  this.selectedCategoryId = product.category.id;
 	        })
 	        .catch(error => {
 	          console.error("商品情報取得失敗", error);
@@ -204,7 +228,13 @@
 	    const pathParts = window.location.pathname.split('/');
 	    this.productId = pathParts[2];
 		console.log("抽出したID:", this.productId)
+		
+		const json = /*[[${categoriesJson}]]*/ '[]';
+		this.categories = JSON.parse(json);
+		console.log(this.categories);
+		
 	    this.fetchProduct();
+
 	  }
 	}).mount('#app');
 	</script>

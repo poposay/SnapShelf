@@ -34,7 +34,7 @@
 					placeholder="商品名で検索"
 					class="search-box"
 				>
-				<!-- カテゴリ未実装 -->
+				<!-- カテゴリ未実装 
 				<label for="category">カテゴリで絞り込み：</label>
 				<select v-model="selectedCategoryId" id="category" name="categoryId">
 					<option value="" selected>--未選択--</option>
@@ -43,7 +43,7 @@
 						:value="category.id">
 						${ category.categoryName}
 					</option>
-				</select>
+				</select> -->
 			
 				<button v-if="searchKeyword" @click="clearSearch" class="btn">クリア</button>
 			</div>
