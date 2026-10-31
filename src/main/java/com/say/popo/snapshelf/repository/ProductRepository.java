@@ -22,7 +22,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 	Page<Product> findByPublishedTrue(Pageable pageable);
 	
 	@Query("SELECT p FROM Product p WHERE p.published = true " +
-		       "AND LOWER(p.product_name) LIKE LOWER(CONCAT('%', :keyword, '%'))")
-		Page<Product> searchByKeyword(@Param("keyword") String keyword, 
-		                               Pageable pageable);
+		       "AND (:keyword IS NULL OR LOWER(p.product_name) LIKE LOWER(CONCAT('%', CAST(:keyword AS string), '%'))) " +
+		       "AND (:categoryId IS NULL OR p.category.id = :categoryId)")
+		Page<Product> search(@Param("keyword") String keyword,
+		                     @Param("categoryId") Long categoryId,
+		                     Pageable pageable);
 }

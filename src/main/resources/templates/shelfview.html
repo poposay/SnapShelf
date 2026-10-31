@@ -34,16 +34,16 @@
 					placeholder="商品名で検索"
 					class="search-box"
 				>
-				<!-- カテゴリ未実装 
-				<label for="category">カテゴリで絞り込み：</label>
-				<select v-model="selectedCategoryId" id="category" name="categoryId">
+
+				<label for="category"style="width:200px;">カテゴリで絞り込み：</label>
+				<select v-model="selectedCategoryId" @change="doSearch" id="category" name="categoryId" style="width:200px; margin-left:0px;">
 					<option value="" selected>--未選択--</option>
 					<option v-for="category in categories"
 						:key="category.id"
 						:value="category.id">
 						${ category.categoryName}
 					</option>
-				</select> -->
+				</select>
 			
 				<button v-if="searchKeyword" @click="clearSearch" class="btn">クリア</button>
 			</div>
@@ -82,6 +82,7 @@
 					currentPage: 0,
 					pageSize: 10,
 					searchKeyword: '',
+					selectedCategoryId: '',
 					searchTimeout: null
 					
 				};
@@ -105,7 +106,9 @@
 					if(this.searchKeyword) {
 						params.keyword = this.searchKeyword;
 					}
-					
+					if(this.selectedCategoryId) {
+						params.categoryId = this.selectedCategoryId;
+					}
 
 					axios.get('/api/product/shelfview',{ params })
 
